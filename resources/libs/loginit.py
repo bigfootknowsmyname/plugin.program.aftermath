@@ -48,33 +48,9 @@ KEEPLOGIN      = wiz.getS('keeplogin')
 LOGINSAVE      = wiz.getS('loginlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['sportsaccess', 'smoothstreams', 'communityportal', 'tvportal', 'flawless', 'opensubtitles', 'sportsmania', 'sportsnationhdtv', 'ultimatemania', 'otttv', 'ivue', 'ontapptv', 'vpnicity', 'overlordtv', 'xtreamcodes']
+ORDER          = ['opensubtitles']
 
-LOGINID = { 
-	'sportsaccess': {
-		'name'     : 'Sports Access',
-		'plugin'   : 'plugin.video.sportsaccess',
-		'saved'    : 'loginsportsaccess',
-		'path'     : os.path.join(ADDONS, 'plugin.video.sportsaccess'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.sportsaccess', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.sportsaccess', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'sportsaccess_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.sportsaccess', 'settings.xml'),
-		'default'  : 'skyusername',
-		'data'     : ['skyusername', 'skypassword'],
-		'activate' : 'RunPlugin(plugin://plugin.video.sportsaccess/?mode=259)'},
-	'smoothstreams': {
-		'name'     : 'Smooth Streams',
-		'plugin'   : 'script.smoothstreams',
-		'saved'    : 'loginsmoothstreams',
-		'path'     : os.path.join(ADDONS, 'script.smoothstreams'),
-		'icon'     : os.path.join(ADDONS, 'script.smoothstreams', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'script.smoothstreams', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'smoothstreams_login'),
-		'settings' : os.path.join(ADDOND, 'script.smoothstreams', 'settings.xml'),
-		'default'  : 'username',
-		'data'     : ['service', 'username', 'user_password'],
-		'activate' : ''},
+LOGINID = {
 	'opensubtitles': {
 		'name'     : 'OpenSubtitles',
 		'plugin'   : 'service.subtitles.opensubtitles',
@@ -86,150 +62,6 @@ LOGINID = {
 		'settings' : os.path.join(ADDOND, 'service.subtitles.opensubtitles', 'settings.xml'),
 		'default'  : 'OSuser',
 		'data'     : ['OSuser', 'OSpass'],
-		'activate' : ''},
-	'communityportal': {
-		'name'     : 'Community Portal',
-		'plugin'   : 'plugin.program.totalinstaller',
-		'saved'    : 'logintotalinstaller',
-		'path'     : os.path.join(ADDONS, 'plugin.program.totalinstaller'),
-		'icon'     : os.path.join(ADDONS, 'plugin.program.totalinstaller', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.program.totalinstaller', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'totalinstaller_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.program.totalinstaller', 'settings.xml'),
-		'default'  : 'username',
-		'data'     : ['login', 'username', 'password'],
-		'activate' : ''},
-	'tvportal': {
-		'name'     : 'TV Portal',
-		'plugin'   : 'script.tvportal',
-		'saved'    : 'logintvportal',
-		'path'     : os.path.join(ADDONS, 'script.tvportal'),
-		'icon'     : os.path.join(ADDONS, 'script.tvportal', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'script.tvportal', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'tvportal_login'),
-		'settings' : os.path.join(ADDOND, 'script.tvportal', 'settings.xml'),
-		'default'  : 'username',
-		'data'     : ['login', 'username', 'password'],
-		'activate' : ''},
-	'flawless': {
-		'name'     : 'Flawless IPTV',
-		'plugin'   : 'plugin.video.FlawlessTv',
-		'saved'    : 'loginflawless',
-		'path'     : os.path.join(ADDONS, 'plugin.video.FlawlessTv'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.FlawlessTv', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.FlawlessTv', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'flawless_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.FlawlessTv', 'settings.xml'),
-		'default'  : 'Username',
-		'data'     : ['Username', 'Password'],
-		'activate' : ''},
-	'sportsmania': {
-		'name'     : 'Sports Mania',
-		'plugin'   : 'plugin.video.sportsmania',
-		'saved'    : 'loginsportsmania',
-		'path'     : os.path.join(ADDONS, 'plugin.video.sportsmania'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.sportsmania', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.sportsmania', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'sportsmania_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.sportsmania', 'settings.xml'),
-		'default'  : 'snusername',
-		'data'     : ['snusername', 'snpassword'],
-		'activate' : 'RunPlugin(plugin://plugin.video.sportsmania/?mode=202)'},
-	'sportsnationhdtv': {
-		'name'     : 'Sports NationHD',
-		'plugin'   : 'plugin.video.sportsnationhdtv',
-		'saved'    : 'loginsportsnationhd',
-		'path'     : os.path.join(ADDONS, 'plugin.video.sportsnationhdtv'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.sportsnationhdtv', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.sportsnationhdtv', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'sportsnationhd_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.sportsnationhdtv', 'settings.xml'),
-		'default'  : 'snusername',
-		'data'     : ['snusername', 'snpassword'],
-		'activate' : 'RunPlugin(plugin://plugin.video.sportsnationhdtv/?mode=202)'},
-	'ultimatemania': {
-		'name'     : 'Ultimate Mania',
-		'plugin'   : 'plugin.video.ultimatemania',
-		'saved'    : 'loginultimatemania',
-		'path'     : os.path.join(ADDONS, 'plugin.video.ultimatemania'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.ultimatemania', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.ultimatemania', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'sportsmania_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.ultimatemania', 'settings.xml'),
-		'default'  : 'snusername',
-		'data'     : ['snusername', 'snpassword'],
-		'activate' : 'RunPlugin(plugin://plugin.video.ultimatemania/?mode=202)'},
-	'otttv': {
-		'name'     : 'Over The Top TV',
-		'plugin'   : 'plugin.video.ottalpha',
-		'saved'    : 'loginotttv',
-		'path'     : os.path.join(ADDONS, 'plugin.video.ottalpha'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.ottalpha', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.ottalpha', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'otttv_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.ottalpha', 'settings.xml'),
-		'default'  : 'Username',
-		'data'     : ['Username', 'Password'],
-		'activate' : ''},
-	'ivue': {
-		'name'     : 'Ivue TV Guide',
-		'plugin'   : 'script.ivueguide',
-		'saved'    : 'loginivue',
-		'path'     : os.path.join(ADDONS, 'script.ivueguide'),
-		'icon'     : os.path.join(ADDONS, 'script.ivueguide', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'script.ivueguide', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'ivue_login'),
-		'settings' : os.path.join(ADDOND, 'script.ivueguide', 'settings.xml'),
-		'default'  : 'username',
-		'data'     : ['username', 'password'],
-		'activate' : ''},
-	'ontapptv': {
-		'name'     : 'OnTapp.TV Guide',
-		'plugin'   : 'script.tvguidedixie',
-		'saved'    : 'loginontapptv',
-		'path'     : os.path.join(ADDONS, 'script.tvguidedixie'),
-		'icon'     : os.path.join(ADDONS, 'script.tvguidedixie', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'script.tvguidedixie', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'ontapptv_login'),
-		'settings' : os.path.join(ADDOND, 'script.tvguidedixie', 'settings.xml'),
-		'default'  : 'username',
-		'data'     : ['username', 'password'],
-		'activate' : ''},
-	'vpnicity': {
-		'name'     : 'VPNicity',
-		'plugin'   : 'plugin.program.vpnicity',
-		'saved'    : 'loginvpnicity',
-		'path'     : os.path.join(ADDONS, 'plugin.program.vpnicity'),
-		'icon'     : os.path.join(ADDONS, 'plugin.program.vpnicity', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.program.vpnicity', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'vpnicity_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.program.vpnicity', 'settings.xml'),
-		'default'  : 'USER',
-		'data'     : ['USER', 'PASS'],
-		'activate' : ''},
-	'overlordtv': {
-		'name'     : 'Overlord TV',
-		'plugin'   : 'plugin.video.overlordtv',
-		'saved'    : 'loginoverlord',
-		'path'     : os.path.join(ADDONS, 'plugin.video.overlordtv'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.overlordtv', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.overlordtv', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'overlordtv_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.overlordtv', 'settings.xml'),
-		'default'  : 'Username',
-		'data'     : ['Username', 'Password'],
-		'activate' : ''},
-	'xtreamcodes': {
-		'name'     : 'Xtream Codes',
-		'plugin'   : 'plugin.video.xtream-codes',
-		'saved'    : 'loginxtreamcodes',
-		'path'     : os.path.join(ADDONS, 'plugin.video.xtream-codes'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.xtream-codes', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.xtream-codes', 'fanart.jpg'),
-		'file'     : os.path.join(LOGINFOLD, 'xtreamcodes_login'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.xtream-codes', 'settings.xml'),
-		'default'  : 'kasutajanimi',
-		'data'     : ['kasutajanimi', 'salasona'],
 		'activate' : ''}
 }
 
@@ -271,7 +103,7 @@ def clearSaved(who, over=False):
 			clearSaved(login,  True)
 	elif LOGINID[who]:
 		file = LOGINID[who]['file']
-		if os.path.exists(file): 
+		if os.path.exists(file):
 			os.remove(file)
 			wiz.LogNotify('[COLOR %s]%s[/COLOR]' % (COLOR1, LOGINID[who]['name']), '[COLOR %s]Login Data: Removed![/COLOR]' % COLOR2, 2000, LOGINID[who]['icon'])
 		wiz.setS(LOGINID[who]['saved'], '')
@@ -375,13 +207,13 @@ def importlist(who):
 
 def activateLogin(who):
 	if LOGINID[who]:
-		if os.path.exists(LOGINID[who]['path']): 
+		if os.path.exists(LOGINID[who]['path']):
 			act     = LOGINID[who]['activate']
 			addonid = wiz.addonId(LOGINID[who]['plugin'])
 			if act == '': addonid.openSettings()
 			else: url = xbmc.executebuiltin(LOGINID[who]['activate'])
 		else: DIALOG.ok(ADDONTITLE, '%s is not currently installed.' % LOGINID[who]['name'])
-	else: 
+	else:
 		wiz.refresh()
 		return
 	check = 0

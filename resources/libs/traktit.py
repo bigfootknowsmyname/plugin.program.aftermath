@@ -48,7 +48,7 @@ KEEPTRAKT      = wiz.getS('keeptrakt')
 TRAKTSAVE      = wiz.getS('traktlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['chappaai', 'forqed', 'uranus', 'death', 'placenta', 'incursion', 'numbers','gaia', 'streamhub', 'notsure', 'neptune', 'trakt']
+ORDER          = ['chappaai', 'uranus', 'death', 'placenta', 'incursion', 'numbers', 'gaia', 'neptune', 'trakt']
 
 TRAKTID = {
 	'chappaai': {
@@ -63,18 +63,6 @@ TRAKTID = {
 		'default'  : 'trakt_access_token',
 		'data'     : ['trakt_access_token', 'trakt_api_client_id', 'trakt_api_client_secret', 'trakt_expires_at', 'trakt_period', 'trakt_refresh_token'],
 		'activate' : 'RunPlugin(plugin://plugin.video.chappaai/authenticate_trakt)'},
-	'forqed': {
-		'name'     : 'ForQed',
-		'plugin'   : 'plugin.video.forqed',
-		'saved'    : 'forqed',
-		'path'     : os.path.join(ADDONS, 'plugin.video.forqed'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.forqed', 'icon.jpg'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.forqed', 'fanart.jpg'),
-		'file'     : os.path.join(TRAKTFOLD, 'forqed_trakt'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.forqed', 'settings.xml'),
-		'default'  : 'trakt_access_token',
-		'data'     : ['trakt_access_token', 'trakt_api_client_id', 'trakt_api_client_secret', 'trakt_expires_at', 'trakt_period', 'trakt_refresh_token'],
-		'activate' : 'RunPlugin(plugin://plugin.video.forqed/authenticate_trakt)'},
 	'uranus': {
 		'name'     : 'Uranus',
 		'plugin'   : 'plugin.video.uranus',
@@ -148,30 +136,6 @@ TRAKTID = {
 		'default'  : 'accounts.informants.trakt.user',
 		'data'     : ['accounts.informants.trakt.user', 'accounts.informants.trakt.refresh', 'accounts.informants.trakt.token'],
 		'activate' : 'RunPlugin(plugin://plugin.video.gaia/?action=authTrakt)'},
-	'streamhub': {
-		'name'     : 'StreamHub',
-		'plugin'   : 'plugin.video.streamhub',
-		'saved'    : 'streamhub',
-		'path'     : os.path.join(ADDONS, 'plugin.video.streamhub'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.streamhub', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.streamhub', 'fanart.jpg'),
-		'file'     : os.path.join(TRAKTFOLD, 'streamhub_trakt'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.streamhub', 'settings.xml'),
-		'default'  : 'trakt.user',
-		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
-		'activate' : 'RunPlugin(plugin://plugin.video.streamhub/?action=authTrakt)'},
-	'notsure': {
-		'name'     : 'Not Sure',
-		'plugin'   : 'plugin.video.sedundnes',
-		'saved'    : 'sedundnes',
-		'path'     : os.path.join(ADDONS, 'plugin.video.sedundnes'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.sedundnes', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.sedundnes', 'fanart.jpg'),
-		'file'     : os.path.join(TRAKTFOLD, 'sedundnes_trakt'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.sedundnes', 'settings.xml'),
-		'default'  : 'trakt.user',
-		'data'     : ['trakt.user', 'trakt.refresh', 'trakt.token'],
-		'activate' : 'RunPlugin(plugin://plugin.video.sedundnes/?action=authTrakt)'},
 	'neptune': {
 		'name'     : 'Neptune Rising',
 		'plugin'   : 'plugin.video.neptune',

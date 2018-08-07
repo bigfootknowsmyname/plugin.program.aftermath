@@ -82,14 +82,14 @@ AUTOFEQ          = wiz.getS('autocleanfeq')
 AUTONEXTRUN      = wiz.getS('nextautocleanup')
 INCLUDEVIDEO     = wiz.getS('includevideo')
 INCLUDEALL       = wiz.getS('includeall')
-INCLUDEBOB       = wiz.getS('includebob')
-INCLUDESPECTO    = wiz.getS('includespecto')
-INCLUDEGENESIS   = wiz.getS('includegenesis')
-INCLUDEEXODUS    = wiz.getS('includeexodus')
-INCLUDEELY       = wiz.getS('includeely')
-INCLUDEONECHAN   = wiz.getS('includeonechan')
-INCLUDESALTS     = wiz.getS('includesalts')
-INCLUDESALTSHD   = wiz.getS('includesaltslite')
+INCLUDECHAPPAI       = wiz.getS('includechappai')
+INCLUDEURANUS    = wiz.getS('includeuranus')
+INCLUDEDEATH   = wiz.getS('includedeath')
+INCLUDEPLACENTA    = wiz.getS('includeplacenta')
+INCLUDEINCURSION       = wiz.getS('includeincursion')
+INCLUDENUMBERS   = wiz.getS('includenumbers')
+INCLUDEGAIA     = wiz.getS('includegaia')
+INCLUDENEPTUNE   = wiz.getS('includeneptune')
 SEPERATE         = wiz.getS('seperate')
 NOTIFY           = wiz.getS('notify')
 NOTEID           = wiz.getS('noteid')
@@ -144,7 +144,7 @@ AUTOUPDATE       = uservar.AUTOUPDATE
 WIZARDFILE       = uservar.WIZARDFILE
 HIDECONTACT      = uservar.HIDECONTACT
 CONTACT          = uservar.CONTACT
-CONTACTICON      = uservar.CONTACTICON if not uservar.CONTACTICON == 'http://' else ICON 
+CONTACTICON      = uservar.CONTACTICON if not uservar.CONTACTICON == 'http://' else ICON
 CONTACTFANART    = uservar.CONTACTFANART if not uservar.CONTACTFANART == 'http://' else FANART
 HIDESPACERS      = uservar.HIDESPACERS
 COLOR1           = uservar.COLOR1
@@ -307,7 +307,7 @@ def buildMenu():
 						if kodiv <= 15:
 							menu = createMenu('install', '', name)
 							addDir('[%s] %s (v%s)' % (float(kodi), name, version), 'viewbuild', name, description=description, fanart=fanart,icon=icon, menu=menu, themeit=THEME2)
-	elif hidden > 0: 
+	elif hidden > 0:
 		if adultcount > 0:
 			addFile('There is currently only Adult builds', '', icon=ICONBUILDS, themeit=THEME3)
 			addFile('Enable Show Adults in Addon Settings > Misc', '', icon=ICONBUILDS, themeit=THEME3)
@@ -323,7 +323,7 @@ def viewBuild(name):
 		addFile('Url for txt file not valid', '', themeit=THEME3)
 		addFile('%s' % WORKINGURL, '', themeit=THEME3)
 		return
-	if wiz.checkBuild(name, 'version') == False: 
+	if wiz.checkBuild(name, 'version') == False:
 		addFile('Error reading the txt file.', '', themeit=THEME3)
 		addFile('%s was not found in the builds list.' % name, '', themeit=THEME3)
 		return
@@ -341,7 +341,7 @@ def viewBuild(name):
 		addFile('Build Information',    'buildinfo', name, description=description, fanart=fanart, icon=icon, themeit=THEME3)
 		if not preview == "http://": addFile('View Video Preview', 'buildpreview', name, description=description, fanart=fanart, icon=icon, themeit=THEME3)
 		temp1 = int(float(KODIV)); temp2 = int(float(kodi))
-		if not temp1 == temp2: 
+		if not temp1 == temp2:
 			if temp1 == 16 and temp2 <= 15: warning = False
 			else: warning = True
 		else: warning = False
@@ -388,7 +388,7 @@ def editThirdParty(number):
 	url   = eval('THIRD%sURL' % number)
 	name2 = wiz.getKeyboard(name, 'Enter the Name of the Wizard')
 	url2  = wiz.getKeyboard(url, 'Enter the URL of the Wizard Text')
-	
+
 	wiz.setS('wizard%sname' % number, name2)
 	wiz.setS('wizard%surl' % number, url2)
 
@@ -401,7 +401,7 @@ def apkScraper(name=""):
 		x = 0
 		match1 = re.compile('<tr><td><a href="(.+?)".+?>(.+?)</a></td><td>(.+?)</td><td>(.+?)</td></tr>').findall(url1)
 		match2 = re.compile('<tr><td><a href="(.+?)".+?>(.+?)</a></td><td>(.+?)</td><td>(.+?)</td></tr>').findall(url2)
-		
+
 		addFile("Official Kodi Apk\'s", themeit=THEME1)
 		rc = False
 		for url, name, size, date in match1:
@@ -413,7 +413,7 @@ def apkScraper(name=""):
 				if not url.find('_') == -1:
 					rc = True
 					name2, v2 = tempname[2].split('_')
-				else: 
+				else:
 					name2 = tempname[2]
 					v2 = ''
 				title = "[COLOR %s]%s v%s%s %s[/COLOR] [COLOR %s]%s[/COLOR] [COLOR %s]%s[/COLOR]" % (COLOR1, tempname[0].title(), tempname[1], v2.upper(), name2, COLOR2, size.replace(' ', ''), COLOR1, date)
@@ -422,7 +422,7 @@ def apkScraper(name=""):
 				x += 1
 			except:
 				wiz.log("Error on: %s" % name)
-			
+
 		for url, name, size, date in match2:
 			if url in ['../', 'old/']: continue
 			if not url.endswith('.apk'): continue
@@ -441,7 +441,7 @@ def apkScraper(name=""):
 		url1 = wiz.openURL(spmcurl1).replace('\n', '').replace('\r', '').replace('\t', '')
 		x = 0
 		match1 = re.compile('<div.+?lass="release-body.+?div class="release-header".+?a href=.+?>(.+?)</a>.+?ul class="release-downloads">(.+?)</ul>.+?/div>').findall(url1)
-		
+
 		addFile("Official SPMC Apk\'s", themeit=THEME1)
 
 		for name, urls in match1:
@@ -492,7 +492,7 @@ def apkMenu(name=None, url=None):
 						x += 1
 						addFile(aname, 'apkinstall', aname, url, description=description, icon=icon, fanart=fanart, themeit=THEME2)
 					if x == 0:
-						addFile("No addons added to this menu yet!", '', themeit=THEME2)
+						addFile("No addons adde0d to this menu yet!", '', themeit=THEME2)
 			else: wiz.log("[APK Menu] ERROR: Invalid Format.", xbmc.LOGERROR)
 		else:
 			wiz.log("[APK Menu] ERROR: URL for apk list not working.", xbmc.LOGERROR)
@@ -539,10 +539,10 @@ def addonMenu(name=None, url=None):
 						addFile(aname, 'addoninstall', plugin, url, description=description, icon=icon, fanart=fanart, themeit=THEME2)
 					if x < 1:
 						addFile("No addons added to this menu yet!", '', themeit=THEME2)
-			else: 
+			else:
 				addFile('Text File not formated correctly!', '', themeit=THEME3)
 				wiz.log("[Addon Menu] ERROR: Invalid Format.")
-		else: 
+		else:
 			wiz.log("[Addon Menu] ERROR: URL for Addon list not working.")
 			addFile('Url for txt file not valid', '', themeit=THEME3)
 			addFile('%s' % ADDONWORKING, '', themeit=THEME3)
@@ -622,7 +622,7 @@ def addonInstaller(plugin, url):
 					repo = os.path.join(ADDONS, repository)
 					if not repository.lower() == 'none' and not os.path.exists(repo):
 						wiz.log("Repository not installed, installing it")
-						if DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to install the repository for [COLOR %s]%s[/COLOR]:" % (COLOR2, COLOR1, plugin), "[COLOR %s]%s[/COLOR]?[/COLOR]" % (COLOR1, repository), yeslabel="[B][COLOR green]Yes Install[/COLOR][/B]", nolabel="[B][COLOR red]No Skip[/COLOR][/B]"): 
+						if DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to install the repository for [COLOR %s]%s[/COLOR]:" % (COLOR2, COLOR1, plugin), "[COLOR %s]%s[/COLOR]?[/COLOR]" % (COLOR1, repository), yeslabel="[B][COLOR green]Yes Install[/COLOR][/B]", nolabel="[B][COLOR red]No Skip[/COLOR][/B]"):
 							ver = wiz.parseDOM(wiz.openURL(repositoryxml), 'addon', ret='version', attrs = {'id': repository})
 							if len(ver) > 0:
 								repozip = '%s%s-%s.zip' % (repositoryurl, repository, ver[0])
@@ -661,7 +661,7 @@ def addonInstaller(plugin, url):
 						if KODIV >= 17: wiz.addonDatabase(plugin, 1)
 						installAddon(plugin, url)
 						wiz.refresh()
-					else: 
+					else:
 						wiz.log("no match"); return False
 			else: wiz.log("[Addon Installer] Invalid Format")
 		else: wiz.log("[Addon Installer] Text File: %s" % ADDONWORKING)
@@ -711,7 +711,7 @@ def installAddon(name, url):
 def installDep(name, DP=None):
 	dep=os.path.join(ADDONS,name,'addon.xml')
 	if os.path.exists(dep):
-		source = open(dep,mode='r'); link = source.read(); source.close(); 
+		source = open(dep,mode='r'); link = source.read(); source.close();
 		match  = wiz.parseDOM(link, 'import', ret='addon')
 		for depends in match:
 			if not 'xbmc.python' in depends:
@@ -777,7 +777,7 @@ def youtubeMenu(name=None, url=None):
 					else:
 						addFile(name, 'viewVideo', url=url, description=description, icon=icon, fanart=fanart, themeit=THEME2)
 			else: wiz.log("[YouTube Menu] ERROR: Invalid Format.")
-		else: 
+		else:
 			wiz.log("[YouTube Menu] ERROR: URL for YouTube list not working.")
 			addFile('Url for txt file not valid', '', themeit=THEME3)
 			addFile('%s' % YOUTUBEWORKING, '', themeit=THEME3)
@@ -798,23 +798,23 @@ def maintMenu(view=None):
 	errorsfound = str(errors) + ' Error(s) Found' if errors > 0 else 'None Found'
 	wizlogsize = ': [COLOR red]Not Found[/COLOR]' if not os.path.exists(WIZLOG) else ": [COLOR green]%s[/COLOR]" % wiz.convertSize(os.path.getsize(WIZLOG))
 	if includeall == 'true':
-		includebob = 'true'
-		includeely = 'true'
-		includespe = 'true'
-		includegen = 'true'
-		includeexo = 'true'
-		includeone = 'true'
-		includesal = 'true'
-		includeshd = 'true'
+		includechappai = 'true'
+		includeuranus = 'true'
+		includedeath = 'true'
+		includeplacenta = 'true'
+		includeincursion = 'true'
+		includenumbers = 'true'
+		includegaia = 'true'
+		includesneptune = 'true'
 	else:
-		includebob = 'true' if INCLUDEBOB     == 'true' else 'false'
-		includeely = 'true' if INCLUDEELY     == 'true' else 'false'
-		includespe = 'true' if INCLUDESPECTO  == 'true' else 'false'
-		includegen = 'true' if INCLUDEGENESIS == 'true' else 'false'
-		includeexo = 'true' if INCLUDEEXODUS  == 'true' else 'false'
-		includeone = 'true' if INCLUDEONECHAN == 'true' else 'false'
-		includesal = 'true' if INCLUDESALTS   == 'true' else 'false'
-		includeshd = 'true' if INCLUDESALTSHD == 'true' else 'false'
+		includechappai = 'true' if INCLUDECHAPPAI     == 'true' else 'false'
+		includeuranus = 'true' if INCLUDEURANUS     == 'true' else 'false'
+		includedeath = 'true' if INCLUDEDEATH  == 'true' else 'false'
+		includeplacenta = 'true' if INCLUDEPLACENTA == 'true' else 'false'
+		includeincursion = 'true' if INCLUDEINCURSION  == 'true' else 'false'
+		includenumbers = 'true' if INCLUDENUMBERS == 'true' else 'false'
+		includegaia = 'true' if INCLUDEGAIA   == 'true' else 'false'
+		includesneptune = 'true' if INCLUDENEPTUNE == 'true' else 'false'
 	sizepack   = wiz.getSize(PACKAGES)
 	sizethumb  = wiz.getSize(THUMBS)
 	archive    = wiz.getSize(ARCHIVE_CACHE)
@@ -822,7 +822,7 @@ def maintMenu(view=None):
 	totalsize  = sizepack+sizethumb+sizecache
 	feq        = ['Always', 'Daily', '3 Days', 'Weekly']
 	addDir ('[B]Cleaning Tools[/B]'       ,'maint', 'clean',  icon=ICONMAINT, themeit=THEME1)
-	if view == "clean" or SHOWMAINT == 'true': 
+	if view == "clean" or SHOWMAINT == 'true':
 		addFile('Total Clean Up: [COLOR green][B]%s[/B][/COLOR]' % wiz.convertSize(totalsize),    'fullclean',       icon=ICONMAINT, themeit=THEME3)
 		addFile('Clear Cache: [COLOR green][B]%s[/B][/COLOR]' % wiz.convertSize(sizecache),       'clearcache',      icon=ICONMAINT, themeit=THEME3)
 		addFile('Clear Packages: [COLOR green][B]%s[/B][/COLOR]' % wiz.convertSize(sizepack),     'clearpackages',   icon=ICONMAINT, themeit=THEME3)
@@ -833,7 +833,7 @@ def maintMenu(view=None):
 		addFile('Purge Databases',                'purgedb',         icon=ICONMAINT, themeit=THEME3)
 		addFile('Fresh Start',                    'freshstart',      icon=ICONMAINT, themeit=THEME3)
 	addDir ('[B]Addon Tools[/B]',       'maint', 'addon',  icon=ICONMAINT, themeit=THEME1)
-	if view == "addon" or SHOWMAINT == 'true': 
+	if view == "addon" or SHOWMAINT == 'true':
 		addFile('Remove Addons',                  'removeaddons',    icon=ICONMAINT, themeit=THEME3)
 		addDir ('Remove Addon Data',              'removeaddondata', icon=ICONMAINT, themeit=THEME3)
 		addDir ('Enable/Disable Addons',          'enableaddons',    icon=ICONMAINT, themeit=THEME3)
@@ -842,7 +842,7 @@ def maintMenu(view=None):
 		addFile('Hide Passwords On Keyboard Entry',   'hidepassword',   icon=ICONMAINT, themeit=THEME3)
 		addFile('Unhide Passwords On Keyboard Entry', 'unhidepassword', icon=ICONMAINT, themeit=THEME3)
 	addDir ('[B]Misc Maintenance[/B]'     ,'maint', 'misc',   icon=ICONMAINT, themeit=THEME1)
-	if view == "misc" or SHOWMAINT == 'true': 
+	if view == "misc" or SHOWMAINT == 'true':
 		addFile('Kodi 17 Fix',                    'kodi17fix',       icon=ICONMAINT, themeit=THEME3)
 		addDir ('Speed Test',                     'speedtest',       icon=ICONMAINT, themeit=THEME3)
 		addFile('Enable Unknown Sources',         'unknownsources',  icon=ICONMAINT, themeit=THEME3)
@@ -872,10 +872,10 @@ def maintMenu(view=None):
 		addFile('[Restore]: External GuiFix',     'restoreextgui',   icon=ICONMAINT,   themeit=THEME3)
 		addFile('[Restore]: External Addon_data', 'restoreextaddon', icon=ICONMAINT,   themeit=THEME3)
 	addDir ('[B]System Tweaks/Fixes[/B]',       'maint', 'tweaks', icon=ICONMAINT, themeit=THEME1)
-	if view == "tweaks" or SHOWMAINT == 'true': 
+	if view == "tweaks" or SHOWMAINT == 'true':
 		if not ADVANCEDFILE == 'http://' and not ADVANCEDFILE == '':
 			addDir ('Advanced Settings',            'advancedsetting',  icon=ICONMAINT, themeit=THEME3)
-		else: 
+		else:
 			if os.path.exists(ADVANCED):
 				addFile('View Current AdvancedSettings.xml',   'currentsettings', icon=ICONMAINT, themeit=THEME3)
 				addFile('Remove Current AdvancedSettings.xml', 'removeadvanced',  icon=ICONMAINT, themeit=THEME3)
@@ -907,14 +907,14 @@ def maintMenu(view=None):
 	addFile('Include Video Cache in Clear Cache: %s' % includevid.replace('true',on).replace('false',off), 'togglecache', 'includevideo', icon=ICONMAINT, themeit=THEME3)
 	if includevid == 'true':
 		addFile('--- Include All Video Addons: %s' % includeall.replace('true',on).replace('false',off), 'togglecache', 'includeall', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Bob: %s' % includebob.replace('true',on).replace('false',off), 'togglecache', 'includebob', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Elysium: %s' % includeely.replace('true',on).replace('false',off), 'togglecache', 'includeely', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Specto: %s' % includespe.replace('true',on).replace('false',off), 'togglecache', 'includespecto', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Exodus: %s' % includeexo.replace('true',on).replace('false',off), 'togglecache', 'includeexodus', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Salts: %s' % includesal.replace('true',on).replace('false',off), 'togglecache', 'includesalts', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Salts HD Lite: %s' % includeshd.replace('true',on).replace('false',off), 'togglecache', 'includesaltslite', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include One Channel: %s' % includeone.replace('true',on).replace('false',off), 'togglecache', 'includeonechan', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Genesis: %s' % includegen.replace('true',on).replace('false',off), 'togglecache', 'includegenesis', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Chappa\'ai: %s' % includechappai.replace('true',on).replace('false',off), 'togglecache', 'includechappai', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Uranus: %s' % includeuranus.replace('true',on).replace('false',off), 'togglecache', 'includeuranus', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Death Streams: %s' % includedeath.replace('true',on).replace('false',off), 'togglecache', 'includedeath', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Placenta: %s' % includeplacenta.replace('true',on).replace('false',off), 'togglecache', 'includeplacenta', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Incursion: %s' % includeincursion.replace('true',on).replace('false',off), 'togglecache', 'includeincursion', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Numbers: %s' % includenumbers.replace('true',on).replace('false',off), 'togglecache', 'includenumbers', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Gaia: %s' % includegaia.replace('true',on).replace('false',off), 'togglecache', 'includegaia', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Neptune Rising: %s' % includeneptune.replace('true',on).replace('false',off), 'togglecache', 'includeneptune', icon=ICONMAINT, themeit=THEME3)
 		addFile('--- Enable All Video Addons', 'togglecache', 'true', icon=ICONMAINT, themeit=THEME3)
 		addFile('--- Disable All Video Addons', 'togglecache', 'false', icon=ICONMAINT, themeit=THEME3)
 	setView('files', 'viewType')
@@ -962,7 +962,7 @@ def advancedWindow(url=None):
 			TEMPADVANCEDFILE = wiz.textCache(url)
 			if TEMPADVANCEDFILE == False: ADVANCEDWORKING  = wiz.workingURL(url)
 		addFile('Quick Configure AdvancedSettings.xml', 'autoadvanced', icon=ICONMAINT, themeit=THEME3)
-		if os.path.exists(ADVANCED): 
+		if os.path.exists(ADVANCED):
 			addFile('View Current AdvancedSettings.xml', 'currentsettings', icon=ICONMAINT, themeit=THEME3)
 			addFile('Remove Current AdvancedSettings.xml', 'removeadvanced',  icon=ICONMAINT, themeit=THEME3)
 		if not TEMPADVANCEDFILE == False:
@@ -987,7 +987,7 @@ def writeAdvanced(name, url):
 
 		if choice == 1:
 			file = wiz.openURL(url)
-			f = open(ADVANCED, 'w'); 
+			f = open(ADVANCED, 'w');
 			f.write(file)
 			f.close()
 			DIALOG.ok(ADDONTITLE, '[COLOR %s]AdvancedSettings.xml file has been successfully written.  Once you click okay it will force close kodi.[/COLOR]' % COLOR2)
@@ -1023,8 +1023,8 @@ def getIP():
 	else: return 'Unknown', 'Unknown', 'Unknown'
 
 def systemInfo():
-	infoLabel = ['System.FriendlyName', 
-				 'System.BuildVersion', 
+	infoLabel = ['System.FriendlyName',
+				 'System.BuildVersion',
 				 'System.CpuUsage',
 				 'System.ScreenMode',
 				 'Network.IPAddress',
@@ -1052,9 +1052,9 @@ def systemInfo():
 	ram_used      = wiz.convertSize(int(float(data[12][:-2]))*1024*1024)
 	ram_total     = wiz.convertSize(int(float(data[13][:-2]))*1024*1024)
 	exter_ip, provider, location = getIP()
-	
+
 	picture = []; music = []; video = []; programs = []; repos = []; scripts = []; skins = []
-	
+
 	fold = glob.glob(os.path.join(ADDONS, '*/'))
 	for folder in sorted(fold, key = lambda x: x):
 		foldername = os.path.split(folder[:-1])[1]
@@ -1079,29 +1079,29 @@ def systemInfo():
 	addFile('[COLOR %s]Platform:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, wiz.platform().title()), '', icon=ICONMAINT, themeit=THEME3)
 	addFile('[COLOR %s]CPU Usage:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[2]), '', icon=ICONMAINT, themeit=THEME3)
 	addFile('[COLOR %s]Screen Mode:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[3]), '', icon=ICONMAINT, themeit=THEME3)
-	
+
 	addFile('[B]Uptime:[/B]', '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Current Uptime:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[6]), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Total Uptime:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[7]), '', icon=ICONMAINT, themeit=THEME2)
-	
+
 	addFile('[B]Local Storage:[/B]', '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Used Storage:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, storage_used), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Free Storage:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, storage_free), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Total Storage:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, storage_total), '', icon=ICONMAINT, themeit=THEME2)
-	
+
 	addFile('[B]Ram Usage:[/B]', '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Used Memory:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, ram_free), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Free Memory:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, ram_used), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Total Memory:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, ram_total), '', icon=ICONMAINT, themeit=THEME2)
-	
+
 	addFile('[B]Network:[/B]', '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Local IP:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[4]), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]External IP:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, exter_ip), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Provider:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, provider), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Location:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, location), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]MacAddress:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[5]), '', icon=ICONMAINT, themeit=THEME2)
-	
-	totalcount = len(picture) + len(music) + len(video) + len(programs) + len(scripts) + len(skins) + len(repos) 
+
+	totalcount = len(picture) + len(music) + len(video) + len(programs) + len(scripts) + len(skins) + len(repos)
 	addFile('[B]Addons([COLOR %s]%s[/COLOR]):[/B]' % (COLOR1, totalcount), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Video Addons:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, str(len(video))), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Program Addons:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, str(len(programs))), '', icon=ICONMAINT, themeit=THEME2)
@@ -1158,7 +1158,7 @@ def traktMenu():
 	addFile('Save Trakt Data: %s' % trakt, 'togglesetting', 'keeptrakt', icon=ICONTRAKT, themeit=THEME3)
 	if KEEPTRAKT == 'true': addFile('Last Save: %s' % str(last), '', icon=ICONTRAKT, themeit=THEME3)
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', icon=ICONTRAKT, themeit=THEME3)
-	
+
 	for trakt in traktit.ORDER:
 		name   = TRAKTID[trakt]['name']
 		path   = TRAKTID[trakt]['path']
@@ -1171,7 +1171,7 @@ def traktMenu():
 		menu = createMenu('saveaddon', 'Trakt', trakt)
 		menu2 = createMenu('save', 'Trakt', trakt)
 		menu.append((THEME2 % '%s Settings' % name,              'RunPlugin(plugin://%s/?mode=opensettings&name=%s&url=trakt)' %   (ADDON_ID, trakt)))
-		
+
 		addFile('[+]-> %s' % name,     '', icon=icon, fanart=fanart, themeit=THEME3)
 		if not os.path.exists(path): addFile('[COLOR red]Addon Data: Not Installed[/COLOR]', '', icon=icon, fanart=fanart, menu=menu)
 		elif not auser:              addFile('[COLOR red]Addon Data: Not Registered[/COLOR]','authtrakt', trakt, icon=icon, fanart=fanart, menu=menu)
@@ -1180,7 +1180,7 @@ def traktMenu():
 			if os.path.exists(file): addFile('[COLOR red]Saved Data: Save File Found(Import Data)[/COLOR]','importtrakt', trakt, icon=icon, fanart=fanart, menu=menu2)
 			else :                   addFile('[COLOR red]Saved Data: Not Saved[/COLOR]','savetrakt', trakt, icon=icon, fanart=fanart, menu=menu2)
 		else:                        addFile('[COLOR green]Saved Data: %s[/COLOR]' % user, '', icon=icon, fanart=fanart, menu=menu2)
-	
+
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', themeit=THEME3)
 	addFile('Save All Trakt Data',          'savetrakt',    'all', icon=ICONTRAKT,  themeit=THEME3)
 	addFile('Recover All Saved Trakt Data', 'restoretrakt', 'all', icon=ICONTRAKT,  themeit=THEME3)
@@ -1196,7 +1196,7 @@ def realMenu():
 	addFile('Save Real Debrid Data: %s' % real, 'togglesetting', 'keepdebrid', icon=ICONREAL, themeit=THEME3)
 	if KEEPREAL == 'true': addFile('Last Save: %s' % str(last), '', icon=ICONREAL, themeit=THEME3)
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', icon=ICONREAL, themeit=THEME3)
-	
+
 	for debrid in debridit.ORDER:
 		name   = DEBRIDID[debrid]['name']
 		path   = DEBRIDID[debrid]['path']
@@ -1209,7 +1209,7 @@ def realMenu():
 		menu = createMenu('saveaddon', 'Debrid', debrid)
 		menu2 = createMenu('save', 'Debrid', debrid)
 		menu.append((THEME2 % '%s Settings' % name,              'RunPlugin(plugin://%s/?mode=opensettings&name=%s&url=debrid)' %   (ADDON_ID, debrid)))
-		
+
 		addFile('[+]-> %s' % name,     '', icon=icon, fanart=fanart, themeit=THEME3)
 		if not os.path.exists(path): addFile('[COLOR red]Addon Data: Not Installed[/COLOR]', '', icon=icon, fanart=fanart, menu=menu)
 		elif not auser:              addFile('[COLOR red]Addon Data: Not Registered[/COLOR]','authdebrid', debrid, icon=icon, fanart=fanart, menu=menu)
@@ -1218,7 +1218,7 @@ def realMenu():
 			if os.path.exists(file): addFile('[COLOR red]Saved Data: Save File Found(Import Data)[/COLOR]','importdebrid', debrid, icon=icon, fanart=fanart, menu=menu2)
 			else :                   addFile('[COLOR red]Saved Data: Not Saved[/COLOR]','savedebrid', debrid, icon=icon, fanart=fanart, menu=menu2)
 		else:                        addFile('[COLOR green]Saved Data: %s[/COLOR]' % user, '', icon=icon, fanart=fanart, menu=menu2)
-	
+
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', themeit=THEME3)
 	addFile('Save All Real Debrid Data',          'savedebrid',    'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Recover All Saved Real Debrid Data', 'restoredebrid', 'all', icon=ICONREAL,  themeit=THEME3)
@@ -1234,7 +1234,7 @@ def allucMenu():
 	addFile('Save Alluc Login Data: %s' % alluc, 'togglesetting', 'keepalluc', icon=ICONLOGIN, themeit=THEME3)
 	if KEEPALLUC == 'true': addFile('Last Save: %s' % str(last), '', icon=ICONLOGIN, themeit=THEME3)
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', icon=ICONLOGIN, themeit=THEME3)
-	
+
 	for alluc in allucit.ORDER:
 		name   = ALLUCID[alluc]['name']
 		path   = ALLUCID[alluc]['path']
@@ -1247,7 +1247,7 @@ def allucMenu():
 		menu = createMenu('saveaddon', 'ALLUC', alluc)
 		menu2 = createMenu('save', 'Alluc', alluc)
 		menu.append((THEME2 % '%s Settings' % name,              'RunPlugin(plugin://%s/?mode=opensettings&name=%s&url=alluc)' %   (ADDON_ID, alluc)))
-		
+
 		addFile('[+]-> %s' % name,     '', icon=icon, fanart=fanart, themeit=THEME3)
 		if not os.path.exists(path): addFile('[COLOR red]Addon Data: Not Installed[/COLOR]', '', icon=icon, fanart=fanart, menu=menu)
 		elif not auser:              addFile('[COLOR red]Addon Data: Not Registered[/COLOR]','authalluc', alluc, icon=icon, fanart=fanart, menu=menu)
@@ -1256,7 +1256,7 @@ def allucMenu():
 			if os.path.exists(file): addFile('[COLOR red]Saved Data: Save File Found(Import Data)[/COLOR]','importalluc', alluc, icon=icon, fanart=fanart, menu=menu2)
 			else :                   addFile('[COLOR red]Saved Data: Not Saved[/COLOR]','savealluc', alluc, icon=icon, fanart=fanart, menu=menu2)
 		else:                        addFile('[COLOR green]Saved Data: %s[/COLOR]' % user, '', icon=icon, fanart=fanart, menu=menu2)
-	
+
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', themeit=THEME3)
 	addFile('Save All Alluc Login Data',          'savealluc',    'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Recover All Saved Alluc Login Data', 'restorealluc', 'all', icon=ICONREAL,  themeit=THEME3)
@@ -1285,7 +1285,7 @@ def loginMenu():
 		menu = createMenu('saveaddon', 'Login', login)
 		menu2 = createMenu('save', 'Login', login)
 		menu.append((THEME2 % '%s Settings' % name,              'RunPlugin(plugin://%s/?mode=opensettings&name=%s&url=login)' %   (ADDON_ID, login)))
-		
+
 		addFile('[+]-> %s' % name,     '', icon=icon, fanart=fanart, themeit=THEME3)
 		if not os.path.exists(path): addFile('[COLOR red]Addon Data: Not Installed[/COLOR]', '', icon=icon, fanart=fanart, menu=menu)
 		elif not auser:              addFile('[COLOR red]Addon Data: Not Registered[/COLOR]','authlogin', login, icon=icon, fanart=fanart, menu=menu)
@@ -1304,7 +1304,7 @@ def loginMenu():
 	setView('files', 'viewType')
 
 def fixUpdate():
-	if KODIV < 17: 
+	if KODIV < 17:
 		dbfile = os.path.join(DATABASE, wiz.latestDB('Addons'))
 		try:
 			os.remove(dbfile)
@@ -1340,7 +1340,7 @@ def removeAddonMenu():
 			match  = wiz.parseDOM(a, 'addon', ret='id')
 
 			addid  = foldername if len(match) == 0 else match[0]
-			try: 
+			try:
 				add = xbmcaddon.Addon(id=addid)
 				addonnames.append(add.getAddonInfo('name'))
 				addonids.append(addid)
@@ -1358,7 +1358,7 @@ def removeAddonMenu():
 			choice = DIALOG.select("%s: Select the addons you wish to remove." % ADDONTITLE, tempaddonnames)
 			if choice == -1: break
 			elif choice == 0: break
-			else: 
+			else:
 				choice2 = (choice-1)
 				if choice2 in selected:
 					selected.remove(choice2)
@@ -1373,7 +1373,7 @@ def removeAddonMenu():
 			removeAddon(addonids[addon], addonnames[addon], True)
 
 		xbmc.sleep(500)
-		
+
 		if INSTALLMETHOD == 1: todo = 1
 		elif INSTALLMETHOD == 2: todo = 0
 		else: todo = DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to [COLOR %s]Force close[/COLOR] kodi or [COLOR %s]Reload Profile[/COLOR]?[/COLOR]" % (COLOR2, COLOR1, COLOR1), yeslabel="[B][COLOR green]Reload Profile[/COLOR][/B]", nolabel="[B][COLOR red]Force Close[/COLOR][/B]")
@@ -1443,7 +1443,7 @@ def enableAddons():
 def changeFeq():
 	feq        = ['Every Startup', 'Every Day', 'Every Three Days', 'Every Weekly']
 	change     = DIALOG.select("[COLOR %s]How often would you list to Auto Clean on Startup?[/COLOR]" % COLOR2, feq)
-	if not change == -1: 
+	if not change == -1:
 		wiz.setS('autocleanfeq', str(change))
 		wiz.LogNotify('[COLOR %s]Auto Clean Up[/COLOR]' % COLOR1, '[COLOR %s]Fequency Now %s[/COLOR]' % (COLOR2, feq[change]))
 
@@ -1473,7 +1473,7 @@ def buildWizard(name, type, theme=None, over=False):
 		if name == BUILDNAME:
 			if over == True: yes = 1
 			else: yes = DIALOG.yesno(ADDONTITLE, '[COLOR %s]Would you like to apply the guifix for:' % COLOR2, '[COLOR %s]%s[/COLOR]?[/COLOR]' % (COLOR1, name), nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',yeslabel='[B][COLOR green]Apply Fix[/COLOR][/B]')
-		else: 
+		else:
 			yes = DIALOG.yesno("%s - [COLOR red]WARNING!![/COLOR]" % ADDONTITLE, "[COLOR %s][COLOR %s]%s[/COLOR] community build is not currently installed." % (COLOR2, COLOR1, name), "Would you like to apply the guiFix anyways?.[/COLOR]", nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',yeslabel='[B][COLOR green]Apply Fix[/COLOR][/B]')
 		if yes:
 			buildzip = wiz.checkBuild(name,'gui')
@@ -1492,7 +1492,7 @@ def buildWizard(name, type, theme=None, over=False):
 			DP.close()
 			wiz.defaultSkin()
 			wiz.lookandFeelData('save')
-			if KODIV >= 17: 
+			if KODIV >= 17:
 				installed = grabAddons(lib)
 				wiz.addonDatabase(installed, 1, True)
 			if INSTALLMETHOD == 1: todo = 1
@@ -1519,7 +1519,7 @@ def buildWizard(name, type, theme=None, over=False):
 				loginit.autoUpdate('all')
 				wiz.setS('loginlastsave', str(THREEDAYS))
 		temp_kodiv = int(KODIV); buildv = int(float(wiz.checkBuild(name, 'kodi')))
-		if not temp_kodiv == buildv: 
+		if not temp_kodiv == buildv:
 			if temp_kodiv == 16 and buildv <= 15: warning = False
 			else: warning = True
 		else: warning = False
@@ -1624,9 +1624,9 @@ def buildWizard(name, type, theme=None, over=False):
 			wiz.setS('buildtheme', theme)
 			wiz.log('INSTALLED %s: [ERRORS:%s]' % (percent, errors))
 			DP.close()
-			if url not in ["fresh", "normal"]: 
+			if url not in ["fresh", "normal"]:
 				wiz.forceUpdate()
-				if KODIV >= 17: 
+				if KODIV >= 17:
 					installed = grabAddons(lib)
 					wiz.addonDatabase(installed, 1, True)
 				if test2 == True:
@@ -1642,7 +1642,7 @@ def buildWizard(name, type, theme=None, over=False):
 				else:
 					wiz.ebi("ReloadSkin()")
 					xbmc.sleep(1000)
-					wiz.ebi("Container.Refresh") 
+					wiz.ebi("Container.Refresh")
 		else:
 			wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), '[COLOR %s]Theme Install: Cancelled![/COLOR]' % COLOR2)
 
@@ -1797,8 +1797,8 @@ def createMenu(type, add, name):
 	return menu_items
 
 def toggleCache(state):
-	cachelist = ['includevideo', 'includeall', 'includebob', 'includeely', 'includespecto', 'includegenesis', 'includeexodus', 'includeonechan', 'includesalts', 'includesaltslite']
-	titlelist = ['Include Video Addons', 'Include All Addons', 'Include Bob', 'Include Elysium', 'Include Specto', 'Include Genesis', 'Include Exodus', 'Include One Channel', 'Include Salts', 'Include Salts Lite HD']
+	cachelist = ['includevideo', 'includeall', 'includechappai', 'includeuranus', 'includedeath', 'includeneptune', 'includeplacenta', 'includegaia', 'includeincursion', 'includenumbers']
+	titlelist = ['Include Video Addons', 'Include All Addons', 'Include Chappa\'ai', 'Include Uranus', 'Include Death Streams', 'Include Neptune', 'Include Placenta', 'Include Gaia', 'Include Incursion', 'Include Numbers']
 	if state in ['true', 'false']:
 		for item in cachelist:
 			wiz.setS(item, state)
@@ -1848,10 +1848,10 @@ def viewLogFile():
 		return
 	elif not mainlog == False: which = 0
 	elif not oldlog == False: which = 1
-	
+
 	logtype = mainlog if which == 0 else oldlog
 	msg     = wiz.Grab_Log(False) if which == 0 else wiz.Grab_Log(False, True)
-	
+
 	wiz.TextBox("%s - %s" % (ADDONTITLE, logtype), msg)
 
 def errorList(file):
@@ -1869,18 +1869,18 @@ def errorChecking(log=None, count=None, last=None):
 		curr = wiz.Grab_Log(True, False)
 		old = wiz.Grab_Log(True, True)
 		if old == False and curr == False:
-			if count == None: 
+			if count == None:
 				wiz.LogNotify('[COLOR %s]View Error Log[/COLOR]' % COLOR1, '[COLOR %s]No Log File Found![/COLOR]' % COLOR2)
 				return
 			else:
 				return 0
-		if not curr == False: 
+		if not curr == False:
 			error1 = errorList(curr)
-		if not old == False: 
+		if not old == False:
 			error2 = errorList(old)
-		if len(error2) > 0: 
+		if len(error2) > 0:
 			for item in error2: errors = [item] + errors
-		if len(error1) > 0: 
+		if len(error1) > 0:
 			for item in error1: errors = [item] + errors
 	else:
 		error1 = errorList(log)
@@ -1926,8 +1926,8 @@ def LogViewer(default=None):
 			self.upload     = 201
 			self.kodi       = 202
 			self.kodiold    = 203
-			self.wizard     = 204 
-			self.okbutton   = 205 
+			self.wizard     = 204
+			self.okbutton   = 205
 			f = open(self.default, 'r')
 			self.logmsg = f.read()
 			f.close()
@@ -1938,7 +1938,7 @@ def LogViewer(default=None):
 			self.getControl(self.title).setLabel(self.titlemsg)
 			self.getControl(self.msg).setText(wiz.highlightText(self.logmsg))
 			self.setFocusId(self.scrollbar)
-			
+
 		def onClick(self, controlId):
 			if   controlId == self.okbutton: self.close()
 			elif controlId == self.upload: self.close(); uploadLog.Main()
@@ -1953,7 +1953,7 @@ def LogViewer(default=None):
 					self.getControl(self.title).setLabel(self.titlemsg)
 					self.getControl(self.msg).setText(wiz.highlightText(newmsg))
 					self.setFocusId(self.scrollbar)
-			elif controlId == self.kodiold:  
+			elif controlId == self.kodiold:
 				newmsg = wiz.Grab_Log(False, True)
 				filename = wiz.Grab_Log(True, True)
 				if newmsg == False:
@@ -1975,7 +1975,7 @@ def LogViewer(default=None):
 					self.getControl(self.title).setLabel(self.titlemsg)
 					self.getControl(self.msg).setText(wiz.highlightText(newmsg))
 					self.setFocusId(self.scrollbar)
-		
+
 		def onAction(self, action):
 			if   action == ACTION_PREVIOUS_MENU: self.close()
 			elif action == ACTION_NAV_BACK: self.close()
@@ -1987,7 +1987,7 @@ def LogViewer(default=None):
 def removeAddon(addon, name, over=False):
 	if not over == False:
 		yes = 1
-	else: 
+	else:
 		yes = DIALOG.yesno(ADDONTITLE, '[COLOR %s]Are you sure you want to delete the addon:'% COLOR2, 'Name: [COLOR %s]%s[/COLOR]' % (COLOR1, name), 'ID: [COLOR %s]%s[/COLOR][/COLOR]' % (COLOR1, addon), yeslabel='[B][COLOR green]Remove Addon[/COLOR][/B]', nolabel='[B][COLOR red]Don\'t Remove[/COLOR][/B]')
 	if yes == 1:
 		folder = os.path.join(ADDONS, addon)
@@ -2024,14 +2024,14 @@ def removeAddonData(addon, name=None, over=False):
 		addon_data = os.path.join(USERDATA, 'addon_data', addon)
 		if addon in EXCLUDES:
 			wiz.LogNotify("[COLOR %s]Protected Plugin[/COLOR]" % COLOR1, "[COLOR %s]Not allowed to remove Addon_Data[/COLOR]" % COLOR2)
-		elif os.path.exists(addon_data):  
+		elif os.path.exists(addon_data):
 			if DIALOG.yesno(ADDONTITLE, '[COLOR %s]Would you also like to remove the addon data for:[/COLOR]' % COLOR2, '[COLOR %s]%s[/COLOR]' % (COLOR1, addon), yeslabel='[B][COLOR green]Remove Data[/COLOR][/B]', nolabel='[B][COLOR red]Don\'t Remove[/COLOR][/B]'):
 				wiz.cleanHouse(addon_data)
 				try:
 					shutil.rmtree(addon_data)
 				except:
 					wiz.log("Error deleting: %s" % addon_data)
-			else: 
+			else:
 				wiz.log('Addon data for %s was not removed' % addon)
 	wiz.refresh()
 
@@ -2089,7 +2089,7 @@ def buildInfo(name):
 				msg += "[COLOR %s]Kodi Version:[/COLOR] [COLOR %s]%s[/COLOR][CR]" % (COLOR2, COLOR1, kodi)
 				msg += "[COLOR %s]Adult Content:[/COLOR] [COLOR %s]%s[/COLOR][CR]" % (COLOR2, COLOR1, adult)
 				msg += "[COLOR %s]Description:[/COLOR] [COLOR %s]%s[/COLOR][CR]" % (COLOR2, COLOR1, description)
-			
+
 			wiz.TextBox(ADDONTITLE, msg)
 		else: wiz.log("Invalid Build Name!")
 	else: wiz.log("Build text file not working: %s" % WORKINGURL)
@@ -2104,7 +2104,7 @@ def buildVideo(name):
 def dependsList(plugin):
 	addonxml = os.path.join(ADDONS, plugin, 'addon.xml')
 	if os.path.exists(addonxml):
-		source = open(addonxml,mode='r'); link = source.read(); source.close(); 
+		source = open(addonxml,mode='r'); link = source.read(); source.close();
 		match  = wiz.parseDOM(link, 'import', ret='addon')
 		items  = []
 		for depends in match:
@@ -2148,7 +2148,7 @@ def manageSaveData(do):
 					if overwrite == 1: os.remove(old)
 					else:
 						if not DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like replace the current [COLOR %s]%s[/COLOR] file?" % (COLOR2, COLOR1, item), yeslabel="[B][COLOR green]Yes Replace[/COLOR][/B]", nolabel="[B][COLOR red]No Skip[/COLOR][/B]"): continue
-						else: os.remove(old) 
+						else: os.remove(old)
 				shutil.copy(temp, old)
 			traktit.importlist('all')
 			traktit.traktIt('restore', 'all')
@@ -2310,7 +2310,7 @@ def freshStart(install=None, over=False):
 				for item in whitelist:
 					try: name, id, fold = item
 					except: pass
-					if fold.startswith('pvr'): pvr = id 
+					if fold.startswith('pvr'): pvr = id
 					depends = dependsList(fold)
 					for plug in depends:
 						if not plug in EXCLUDES:
@@ -2343,7 +2343,7 @@ def freshStart(install=None, over=False):
 					try:
 						if name == latestAddonDB and KODIV >= 17: wiz.log("Ignoring %s on v%s" % (name, KODIV), xbmc.LOGNOTICE)
 						else: os.remove(os.path.join(root,name))
-					except Exception, e: 
+					except Exception, e:
 						if not name.startswith('Textures13'):
 							wiz.log('Failed to delete, Purging DB', xbmc.LOGNOTICE)
 							wiz.log("-> %s" % (str(e)), xbmc.LOGNOTICE)
@@ -2351,10 +2351,10 @@ def freshStart(install=None, over=False):
 				else:
 					DP.update(int(wiz.percentage(del_file, total_files)), '', '[COLOR %s]File: [/COLOR][COLOR %s]%s[/COLOR]' % (COLOR2, COLOR1, name), '')
 					try: os.remove(os.path.join(root,name))
-					except Exception, e: 
+					except Exception, e:
 						wiz.log("Error removing %s" % os.path.join(root, name), xbmc.LOGNOTICE)
 						wiz.log("-> / %s" % (str(e)), xbmc.LOGNOTICE)
-			if DP.iscanceled(): 
+			if DP.iscanceled():
 				DP.close()
 				wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Fresh Start Cancelled[/COLOR]" % COLOR2)
 				return False
@@ -2364,7 +2364,7 @@ def freshStart(install=None, over=False):
 				DP.update(100, '', 'Cleaning Up Empty Folder: [COLOR %s]%s[/COLOR]' % (COLOR1, name), '')
 				if name not in ["Database","userdata","temp","addons","addon_data"]:
 					shutil.rmtree(os.path.join(root,name),ignore_errors=True, onerror=None)
-			if DP.iscanceled(): 
+			if DP.iscanceled():
 				DP.close()
 				wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Fresh Start Cancelled[/COLOR]" % COLOR2)
 				return False
@@ -2372,9 +2372,9 @@ def freshStart(install=None, over=False):
 		wiz.clearS('build')
 		if over == True:
 			return True
-		elif install == 'restore': 
+		elif install == 'restore':
 			return True
-		elif install: 
+		elif install:
 			buildWizard(install, 'normal', over=True)
 		else:
 			if INSTALLMETHOD == 1: todo = 1
@@ -2382,7 +2382,7 @@ def freshStart(install=None, over=False):
 			else: todo = DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to [COLOR %s]Force close[/COLOR] kodi or [COLOR %s]Reload Profile[/COLOR]?[/COLOR]" % (COLOR2, COLOR1, COLOR1), yeslabel="[B][COLOR red]Reload Profile[/COLOR][/B]", nolabel="[B][COLOR green]Force Close[/COLOR][/B]")
 			if todo == 1: wiz.reloadFix('fresh')
 			else: wiz.addonUpdates('reset'); wiz.killxbmc(True)
-	else: 
+	else:
 		if not install == 'restore':
 			wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), '[COLOR %s]Fresh Install: Cancelled![/COLOR]' % COLOR2)
 			wiz.refresh()
@@ -2425,11 +2425,11 @@ def purgeDb():
 				DB.append(found)
 				dir = found.replace('\\', '/').split('/')
 				display.append('(%s) %s' % (dir[len(dir)-2], dir[len(dir)-1]))
-	if KODIV >= 16: 
+	if KODIV >= 16:
 		choice = DIALOG.multiselect("[COLOR %s]Select DB File to Purge[/COLOR]" % COLOR2, display)
 		if choice == None: wiz.LogNotify("[COLOR %s]Purge Database[/COLOR]" % COLOR1, "[COLOR %s]Cancelled[/COLOR]" % COLOR2)
 		elif len(choice) == 0: wiz.LogNotify("[COLOR %s]Purge Database[/COLOR]" % COLOR1, "[COLOR %s]Cancelled[/COLOR]" % COLOR2)
-		else: 
+		else:
 			for purge in choice: wiz.purgeDb(DB[purge])
 	else:
 		choice = DIALOG.select("[COLOR %s]Select DB File to Purge[/COLOR]" % COLOR2, display)
