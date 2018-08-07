@@ -52,7 +52,7 @@ ORDER          = ['chappaai', 'forqed', 'uranus', 'death', 'placenta', 'incursio
 
 TRAKTID = {
 	'chappaai': {
-		'name'     : 'Chappa'ai',
+		'name'     : 'Chappa\'ai',
 		'plugin'   : 'plugin.video.chappaai',
 		'saved'    : 'chappaai',
 		'path'     : os.path.join(ADDONS, 'plugin.video.chappaai'),

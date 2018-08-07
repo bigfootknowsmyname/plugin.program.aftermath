@@ -99,6 +99,13 @@ INCLUDEPLACENTA  = ADDON.getSetting('includeplacenta')
 INCLUDEINCURSION = ADDON.getSetting('includeincursion')
 INCLUDEGAIA   = ADDON.getSetting('includegaia')
 INCLUDENUMBERS = ADDON.getSetting('includenumbers')
+INCLUDECHAPPAI = ADDON.getSetting('includechappai')
+INCLUDEFORQED = ADDON.getSetting('includeforqed')
+INCLUDEURANUS = ADDON.getSetting('includeuranus')
+INCLUDEDEATH = ADDON.getSetting('includedeath')
+INCLUDESTREAMHUB = ADDON.getSetting('includestreamhub')
+INCLUDENOTSURE = ADDON.getSetting('includenotsure')
+INCLUDENEPTUNE = ADDON.getSetting('includeneptune')
 SHOWADULT      = ADDON.getSetting('adult')
 WIZDEBUGGING   = ADDON.getSetting('addon_debug')
 DEBUGLEVEL     = ADDON.getSetting('debuglevel')
@@ -218,15 +225,15 @@ def TextBox(title, msg):
 			self.getControl(self.title).setLabel(title)
 			self.getControl(self.msg).setText(msg)
 			self.setFocusId(self.scrollbar)
-			
+
 		def onClick(self, controlId):
 			if (controlId == self.okbutton):
 				self.close()
-		
+
 		def onAction(self, action):
 			if   action == ACTION_PREVIOUS_MENU: self.close()
 			elif action == ACTION_NAV_BACK: self.close()
-			
+
 	tb = TextBoxes( "Textbox.xml" , ADDON.getAddonInfo('path'), 'DefaultSkin', title=title, msg=msg)
 	tb.doModal()
 	del tb
@@ -398,7 +405,7 @@ def textCache(url):
 			if datetime.now() - file_modified > timedelta(minutes=age):
 				if workingURL(url):
 					os.remove(file)
-		
+
 		if not os.path.exists(file):
 			if not workingURL(url): return False
 			f = open(file, 'w+')
@@ -406,7 +413,7 @@ def textCache(url):
 			content = basecode(textfile, True)
 			f.write(content)
 			f.close()
-		
+
 		f = open(file, 'r')
 		a = basecode(f.read(), False)
 		f.close()
@@ -418,7 +425,7 @@ def textCache(url):
 ###########################
 ###### URL Checks #########
 ###########################
- 
+
 def workingURL(url):
 	if url in ['http://', 'https://', '']: return False
 	check = 0; status = ''
@@ -436,7 +443,7 @@ def workingURL(url):
 			log("Working Url Error: %s [%s]" % (e, url))
 			xbmc.sleep(500)
 	return status
- 
+
 def openURL(url):
 	req = urllib2.Request(url)
 	req.add_header('User-Agent', USER_AGENT)
@@ -473,6 +480,7 @@ def convertSize(num, suffix='B'):
 def getCacheSize():
 	PROFILEADDONDATA = os.path.join(PROFILE,'addon_data')
 	dbfiles   = [
+		## TODO: fix these
 		(os.path.join(ADDOND, 'plugin.video.elysium', 'cache.db')),
 		(os.path.join(ADDOND, 'plugin.video.bob', 'cache.db')),
 		(os.path.join(ADDOND, 'plugin.video.specto', 'cache.db')),
@@ -493,7 +501,7 @@ def getCacheSize():
 		cachelist.append(os.path.join(PROFILEADDONDATA,'script.module.simple.downloader'))
 		cachelist.append(os.path.join(PROFILEADDONDATA,'plugin.video.itv','Images'))
 		cachelist.append(PROFILEADDONDATA)
-		
+
 	totalsize = 0
 
 	for item in cachelist:
@@ -503,19 +511,20 @@ def getCacheSize():
 		else:
 			for root, dirs, files in os.walk(item):
 				for d in dirs:
-					if 'cache' in d.lower() and not d.lower() in ['meta_cache']: 
+					if 'cache' in d.lower() and not d.lower() in ['meta_cache']:
 						totalsize = getSize(os.path.join(root, d), totalsize)
-	
+
 	if INCLUDEVIDEO == 'true':
 		files = []
 		if INCLUDEALL == 'true': files = dbfiles
 		else:
+			## TODO: Double check these and add more
 			if INCLUDEGAIA == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.gaia', 'cache.db'))
 			if INCLUDEINCURSION == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db'))
 			if INCLUDEPLACENTA == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db'))
 			if INCLUDENUMBERS == 'true': files.append(os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'cache.db'))
 		if len(files) > 0:
-			for item in files: 
+			for item in files:
 				if not os.path.exists(item): continue
 				totalsize += os.path.getsize(item)
 		else: log("Clear Cache: Clear Video Cache Not Enabled", xbmc.LOGNOTICE)
@@ -547,20 +556,20 @@ def cleanHouse(folder, ignore=False):
 		file_count += len(files)
 		if file_count >= 0:
 			for f in files:
-				try: 
+				try:
 					os.unlink(os.path.join(root, f))
 					total_files += 1
-				except: 
+				except:
 					try:
 						shutil.rmtree(os.path.join(root, f))
 					except:
 						log("Error Deleting %s" % f, xbmc.LOGERROR)
 			for d in dirs:
 				total_folds += 1
-				try: 
+				try:
 					shutil.rmtree(os.path.join(root, d))
 					total_folds += 1
-				except: 
+				except:
 					log("Error Deleting %s" % d, xbmc.LOGERROR)
 	return total_files, total_folds
 
@@ -644,14 +653,14 @@ def latestDB(DB):
 
 def viewFile(name, url):
 	return
-	 
+
 
 def forceText():
 	cleanHouse(TEXTCACHE)
 	LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), '[COLOR %s]Text Files Flushed![/COLOR]' % (COLOR2))
 
 def addonId(add):
-	try: 
+	try:
 		return xbmcaddon.Addon(id=add)
 	except:
 		return False
@@ -659,12 +668,12 @@ def addonId(add):
 def toggleDependency(name, DP=None):
 	dep=os.path.join(ADDONS, name, 'addon.xml')
 	if os.path.exists(dep):
-		source = open(dep,mode='r'); link=source.read(); source.close(); 
+		source = open(dep,mode='r'); link=source.read(); source.close();
 		match  = parseDOM(link, 'import', ret='addon')
 		for depends in match:
 			if not 'xbmc.python' in depends:
 				dependspath=os.path.join(ADDONS, depends)
-				if not DP == None: 
+				if not DP == None:
 					DP.update("","Checking Dependency [COLOR yellow]%s[/COLOR] for [COLOR yellow]%s[/COLOR]" % (depends, name),"")
 				if os.path.exists(dependspath):
 					toggleAddon(name, 'true')
@@ -683,7 +692,7 @@ def toggleAdult():
 			found.append(item)
 			toggleAddon(item, state, True)
 			log("[Toggle Adult] %s %s" % (goto, item), xbmc.LOGNOTICE)
-	if len(found) > 0: 
+	if len(found) > 0:
 		if DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to view a list of the addons that where %s?[/COLOR]" % (COLOR2, goto.replace('ing', 'ed')), yeslabel="[B][COLOR green]View List[/COLOR][/B]", nolabel="[B][COLOR red]Cancel[/COLOR][/B]"):
 			editlist = '[CR]'.join(found)
 			TextBox(ADDONTITLE, "[COLOR %s]Here are a list of the addons that where %s for Adult Content:[/COLOR][CR][CR][COLOR %s]%s[/COLOR]" % (COLOR1, goto.replace('ing', 'ed'), COLOR2, editlist))
@@ -764,9 +773,9 @@ def whileWindow(window, active=False, count=0, counter=15):
 	while not windowopen and count < counter:
 		log("%s is %s(%s)" % (window, windowopen, count))
 		windowopen = getCond('Window.IsActive(%s)' % window)
-		count += 1 
+		count += 1
 		xbmc.sleep(500)
-		
+
 	while windowopen:
 		active = True
 		log("%s is %s" % (window, windowopen), xbmc.LOGDEBUG)
@@ -808,16 +817,16 @@ def cleanupBackup():
 	for item in sorted(folder, key=os.path.getmtime):
 		filelist.append(item)
 		base = item.replace(mybuilds, '')
-		if os.path.isdir(item): 
+		if os.path.isdir(item):
 			list.append('/%s/' % base)
-		elif os.path.isfile(item): 
+		elif os.path.isfile(item):
 			list.append(base)
 	list = ['--- Remove All Items ---'] + list
 	selected = DIALOG.select("%s: Select the items to remove from 'MyBuilds'." % ADDONTITLE, list)
-	
+
 	if selected == -1:
 		LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Clean Up Cancelled![/COLOR]" % COLOR2)
-	elif selected == 0: 
+	elif selected == 0:
 		if DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to clean up all items in your 'My_Builds' folder?[/COLOR]" % COLOR2, "[COLOR %s]%s[/COLOR]" % (COLOR1, MYBUILDS), yeslabel="[B][COLOR green]Clean Up[/COLOR][/B]", nolabel="[B][COLOR red]No Cancel[/COLOR][/B]"):
 			clearedfiles, clearedfolders = cleanHouse(xbmc.translatePath(MYBUILDS))
 			LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Removed Files: [COLOR %s]%s[/COLOR] / Folders:[/COLOR] [COLOR %s]%s[/COLOR]" % (COLOR2, COLOR1, clearedfiles, COLOR1, clearedfolders))
@@ -826,7 +835,7 @@ def cleanupBackup():
 	else:
 		path = filelist[selected-1]; passed = False
 		if DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to remove [COLOR %s]%s[/COLOR] from 'My_Builds' folder?[/COLOR]" % (COLOR2, COLOR1, list[selected]), "[COLOR %s]%s[/COLOR]" % (COLOR1, path), yeslabel="[B][COLOR green]Clean Up[/COLOR][/B]", nolabel="[B][COLOR red]No Cancel[/COLOR][/B]"):
-			if os.path.isfile(path): 
+			if os.path.isfile(path):
 				try:
 					os.remove(path)
 					passed = True
@@ -837,7 +846,7 @@ def cleanupBackup():
 				try:
 					shutil.rmtree(path)
 					passed = True
-				except Exception ,e: 
+				except Exception ,e:
 					log("Error removing %s" % path, xbmc.LOGNOTICE)
 			if passed: LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]%s Removed![/COLOR]" % (COLOR2, list[selected]))
 			else: LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Error Removing %s![/COLOR]" % (COLOR2, list[selected]))
@@ -881,7 +890,7 @@ def convertSpecial(url, over=False):
 				f = open((os.path.join(root, file)), mode='w')
 				f.write(str(b))
 				f.close()
-				if DP.iscanceled(): 
+				if DP.iscanceled():
 					DP.close()
 					wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Convert Path Cancelled[/COLOR]" % COLOR2)
 					sys.exit()
@@ -889,7 +898,7 @@ def convertSpecial(url, over=False):
 	log("[Convert Paths to Special] Complete", xbmc.LOGNOTICE)
 	if over == False: LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Convert Paths to Special: Complete![/COLOR]" % COLOR2)
 
-def clearCrash():  
+def clearCrash():
 	files = []
 	for file in glob.glob(os.path.join(LOG, '*crashlog*.*')):
 		files.append(file)
@@ -949,8 +958,10 @@ def unhidePassword():
 
 def wizardUpdate(startup=None):
 	if workingURL(WIZARDFILE):
-		ver = checkWizard('version')
-		zip = checkWizard('zip')
+		try:
+			wid, ver, zip = checkWizard('all')
+		except:
+			return
 		if ver > VERSION:
 			yes = DIALOG.yesno(ADDONTITLE, '[COLOR %s]There is a new version of the [COLOR %s]%s[/COLOR]!' % (COLOR2, COLOR1, ADDONTITLE), 'Would you like to download [COLOR %s]v%s[/COLOR]?[/COLOR]' % (COLOR1, ver), nolabel='[B][COLOR red]Remind Me Later[/COLOR][/B]', yeslabel="[B][COLOR green]Update Wizard[/COLOR][/B]")
 			if yes:
@@ -975,7 +986,7 @@ def wizardUpdate(startup=None):
 					ebi('RunScript(%s/startup.py)' % PLUGIN)
 				return
 			else: log("[Auto Update Wizard] Install New Wizard Ignored: %s" % ver, xbmc.LOGNOTICE)
-		else: 
+		else:
 			if not startup: LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]No New Version of Wizard[/COLOR]" % COLOR2)
 			log("[Auto Update Wizard] No New Version v%s" % ver, xbmc.LOGNOTICE)
 	else: log("[Auto Update Wizard] Url for wizard file not valid: %s" % WIZARDFILE, xbmc.LOGNOTICE)
@@ -983,9 +994,9 @@ def wizardUpdate(startup=None):
 def convertText():
 	TEXTFILES = os.path.join(ADDONDATA, 'TextFiles')
 	if not os.path.exists(TEXTFILES): os.makedirs(TEXTFILES)
-	
+
 	DP.create(ADDONTITLE,'[COLOR %s][B]Converting Text:[/B][/COLOR]' % (COLOR2),'', 'Please Wait')
-	
+
 	if not BUILDFILE == 'http://':
 		filename = os.path.join(TEXTFILES, 'builds.txt')
 		writing = '';x = 0
@@ -1104,7 +1115,7 @@ def convertText():
 				writing += 'adult="%s"\n' % adult
 				writing += 'description="%s"\n' % description
 		f = open(filename, 'w'); f.write(writing); f.close()
-	
+
 	if not YOUTUBEFILE == 'http://':
 		filename = os.path.join(TEXTFILES, 'youtube.txt')
 		writing = ''; x = 0
@@ -1140,12 +1151,12 @@ def convertText():
 			writing += 'fanart="%s"\n' % fanart
 			writing += 'description="%s"\n' % description
 		f = open(filename, 'w'); f.write(writing); f.close()
-	
+
 	DP.close()
 	DIALOG.ok(ADDONTITLE, '[COLOR %s]Your text files have been converted to 0.1.7 and are location in the [COLOR %s]/addon_data/%s/[/COLOR] folder[/COLOR]' % (COLOR2, COLOR1, ADDON_ID))
 
 def reloadProfile(profile=None):
-	if profile == None: 
+	if profile == None:
 		#if os.path.exists(PROFILES):
 		#	profile = getInfo('System.ProfileName')
 		#	log("Profile: %s" % profile)
@@ -1166,14 +1177,14 @@ def asciiCheck(use=None, over=False):
 			yes = 1
 		else:
 			yes = DIALOG.yesno(ADDONTITLE,'[COLOR %s]Do you want to [COLOR %s]delete[/COLOR] all filenames with special characters or would you rather just [COLOR %s]scan and view[/COLOR] the results in the log?[/COLOR]' % (COLOR2, COLOR1, COLOR1), yeslabel='[B][COLOR green]Delete[/COLOR][/B]', nolabel='[B][COLOR red]Scan[/COLOR][/B]')
-	else: 
+	else:
 		source = use
 		yes = 1
 
 	if source == "":
 		LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]ASCII Check: Cancelled[/COLOR]" % COLOR2)
 		return
-	
+
 	files_found  = os.path.join(ADDONDATA, 'asciifiles.txt')
 	files_fails  = os.path.join(ADDONDATA, 'asciifails.txt')
 	afiles       = open(files_found, mode='w+')
@@ -1183,13 +1194,13 @@ def asciiCheck(use=None, over=False):
 	msg          = ''
 	prog         = []
 	log("Source file: (%s)" % str(source), xbmc.LOGNOTICE)
-	
+
 	DP.create(ADDONTITLE, 'Please wait...')
 	for base, dirs, files in os.walk(source):
 		dirs[:] = [d for d in dirs]
 		files[:] = [f for f in files]
 		for file in files:
-			prog.append(file) 
+			prog.append(file)
 			prog2 = int(len(prog) / float(items) * 100)
 			DP.update(prog2,"[COLOR %s]Checking for non ASCII files" % COLOR2,'[COLOR %s]%s[/COLOR]' % (COLOR1, d), 'Please Wait[/COLOR]')
 			try:
@@ -1197,7 +1208,7 @@ def asciiCheck(use=None, over=False):
 			except UnicodeDecodeError:
 				badfile = os.path.join(base, file)
 				if yes:
-					try: 
+					try:
 						os.remove(badfile)
 						for chunk in chunks(badfile, 75):
 							afiles.write(chunk+'\n')
@@ -1217,7 +1228,7 @@ def asciiCheck(use=None, over=False):
 					f1 += 1
 					log("[ASCII Check] File Found: %s " % badfile, xbmc.LOGERROR)
 				pass
-		if DP.iscanceled(): 
+		if DP.iscanceled():
 			DP.close()
 			wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Ascii Check Cancelled[/COLOR]" % COLOR2)
 			sys.exit()
@@ -1231,7 +1242,7 @@ def asciiCheck(use=None, over=False):
 				LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]ASCII Check: %s Removed / %s Failed.[/COLOR]" % (COLOR2, f1, f2))
 			else:
 				TextBox(ADDONTITLE, "[COLOR yellow][B]%s Files Removed:[/B][/COLOR]\n %s\n\n[COLOR yellow][B]%s Files Failed:[B][/COLOR]\n %s" % (f1, msg, f2, msg2))
-		else: 
+		else:
 			TextBox(ADDONTITLE, "[COLOR yellow][B]%s Files Found:[/B][/COLOR]\n %s" % (f1, msg))
 	else: LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]ASCII Check: None Found.[/COLOR]" % COLOR2)
 
@@ -1298,7 +1309,7 @@ def lookandFeelData(do='save'):
 def sep(middle=''):
 	char = uservar.SPACER
 	ret = char * 40
-	if not middle == '': 
+	if not middle == '':
 		middle = '[ %s ]' % middle
 		fluff = int((40 - len(middle))/2)
 		ret = "%s%s%s" % (ret[:fluff], middle, ret[:fluff+2])
@@ -1320,19 +1331,20 @@ def convertAdvanced():
 def backUpOptions(type, name=""):
 	exclude_dirs  = [ADDON_ID, 'cache', 'system', 'Thumbnails', 'peripheral_data', 'temp', 'My_Builds', 'keymaps']
 	exclude_files = ['Textures13.db', '.DS_Store', 'advancedsettings.xml', 'Thumbs.db', '.gitignore']
+	## TODO: fix these
 	bad_files     = [os.path.join(DATABASE, 'onechannelcache.db'),
-					 os.path.join(DATABASE, 'saltscache.db'), 
-					 os.path.join(DATABASE, 'saltscache.db-shm'), 
+					 os.path.join(DATABASE, 'saltscache.db'),
+					 os.path.join(DATABASE, 'saltscache.db-shm'),
 					 os.path.join(DATABASE, 'saltscache.db-wal'),
 					 os.path.join(DATABASE, 'saltshd.lite.db'),
-					 os.path.join(DATABASE, 'saltshd.lite.db-shm'), 
+					 os.path.join(DATABASE, 'saltshd.lite.db-shm'),
 					 os.path.join(DATABASE, 'saltshd.lite.db-wal'),
 					 os.path.join(ADDOND, 'script.trakt', 'queue.db'),
 					 os.path.join(HOME, 'cache', 'commoncache.db'),
 					 os.path.join(ADDOND, 'script.module.dudehere.routines', 'access.log'),
 					 os.path.join(ADDOND, 'script.module.dudehere.routines', 'trakt.db'),
 					 os.path.join(ADDOND, 'script.module.metahandler', 'meta_cache', 'video_cache.db')]
-	
+
 	backup   = xbmc.translatePath(BACKUPLOCATION)
 	mybuilds = xbmc.translatePath(MYBUILDS)
 	try:
@@ -1390,7 +1402,7 @@ def backUpOptions(type, name=""):
 					choice = DIALOG.select("%s: Select the addons you wish to add to the zip." % ADDONTITLE, tempaddonnames)
 					if choice == -1: break
 					elif choice == 0: break
-					else: 
+					else:
 						choice2 = (choice-1)
 						if choice2 in selected:
 							selected.remove(choice2)
@@ -1414,7 +1426,7 @@ def backUpOptions(type, name=""):
 							zipf.write(fn, fn[len(ADDONS):], zipfile.ZIP_DEFLATED)
 					dep=os.path.join(ADDONS,addonfolds[item],'addon.xml')
 					if os.path.exists(dep):
-						source = open(dep,mode='r'); link = source.read(); source.close(); 
+						source = open(dep,mode='r'); link = source.read(); source.close();
 						match  = parseDOM(link, 'import', ret='addon')
 						for depends in match:
 							if 'xbmc.python' in depends: continue
@@ -1476,12 +1488,12 @@ def backUpOptions(type, name=""):
 					a      = f.read()
 					prov   = re.compile("<provides>(.+?)</provides>").findall(a)
 					match  = parseDOM(a, 'addon', ret='id')
-					
+
 					addid  = foldername if len(match) == 0 else match[0]
 					if addid in idlist:
 						continue
 					idlist.append(addid)
-					try: 
+					try:
 						add   = xbmcaddon.Addon(id=addid)
 						aname = add.getAddonInfo('name')
 						aname = aname.replace('[', '<').replace(']', '>')
@@ -1504,7 +1516,7 @@ def backUpOptions(type, name=""):
 				for file in files:
 					try:
 						for_progress += 1
-						progress = percentage(for_progress, N_ITEM) 
+						progress = percentage(for_progress, N_ITEM)
 						DP.update(int(progress), '[COLOR %s]Creating back up zip: [COLOR%s]%s[/COLOR] / [COLOR%s]%s[/COLOR]' % (COLOR2, COLOR1, for_progress, COLOR1, N_ITEM), '[COLOR %s]%s[/COLOR]' % (COLOR1, file), '')
 						fn = os.path.join(base, file)
 						if file in LOGFILES: log("[Back Up] Type = '%s': Ignore %s" % (type, file), xbmc.LOGNOTICE); continue
@@ -1523,7 +1535,7 @@ def backUpOptions(type, name=""):
 						except Exception, e:
 							log("[Back Up] Type = '%s': Unable to backup %s" % (type, file), xbmc.LOGNOTICE)
 							log("%s / %s" % (Exception, e))
-						if DP.iscanceled(): 
+						if DP.iscanceled():
 							DP.close()
 							LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Backup Cancelled[/COLOR]" % COLOR2)
 							sys.exit()
@@ -1543,7 +1555,7 @@ def backUpOptions(type, name=""):
 								extractsize += os.path.getsize(fn)
 						xml   = os.path.join(ADDONS, fd, 'addon.xml')
 						if os.path.exists(xml):
-							source   = open(xml,mode='r'); link = source.read(); source.close(); 
+							source   = open(xml,mode='r'); link = source.read(); source.close();
 							matchxml = parseDOM(link, 'import', ret='addon')
 							if 'script.skinshortcuts' in matchxml:
 								for base, dirs, files in os.walk(os.path.join(ADDOND,'script.skinshortcuts')):
@@ -1614,7 +1626,7 @@ def backUpOptions(type, name=""):
 									zipf.write(fn, fn[len(USERDATA):], zipfile.ZIP_DEFLATED)
 							xml   = os.path.join(ADDONS, fd, 'addon.xml')
 							if os.path.exists(xml):
-								source   = open(xml,mode='r'); link = source.read(); source.close(); 
+								source   = open(xml,mode='r'); link = source.read(); source.close();
 								matchxml = parseDOM(link, 'import', ret='addon')
 								if 'script.skinshortcuts' in matchxml:
 									for base, dirs, files in os.walk(os.path.join(ADDOND,'script.skinshortcuts')):
@@ -1736,7 +1748,7 @@ def backUpOptions(type, name=""):
 						choice = DIALOG.select("%s: Select the addons you wish to add to the zip." % ADDONTITLE, tempaddonnames)
 						if choice == -1: break
 						elif choice == 0: break
-						else: 
+						else:
 							choice2 = (choice-1)
 							if choice2 in selected:
 								selected.remove(choice2)
@@ -1756,7 +1768,7 @@ def backUpOptions(type, name=""):
 								zipf.write(fn, fn[len(HOME):], zipfile.ZIP_DEFLATED)
 						dep=os.path.join(ADDONS,addonfolds[item],'addon.xml')
 						if os.path.exists(dep):
-							source = open(dep,mode='r'); link = source.read(); source.close(); 
+							source = open(dep,mode='r'); link = source.read(); source.close();
 							match  = parseDOM(link, 'import', ret='addon')
 							for depends in match:
 								if 'xbmc.python' in depends: continue
@@ -1826,7 +1838,7 @@ def backUpOptions(type, name=""):
 				for file in files:
 					try:
 						for_progress += 1
-						progress = percentage(for_progress, N_ITEM) 
+						progress = percentage(for_progress, N_ITEM)
 						DP.update(int(progress), '[COLOR %s]Creating back up zip: [COLOR%s]%s[/COLOR] / [COLOR%s]%s[/COLOR]' % (COLOR2, COLOR1, for_progress, COLOR1, N_ITEM), '[COLOR %s]%s[/COLOR]' % (COLOR1, file), '')
 						fn = os.path.join(base, file)
 						if file in LOGFILES: log("[Back Up] Type = '%s': Ignore %s" % (type, file), xbmc.LOGNOTICE); continue
@@ -1874,7 +1886,7 @@ def restoreLocal(type):
 	if not os.path.exists(ADDOND): os.makedirs(ADDOND)
 	if not os.path.exists(PACKAGES): os.makedirs(PACKAGES)
 	if type == "gui": loc = USERDATA
-	elif type == "addondata": 
+	elif type == "addondata":
 		loc = ADDOND
 	else : loc = HOME
 	log("Restoring to %s" % loc, xbmc.LOGNOTICE)
@@ -1921,7 +1933,7 @@ def restoreExternal(type):
 	if not source.startswith('http'):
 		LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]External Restore: Invalid URL[/COLOR]" % COLOR2)
 		return
-	try: 
+	try:
 		work = workingURL(source)
 	except:
 		LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]External Restore: Error Valid URL[/COLOR]" % COLOR2)
@@ -2004,7 +2016,7 @@ def Grab_Log(file=False, old=False, wizard=False):
 			logtext     = filename.read()
 			filename.close()
 			return logtext
-	else: 
+	else:
 		return False
 
 def whiteList(do):
@@ -2075,7 +2087,7 @@ def whiteList(do):
 			choice = DIALOG.select("%s: Select the addons you wish to White List." % ADDONTITLE, tempaddonnames)
 			if choice == -1: break
 			elif choice == 0: break
-			else: 
+			else:
 				choice2 = (choice-1)
 				if choice2 in selected:
 					selected.remove(choice2)
@@ -2095,7 +2107,7 @@ def whiteList(do):
 		LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]%s Addons in White List[/COLOR]" % (COLOR2, len(selected)))
 	elif do == 'read' :
 		white = []
-		if os.path.exists(WHITELIST): 
+		if os.path.exists(WHITELIST):
 			f = open(WHITELIST)
 			a = f.read()
 			f.close()
@@ -2114,7 +2126,7 @@ def whiteList(do):
 			for item in list:
 				try: name, id, fold = item
 				except Exception, e: log(str(e))
-				msg += "[COLOR %s]%s[/COLOR] [COLOR %s]\"%s\"[/COLOR][CR]" % (COLOR1, name, COLOR2, id) 
+				msg += "[COLOR %s]%s[/COLOR] [COLOR %s]\"%s\"[/COLOR][CR]" % (COLOR1, name, COLOR2, id)
 			TextBox("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), msg)
 		else: LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]No items in White List[/COLOR]" % COLOR2)
 	elif do == 'import':
@@ -2162,10 +2174,10 @@ def whiteList(do):
 		if not DIALOG.yesno(ADDONTITLE, "[COLOR %s]Are you sure you want to clear your whitelist?" % COLOR2, "This process can't be undone.[/COLOR]", yeslabel="[B][COLOR green]Yes Remove[/COLOR][/B]", nolabel="[B][COLOR red]No Cancel[/COLOR][/B]"):
 			LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Clear Whitelist Cancelled[/COLOR]" % (COLOR2))
 			return
-		try: 
+		try:
 			os.remove(WHITELIST)
 			LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Whitelist Cleared[/COLOR]" % (COLOR2))
-		except: 
+		except:
 			LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Error Clearing Whitelist![/COLOR]" % (COLOR2))
 
 def clearPackages(over=None):
@@ -2203,7 +2215,7 @@ def clearPackagesStartup():
 						file_count += 1
 						cleanupsize += os.path.getsize(file)
 						os.unlink(file)
-					elif os.path.isdir(file): 
+					elif os.path.isdir(file):
 						cleanupsize += getSize(file)
 						cleanfiles, cleanfold = cleanHouse(file)
 						file_count += cleanfiles + cleanfold
@@ -2225,6 +2237,7 @@ def clearArchive():
 def clearCache(over=None):
 	PROFILEADDONDATA = os.path.join(PROFILE,'addon_data')
 	dbfiles   = [
+		## TODO: Double check these
 		(os.path.join(ADDOND, 'plugin.video.gaia', 'cache.db')),
 		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db')),
 		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db')),
@@ -2241,7 +2254,7 @@ def clearCache(over=None):
 		(os.path.join(ADDOND,'plugin.video.itv','Images')),
 		(os.path.join(PROFILEADDONDATA,'script.module.simple.downloader')),
 		(os.path.join(PROFILEADDONDATA,'plugin.video.itv','Images'))]
-		
+
 	delfiles = 0
 	excludes = ['meta_cache', 'archive_cache']
 	for item in cachelist:
@@ -2283,6 +2296,7 @@ def clearCache(over=None):
 		files = []
 		if INCLUDEALL == 'true': files = dbfiles
 		else:
+			## TODO: Double check these
 			if INCLUDEGAIA == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.gaia', 'cache.db'))
 			if INCLUDEINCURSION == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db'))
 			if INCLUDEPLACENTA == 'true': files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db'))
@@ -2353,17 +2367,17 @@ def checkSources():
 			if choice == 1:
 				remove = bad
 			else:
-				for name, path, sharing, working in bad: 
+				for name, path, sharing, working in bad:
 					log("%s sources: %s, %s" % (name, path, working), xbmc.LOGNOTICE)
 					if DIALOG.yesno(ADDONTITLE, "[COLOR %s]%s[/COLOR][COLOR %s] was reported as non working" % (COLOR1, name, COLOR2), "[COLOR %s]%s[/COLOR]" % (COLOR1, path), "[COLOR %s]%s[/COLOR]" % (COLOR1, working), yeslabel="[B][COLOR green]Remove Source[/COLOR][/B]", nolabel="[B][COLOR red]Keep Source[/COLOR][/B]"):
 						remove.append([name, path, sharing, working])
 						log("Removing Source %s" % name, xbmc.LOGNOTICE)
 					else: log("Source %s was not removed" % name, xbmc.LOGNOTICE)
 			if len(remove) > 0:
-				for name, path, sharing, working in remove: 
+				for name, path, sharing, working in remove:
 					a = a.replace('\n        <source>\n            <name>%s</name>\n            <path pathversion="1">%s</path>\n            <allowsharing>%s</allowsharing>\n        </source>' % (name, path, sharing), '')
 					log("Removing Source %s" % name, xbmc.LOGNOTICE)
-				
+
 				f = open(SOURCES, mode='w')
 				f.write(str(a))
 				f.close()
@@ -2391,7 +2405,7 @@ def checkRepos():
 		perc = int(percentage(start, sleeptime))
 		DP.update(perc, '', '[COLOR %s]Checking: [/COLOR][COLOR %s]%s[/COLOR]' % (COLOR2, COLOR1, repolist[start-1].replace(ADDONS, '')[1:]))
 		xbmc.sleep(1000)
-	if DP.iscanceled(): 
+	if DP.iscanceled():
 		DP.close()
 		LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Enabling Addons Cancelled[/COLOR]" % COLOR2)
 		sys.exit()
@@ -2408,7 +2422,7 @@ def checkRepos():
 		msg += '[CR]'.join(badrepos)
 		msg += '[/COLOR]'
 		TextBox("%s: Bad Repositories" % ADDONTITLE, msg)
-	else: 
+	else:
 		LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]All Repositories Working![/COLOR]" % COLOR2)
 
 #############################
@@ -2463,7 +2477,7 @@ def swapSkins(goto, title="Error"):
 		x += 1
 		xbmc.sleep(100)
 		#ebi('SendAction(Select)')
-	
+
 	if xbmc.getCondVisibility("Window.isVisible(yesnodialog)"):
 		ebi('SendClick(11)')
 	else: LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), '[COLOR %s]%s: Skin Swap Timed Out![/COLOR]' % (COLOR2, title)); return False
@@ -2474,7 +2488,7 @@ def mediaCenter():
 		return 'Kodi'
 	elif str(HOME).lower().find('spmc'):
 		return 'SPMC'
-	else: 
+	else:
 		return 'Unknown Fork'
 
 def kodi17Fix():
@@ -2559,7 +2573,7 @@ def purgeDb(name):
 	else: log('%s not found.' % name, xbmc.LOGERROR); return False
 	textexe.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
 	for table in textexe.fetchall():
-		if table[0] == 'version': 
+		if table[0] == 'version':
 			log('Data from table `%s` skipped.' % table[0], xbmc.LOGDEBUG)
 		else:
 			try:
@@ -2597,7 +2611,7 @@ def oldThumbs():
 		for rows2 in found2:
 			images.append(rows2[0])
 	log("%s total thumbs cleaned up." % str(len(images)), xbmc.LOGNOTICE)
-	for id in ids:       
+	for id in ids:
 		textexe.execute("DELETE FROM sizes   WHERE idtexture = ?", (id, ))
 		textexe.execute("DELETE FROM texture WHERE id        = ?", (id, ))
 	textexe.execute("VACUUM")
