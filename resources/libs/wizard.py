@@ -95,14 +95,10 @@ COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
 INCLUDEVIDEO   = ADDON.getSetting('includevideo')
 INCLUDEALL     = ADDON.getSetting('includeall')
-INCLUDEBOB     = ADDON.getSetting('includebob')
-INCLUDEELY     = ADDON.getSetting('includeely')
-INCLUDESPECTO  = ADDON.getSetting('includespecto')
-INCLUDEGENESIS = ADDON.getSetting('includegenesis')
-INCLUDEEXODUS  = ADDON.getSetting('includeexodus')
-INCLUDEONECHAN = ADDON.getSetting('includeonechan')
-INCLUDESALTS   = ADDON.getSetting('includesalts')
-INCLUDESALTSHD = ADDON.getSetting('includesaltslite')
+INCLUDEPLACENTA  = ADDON.getSetting('includeplacenta')
+INCLUDEINCURSION = ADDON.getSetting('includeincursion')
+INCLUDEGAIA   = ADDON.getSetting('includegaia')
+INCLUDENUMBERS = ADDON.getSetting('includenumbers')
 SHOWADULT      = ADDON.getSetting('adult')
 WIZDEBUGGING   = ADDON.getSetting('addon_debug')
 DEBUGLEVEL     = ADDON.getSetting('debuglevel')
@@ -276,11 +272,9 @@ def addonUpdates(do=None):
 ###### Build Info #########
 ###########################
 
-def checkBuild(name, ret, burl=None):
-	if burl == None: burl = BUILDFILE
-	bf = textCache(burl)
-	if bf == False: return False
-	link = bf.replace('\n','').replace('\r','').replace('\t','').replace('gui=""', 'gui="http://"').replace('minor=""', 'minor="http://"').replace('info=""', 'info="http://"').replace('theme=""', 'theme="http://"')
+def checkBuild(name, ret):
+	if not workingURL(BUILDFILE) == True: return False
+	link = openURL(BUILDFILE).replace('\n','').replace('\r','').replace('\t','').replace('gui=""', 'gui="http://"').replace('theme=""', 'theme="http://"')
 	match = re.compile('name="%s".+?ersion="(.+?)".+?rl="(.+?)".+?inor="(.+?)".+?ui="(.+?)".+?odi="(.+?)".+?heme="(.+?)".+?con="(.+?)".+?anart="(.+?)".+?review="(.+?)".+?dult="(.+?)".+?nfo="(.+?)".+?escription="(.+?)"' % name).findall(link)
 	if len(match) > 0:
 		for version, url, minor, gui, kodi, theme, icon, fanart, preview, adult, info, description in match:
@@ -325,18 +319,8 @@ def checkWizard(ret):
 			elif ret == 'all':           return ADDON_ID, version, zip
 	else: return False
 
-def checkInfo(url):
-	if not workingURL(url) == True: return False
-	link = openURL(url).replace('\n','').replace('\r','').replace('\t','')
-	match = re.compile('name="(.+?)".+?xtracted="(.+?)".+?ipsize="(.+?)".+?kin="(.+?)".+?reated="(.+?)".+?rograms="(.+?)".+?ideo="(.+?)".+?usic="(.+?)".+?icture="(.+?)".+?epos="(.+?)".+?cripts="(.+?)"').findall(link)
-	if len(match) > 0:
-		for name, extracted, zipsize, skin, created, programs, video, music, picture, repos, scripts in match:
-			return name, extracted, zipsize, skin, created, programs, video, music, picture, repos, scripts
-	else: return False
-
-def buildCount(ver=None, url=None):
-	if url == None: url = BUILDFILE
-	link  = textCache(url).replace('\n','').replace('\r','').replace('\t','')
+def buildCount(ver=None):
+	link  = openURL(BUILDFILE).replace('\n','').replace('\r','').replace('\t','')
 	match = re.compile('name="(.+?)".+?odi="(.+?)".+?dult="(.+?)"').findall(link)
 	total = 0; count15 = 0; count16 = 0; count17 = 0; count18 = 0; hidden = 0; adultcount = 0
 	if len(match) > 0:
@@ -526,14 +510,10 @@ def getCacheSize():
 		files = []
 		if INCLUDEALL == 'true': files = dbfiles
 		else:
-			if INCLUDEBOB == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.bob', 'cache.db'))
-			if INCLUDEELY == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.elysium', 'cache.db'))
-			if INCLUDESPECTO == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.specto', 'cache.db'))
-			if INCLUDEGENESIS == 'true': files.append(os.path.join(ADDOND, 'plugin.video.genesis', 'cache.db'))
-			if INCLUDEEXODUS == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.exodus', 'cache.db'))
-			if INCLUDEONECHAN == 'true': files.append(os.path.join(DATABASE,  'onechannelcache.db'))
-			if INCLUDESALTS == 'true':   files.append(os.path.join(DATABASE,  'saltscache.db'))
-			if INCLUDESALTSHD == 'true': files.append(os.path.join(DATABASE,  'saltshd.lite.db'))
+			if INCLUDEGAIA == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.gaia', 'cache.db'))
+			if INCLUDEINCURSION == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db'))
+			if INCLUDEPLACENTA == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db'))
+			if INCLUDENUMBERS == 'true': files.append(os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'cache.db'))
 		if len(files) > 0:
 			for item in files: 
 				if not os.path.exists(item): continue
@@ -969,10 +949,8 @@ def unhidePassword():
 
 def wizardUpdate(startup=None):
 	if workingURL(WIZARDFILE):
-		try:
-			wid, ver, zip = checkWizard('all')
-		except:
-			return
+		ver = checkWizard('version')
+		zip = checkWizard('zip')
 		if ver > VERSION:
 			yes = DIALOG.yesno(ADDONTITLE, '[COLOR %s]There is a new version of the [COLOR %s]%s[/COLOR]!' % (COLOR2, COLOR1, ADDONTITLE), 'Would you like to download [COLOR %s]v%s[/COLOR]?[/COLOR]' % (COLOR1, ver), nolabel='[B][COLOR red]Remind Me Later[/COLOR][/B]', yeslabel="[B][COLOR green]Update Wizard[/COLOR][/B]")
 			if yes:
@@ -2247,15 +2225,11 @@ def clearArchive():
 def clearCache(over=None):
 	PROFILEADDONDATA = os.path.join(PROFILE,'addon_data')
 	dbfiles   = [
-		(os.path.join(ADDOND, 'plugin.video.bob', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.elysium', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.specto', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.genesis', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.exodus', 'cache.db')),
-		(os.path.join(DATABASE,  'onechannelcache.db')),
-		(os.path.join(DATABASE,  'saltscache.db')),
-		(os.path.join(DATABASE,  'saltshd.lite.db'))]
-		
+		(os.path.join(ADDOND, 'plugin.video.gaia', 'cache.db')),
+		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db')),
+		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db')),
+		(os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'cache.db'))]
+
 	cachelist = [
 		(PROFILEADDONDATA),
 		(ADDOND),
@@ -2309,14 +2283,10 @@ def clearCache(over=None):
 		files = []
 		if INCLUDEALL == 'true': files = dbfiles
 		else:
-			if INCLUDEBOB == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.bob', 'cache.db'))
-			if INCLUDESPECTO == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.specto', 'cache.db'))
-			if INCLUDEGENESIS == 'true': files.append(os.path.join(ADDOND, 'plugin.video.genesis', 'cache.db'))
-			if INCLUDEELY == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.elysium', 'cache.db'))
-			if INCLUDEEXODUS == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.exodus', 'cache.db'))
-			if INCLUDEONECHAN == 'true': files.append(os.path.join(DATABASE,  'onechannelcache.db'))
-			if INCLUDESALTS == 'true':   files.append(os.path.join(DATABASE,  'saltscache.db'))
-			if INCLUDESALTSHD == 'true': files.append(os.path.join(DATABASE,  'saltshd.lite.db'))
+			if INCLUDEGAIA == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.gaia', 'cache.db'))
+			if INCLUDEINCURSION == 'true':  files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db'))
+			if INCLUDEPLACENTA == 'true': files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db'))
+			if INCLUDENUMBERS == 'true':     files.append(os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'cache.db'))
 		if len(files) > 0:
 			for item in files:
 				if os.path.exists(item):
