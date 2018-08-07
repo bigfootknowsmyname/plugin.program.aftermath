@@ -23,7 +23,7 @@ import urllib2,urllib
 import re
 import uservar
 from datetime import date, datetime, timedelta
-from resources.libs import extract, downloader, notify, loginit, debridit, allucit, traktit, skinSwitch, uploadLog, wizard as wiz
+from resources.libs import extract, downloader, notify, loginit, debridit, traktit, skinSwitch, uploadLog, wizard as wiz
 
 ADDON_ID       = uservar.ADDON_ID
 ADDONTITLE     = uservar.ADDONTITLE
@@ -64,11 +64,9 @@ AUTOFEQ        = wiz.getS('autocleanfeq')
 AUTONEXTRUN    = wiz.getS('nextautocleanup')
 TRAKTSAVE      = wiz.getS('traktlastsave')
 REALSAVE       = wiz.getS('debridlastsave')
-ALLUCSAVE      = wiz.getS('alluclastsave')
 LOGINSAVE      = wiz.getS('loginlastsave')
 KEEPTRAKT      = wiz.getS('keeptrakt')
 KEEPREAL       = wiz.getS('keepdebrid')
-KEEPALLUC      = wiz.getS('keepalluc')
 KEEPLOGIN      = wiz.getS('keeplogin')
 INSTALLED      = wiz.getS('installed')
 EXTRACT        = wiz.getS('extract')
@@ -133,7 +131,7 @@ def checkInstalled():
 	current = ''
 	for skin in SKINCHECK:
 		skinpath = os.path.join(ADDONS,skin)
-		if os.path.exists(skinpath): 
+		if os.path.exists(skinpath):
 			current = skin
 	if current == SKINCHECK[0]:
 		yes_pressed = DIALOG.yesno(ADDONTITLE,"[COLOR dodgerblue]Aftermath[/COLOR] Zephyr is currently outdated and is no longer being updated.", "Please download one of the newer community builds.", yeslabel="Build Menu", nolabel="Ignore")
@@ -144,16 +142,16 @@ def checkInstalled():
 		if yes_pressed:	xbmc.executebuiltin('ActivateWindow(10025 , "plugin://%s/?mode=builds", return)' % ADDON_ID)
 		else: DIALOG.ok(ADDONTITLE, 'You can still install a community build from the [COLOR dodgerblue]Aftermath[/COLOR] Wizard.')
 	elif current == SKINCHECK[2]:
-		if KODIV >= 16: 
+		if KODIV >= 16:
 			gui   = os.path.join(ADDOND, SKINCHECK[2], 'settings.xml')
 			f     = open(gui,mode='r'); g = f.read(); f.close()
 			match = re.compile('<setting id=\"SubSettings.3.Label\" type=\"string\">(.+?)<\/setting>').findall(g)
-			if len(match): 
+			if len(match):
 				name, build, ver = match[0].replace('[COLOR dodgerblue]','').replace('[/COLOR]','').split(' ')
-			else: 
+			else:
 				build = "Simple"
 				ver = "v0.1"
-		else: 
+		else:
 			gui   = os.path.join(USERDATA,'guisettings.xml')
 			f     = open(gui,mode='r'); g = f.read(); f.close()
 			match = re.compile('<setting type=\"string\" name=\"skin.aftermath.simple.SubSettings.3.Label\">(.+?)<\/setting>').findall(g)
@@ -216,7 +214,7 @@ def checkSkin():
 				if DIALOG.yesno(ADDONTITLE, "[COLOR %s]It seems that the skin has been set back to [COLOR %s]%s[/COLOR]" % (COLOR2, COLOR1, SKIN[5:].title()), "Would you like to view a list of avaliable skins?[/COLOR]"):
 					choice = DIALOG.select("Select skin to switch to!", skinname)
 					if choice == -1: wiz.log("Skin was not reset", xbmc.LOGNOTICE); wiz.setS('defaultskinignore', 'true')
-					else: 
+					else:
 						gotoskin = skinlist[choice]
 						gotoname = skinname[choice]
 				else: wiz.log("Skin was not reset", xbmc.LOGNOTICE); wiz.setS('defaultskinignore', 'true')
@@ -307,12 +305,12 @@ if AUTOINSTALL == 'Yes' and not os.path.exists(os.path.join(ADDONS, REPOID)):
 				xbmc.sleep(500)
 				wiz.forceUpdate(True)
 				wiz.log("[Auto Install Repo] Successfully Installed", xbmc.LOGNOTICE)
-			else: 
+			else:
 				wiz.LogNotify("[COLOR %s]Repo Install Error[/COLOR]" % COLOR1, "[COLOR %s]Invalid url for zip![/COLOR]" % COLOR2)
 				wiz.log("[Auto Install Repo] Was unable to create a working url for repository. %s" % workingrepo, xbmc.LOGERROR)
 		else:
 			wiz.log("Invalid URL for Repo Zip", xbmc.LOGERROR)
-	else: 
+	else:
 		wiz.LogNotify("[COLOR %s]Repo Install Error[/COLOR]" % COLOR1, "[COLOR %s]Invalid addon.xml file![/COLOR]" % COLOR2)
 		wiz.log("[Auto Install Repo] Unable to read the addon.xml file.", xbmc.LOGERROR)
 elif not AUTOINSTALL == 'Yes': wiz.log("[Auto Install Repo] Not Enabled", xbmc.LOGNOTICE)
@@ -361,7 +359,7 @@ if INSTALLED == 'true':
 		yes=DIALOG.yesno(ADDONTITLE, '[COLOR %s]%s[/COLOR] [COLOR %s]was not installed correctly!' % (COLOR1, COLOR2, BUILDNAME), 'Installed: [COLOR %s]%s[/COLOR] / Error Count: [COLOR %s]%s[/COLOR]' % (COLOR1, EXTRACT, COLOR1, EXTERROR), 'Would you like to try again?[/COLOR]', nolabel='[B]No Thanks![/B]', yeslabel='[B]Retry Install[/B]')
 		wiz.clearS('build')
 		FAILED = True
-		if yes: 
+		if yes:
 			wiz.ebi("PlayMedia(plugin://%s/?mode=install&name=%s&url=fresh)" % (ADDON_ID, urllib.quote_plus(BUILDNAME)))
 			wiz.log("[Installed Check] Fresh Install Re-activated", xbmc.LOGNOTICE)
 		else: wiz.log("[Installed Check] Reinstall Ignored")
@@ -392,7 +390,6 @@ if INSTALLED == 'true':
 		wiz.ebi('StartPVRManager')
 	wiz.addonUpdates('reset')
 	if KEEPTRAKT == 'true': traktit.traktIt('restore', 'all'); wiz.log('[Installed Check] Restoring Trakt Data', xbmc.LOGNOTICE)
-	if KEEPALLUC == 'true': allucit.allucIt('restore', 'all'); wiz.log('[Installed Check] Restoring Trakt Data', xbmc.LOGNOTICE)
 	if KEEPREAL  == 'true': debridit.debridIt('restore', 'all'); wiz.log('[Installed Check] Restoring Real Debrid Data', xbmc.LOGNOTICE)
 	if KEEPLOGIN == 'true': loginit.loginIt('restore', 'all'); wiz.log('[Installed Check] Restoring Login Data', xbmc.LOGNOTICE)
 	wiz.clearS('install')
@@ -417,7 +414,7 @@ if FAILED == False:
 			wiz.log("[Build Check] Build Installed: Checking Updates", xbmc.LOGNOTICE)
 			wiz.setS('lastbuildcheck', str(NEXTCHECK))
 			checkUpdate()
-		else: 
+		else:
 			wiz.log("[Build Check] Build Installed: Next check isnt until: %s / TODAY is: %s" % (BUILDCHECK, str(TODAY)), xbmc.LOGNOTICE)
 
 wiz.log("[Trakt Data] Started", xbmc.LOGNOTICE)
@@ -426,7 +423,7 @@ if KEEPTRAKT == 'true':
 		wiz.log("[Trakt Data] Saving all Data", xbmc.LOGNOTICE)
 		traktit.autoUpdate('all')
 		wiz.setS('traktlastsave', str(THREEDAYS))
-	else: 
+	else:
 		wiz.log("[Trakt Data] Next Auto Save isnt until: %s / TODAY is: %s" % (TRAKTSAVE, str(TODAY)), xbmc.LOGNOTICE)
 else: wiz.log("[Trakt Data] Not Enabled", xbmc.LOGNOTICE)
 
@@ -436,19 +433,9 @@ if KEEPREAL == 'true':
 		wiz.log("[Real Debrid Data] Saving all Data", xbmc.LOGNOTICE)
 		debridit.autoUpdate('all')
 		wiz.setS('debridlastsave', str(THREEDAYS))
-	else: 
+	else:
 		wiz.log("[Real Debrid Data] Next Auto Save isnt until: %s / TODAY is: %s" % (REALSAVE, str(TODAY)), xbmc.LOGNOTICE)
 else: wiz.log("[Real Debrid Data] Not Enabled", xbmc.LOGNOTICE)
-
-wiz.log("[Alluc Login Data] Started", xbmc.LOGNOTICE)
-if KEEPALLUC == 'true':
-	if ALLUCSAVE <= str(TODAY):
-		wiz.log("[Alluc Login Data] Saving all Data", xbmc.LOGNOTICE)
-		allucit.autoUpdate('all')
-		wiz.setS('alluclastsave', str(THREEDAYS))
-	else: 
-		wiz.log("[Alluc Login Data] Next Auto Save isnt until: %s / TODAY is: %s" % (ALLUCSAVE, str(TODAY)), xbmc.LOGNOTICE)
-else: wiz.log("[Alluc Login Data] Not Enabled", xbmc.LOGNOTICE)
 
 wiz.log("[Login Data] Started", xbmc.LOGNOTICE)
 if KEEPLOGIN == 'true':
@@ -456,7 +443,7 @@ if KEEPLOGIN == 'true':
 		wiz.log("[Login Data] Saving all Data", xbmc.LOGNOTICE)
 		loginit.autoUpdate('all')
 		wiz.setS('loginlastsave', str(THREEDAYS))
-	else: 
+	else:
 		wiz.log("[Login Data] Next Auto Save isnt until: %s / TODAY is: %s" % (LOGINSAVE, str(TODAY)), xbmc.LOGNOTICE)
 else: wiz.log("[Login Data] Not Enabled", xbmc.LOGNOTICE)
 

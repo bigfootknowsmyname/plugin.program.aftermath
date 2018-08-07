@@ -28,7 +28,7 @@ try:    from sqlite3 import dbapi2 as database
 except: from pysqlite2 import dbapi2 as database
 from datetime import date, datetime, timedelta
 from urlparse import urljoin
-from resources.libs import extract, downloader, notify, debridit, traktit, allucit, loginit, skinSwitch, uploadLog, yt, speedtest, wizard as wiz
+from resources.libs import extract, downloader, notify, debridit, traktit, loginit, skinSwitch, uploadLog, yt, speedtest, wizard as wiz
 
 ADDON_ID         = uservar.ADDON_ID
 ADDONTITLE       = uservar.ADDONTITLE
@@ -96,7 +96,6 @@ NOTEID           = wiz.getS('noteid')
 NOTEDISMISS      = wiz.getS('notedismiss')
 TRAKTSAVE        = wiz.getS('traktlastsave')
 REALSAVE         = wiz.getS('debridlastsave')
-ALLUCSAVE        = wiz.getS('alluclastsave')
 LOGINSAVE        = wiz.getS('loginlastsave')
 KEEPFAVS         = wiz.getS('keepfavourites')
 KEEPSOURCES      = wiz.getS('keepsources')
@@ -107,7 +106,6 @@ KEEPSUPER        = wiz.getS('keepsuper')
 KEEPWHITELIST    = wiz.getS('keepwhitelist')
 KEEPTRAKT        = wiz.getS('keeptrakt')
 KEEPREAL         = wiz.getS('keepdebrid')
-KEEPALLUC        = wiz.getS('keepalluc')
 KEEPLOGIN        = wiz.getS('keeplogin')
 DEVELOPER        = wiz.getS('developer')
 THIRDPARTY       = wiz.getS('enable3rd')
@@ -169,7 +167,6 @@ LOGFILES         = wiz.LOGFILES
 TRAKTID          = traktit.TRAKTID
 DEBRIDID         = debridit.DEBRIDID
 LOGINID          = loginit.LOGINID
-ALLUCID          = allucit.ALLUCID
 MODURL           = 'http://tribeca.tvaddons.ag/tools/maintenance/modules/'
 MODURL2          = 'http://mirrors.kodi.tv/addons/jarvis/'
 INSTALLMETHODS   = ['Always Ask', 'Reload Profile', 'Force Close']
@@ -1114,7 +1111,6 @@ def systemInfo():
 def saveMenu():
 	on = '[COLOR green]ON[/COLOR]'; off = '[COLOR red]OFF[/COLOR]'
 	trakt      = 'true' if KEEPTRAKT     == 'true' else 'false'
-	alluc      = 'true' if KEEPALLUC     == 'true' else 'false'
 	real       = 'true' if KEEPREAL      == 'true' else 'false'
 	login      = 'true' if KEEPLOGIN     == 'true' else 'false'
 	sources    = 'true' if KEEPSOURCES   == 'true' else 'false'
@@ -1127,14 +1123,12 @@ def saveMenu():
 
 	addDir ('Keep Trakt Data',               'trakt',                icon=ICONTRAKT, themeit=THEME1)
 	addDir ('Keep Real Debrid',              'realdebrid',           icon=ICONREAL,  themeit=THEME1)
-	addDir ('Keep Alluc Login',              'alluc',                icon=ICONLOGIN, themeit=THEME1)
 	addDir ('Keep Login Info',               'login',                icon=ICONLOGIN, themeit=THEME1)
 	addFile('Import Save Data',              'managedata', 'import', icon=ICONSAVE,  themeit=THEME1)
 	addFile('Export Save Data',              'managedata', 'export', icon=ICONSAVE,  themeit=THEME1)
 	addFile('- Click to toggle settings -', '', themeit=THEME3)
 	addFile('Save Trakt: %s' % trakt.replace('true',on).replace('false',off)                       ,'togglesetting', 'keeptrakt',      icon=ICONTRAKT, themeit=THEME1)
 	addFile('Save Real Debrid: %s' % real.replace('true',on).replace('false',off)                  ,'togglesetting', 'keepdebrid',     icon=ICONREAL,  themeit=THEME1)
-	addFile('Save Alluc Login: %s' % alluc.replace('true',on).replace('false',off)                 ,'togglesetting', 'keepalluc',      icon=ICONREAL,  themeit=THEME1)
 	addFile('Save Login Info: %s' % login.replace('true',on).replace('false',off)                  ,'togglesetting', 'keeplogin',      icon=ICONLOGIN, themeit=THEME1)
 	addFile('Keep \'Sources.xml\': %s' % sources.replace('true',on).replace('false',off)           ,'togglesetting', 'keepsources',    icon=ICONSAVE,  themeit=THEME1)
 	addFile('Keep \'Profiles.xml\': %s' % profiles.replace('true',on).replace('false',off)         ,'togglesetting', 'keepprofiles',   icon=ICONSAVE,  themeit=THEME1)
@@ -1225,44 +1219,6 @@ def realMenu():
 	addFile('Import Real Debrid Data',            'importdebrid',  'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Clear All Saved Real Debrid Data',   'cleardebrid',   'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Clear All Addon Data',               'addondebrid',   'all', icon=ICONREAL,  themeit=THEME3)
-	setView('files', 'viewType')
-
-def allucMenu():
-	alluc = '[COLOR green]ON[/COLOR]' if KEEPALLUC == 'true' else '[COLOR red]OFF[/COLOR]'
-	last  = str(ALLUCSAVE) if not ALLUCSAVE == '' else 'Alluc Login hasnt been saved yet.'
-	addFile('[I]http://accounts.alluc.com/ is a Free service.[/I]', '', icon=ICONLOGIN, themeit=THEME3)
-	addFile('Save Alluc Login Data: %s' % alluc, 'togglesetting', 'keepalluc', icon=ICONLOGIN, themeit=THEME3)
-	if KEEPALLUC == 'true': addFile('Last Save: %s' % str(last), '', icon=ICONLOGIN, themeit=THEME3)
-	if HIDESPACERS == 'No': addFile(wiz.sep(), '', icon=ICONLOGIN, themeit=THEME3)
-
-	for alluc in allucit.ORDER:
-		name   = ALLUCID[alluc]['name']
-		path   = ALLUCID[alluc]['path']
-		saved  = ALLUCID[alluc]['saved']
-		file   = ALLUCID[alluc]['file']
-		user   = wiz.getS(saved)
-		auser  = allucit.allucUser(alluc)
-		icon   = ALLUCID[alluc]['icon']   if os.path.exists(path) else ICONLOGIN
-		fanart = ALLUCID[alluc]['fanart'] if os.path.exists(path) else FANART
-		menu = createMenu('saveaddon', 'ALLUC', alluc)
-		menu2 = createMenu('save', 'Alluc', alluc)
-		menu.append((THEME2 % '%s Settings' % name,              'RunPlugin(plugin://%s/?mode=opensettings&name=%s&url=alluc)' %   (ADDON_ID, alluc)))
-
-		addFile('[+]-> %s' % name,     '', icon=icon, fanart=fanart, themeit=THEME3)
-		if not os.path.exists(path): addFile('[COLOR red]Addon Data: Not Installed[/COLOR]', '', icon=icon, fanart=fanart, menu=menu)
-		elif not auser:              addFile('[COLOR red]Addon Data: Not Registered[/COLOR]','authalluc', alluc, icon=icon, fanart=fanart, menu=menu)
-		else:                        addFile('[COLOR green]Addon Data: %s[/COLOR]' % auser,'authalluc', alluc, icon=icon, fanart=fanart, menu=menu)
-		if user == "":
-			if os.path.exists(file): addFile('[COLOR red]Saved Data: Save File Found(Import Data)[/COLOR]','importalluc', alluc, icon=icon, fanart=fanart, menu=menu2)
-			else :                   addFile('[COLOR red]Saved Data: Not Saved[/COLOR]','savealluc', alluc, icon=icon, fanart=fanart, menu=menu2)
-		else:                        addFile('[COLOR green]Saved Data: %s[/COLOR]' % user, '', icon=icon, fanart=fanart, menu=menu2)
-
-	if HIDESPACERS == 'No': addFile(wiz.sep(), '', themeit=THEME3)
-	addFile('Save All Alluc Login Data',          'savealluc',    'all', icon=ICONREAL,  themeit=THEME3)
-	addFile('Recover All Saved Alluc Login Data', 'restorealluc', 'all', icon=ICONREAL,  themeit=THEME3)
-	addFile('Import Alluc Login Data',            'importalluc',  'all', icon=ICONREAL,  themeit=THEME3)
-	addFile('Clear All Saved Alluc Login Data',   'clearalluc',   'all', icon=ICONREAL,  themeit=THEME3)
-	addFile('Clear All Addon Data',               'addonalluc',   'all', icon=ICONREAL,  themeit=THEME3)
 	setView('files', 'viewType')
 
 def loginMenu():
@@ -1512,9 +1468,6 @@ def buildWizard(name, type, theme=None, over=False):
 			if KEEPREAL == 'true':
 				debridit.autoUpdate('all')
 				wiz.setS('debridlastsave', str(THREEDAYS))
-			if KEEPALLUC == 'true':
-				allucit.autoUpdate('all')
-				wiz.setS('allucnlastsave', str(THREEDAYS))
 			if KEEPLOGIN == 'true':
 				loginit.autoUpdate('all')
 				wiz.setS('loginlastsave', str(THREEDAYS))
@@ -2132,7 +2085,6 @@ def manageSaveData(do):
 		trakt  = os.path.join(TEMP, 'trakt')
 		login  = os.path.join(TEMP, 'login')
 		debrid = os.path.join(TEMP, 'debrid')
-		alluc  = os.path.join(TEMP, 'alluc')
 		super  = os.path.join(TEMP, 'plugin.program.super.favourites')
 		xmls   = os.path.join(TEMP, 'xmls')
 		x = 0
@@ -2182,21 +2134,6 @@ def manageSaveData(do):
 				shutil.copy(temp, old)
 			debridit.importlist('all')
 			debridit.debridIt('restore', 'all')
-		if os.path.exists(alluc):
-			x += 1
-			files = os.listdir(alluc)
-			if not os.path.exists(allucit.ALLUCFOLD): os.makedirs(allucit.ALLUCFOLD)
-			for item in files:
-				old  = os.path.join(allucit.ALLUCFOLD, item)
-				temp = os.path.join(alluc, item)
-				if os.path.exists(old):
-					if overwrite == 1: os.remove(old)
-					else:
-						if not DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like replace the current [COLOR %s]%s[/COLOR] file?" % (COLOR2, COLOR1, item), yeslabel="[B][COLOR green]Yes Replace[/COLOR][/B]", nolabel="[B][COLOR red]No Skip[/COLOR][/B]"): continue
-						else: os.remove(old)
-				shutil.copy(temp, old)
-			allucit.importlist('all')
-			allucit.allucIt('restore', 'all')
 		if os.path.exists(xmls):
 			x += 1
 			files = ['advancedsettings.xml', 'sources.xml', 'favourites.xml', 'profiles.xml']
@@ -2227,13 +2164,12 @@ def manageSaveData(do):
 		else: wiz.LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), "[COLOR %s]Save Data Import Complete[/COLOR]" % COLOR2)
 	elif do == 'export':
 		mybuilds = xbmc.translatePath(MYBUILDS)
-		dir   = [traktit.TRAKTFOLD, debridit.REALFOLD, loginit.LOGINFOLD, allucit.ALLUCFOLD]
+		dir   = [traktit.TRAKTFOLD, debridit.REALFOLD, loginit.LOGINFOLD]
 		xmls  = ['advancedsettings.xml', 'sources.xml', 'favourites.xml', 'profiles.xml']
 		keepx = [KEEPADVANCED, KEEPSOURCES, KEEPFAVS, KEEPPROFILES]
 		traktit.traktIt('update', 'all')
 		loginit.loginIt('update', 'all')
 		debridit.debridIt('update', 'all')
-		allucit.allucIt('update', 'all')
 		source = DIALOG.browse(3, '[COLOR %s]Select where you wish to export the savedata zip?[/COLOR]' % COLOR2, 'files', '', False, True, HOME)
 		source = xbmc.translatePath(source)
 		tempzip = os.path.join(mybuilds, 'SaveData.zip')
@@ -2644,15 +2580,6 @@ elif mode=='cleardebrid'    : debridit.clearSaved(name)
 elif mode=='authdebrid'     : debridit.activateDebrid(name); wiz.refresh()
 elif mode=='updatedebrid'   : debridit.autoUpdate('all')
 elif mode=='importdebrid'   : debridit.importlist(name); wiz.refresh()
-
-elif mode=='alluc'          : allucMenu()
-elif mode=='savealluc'      : allucit.allucIt('update',      name)
-elif mode=='restorealluc'   : allucit.allucIt('restore',     name)
-elif mode=='addonalluc'     : allucit.allucIt('clearaddon',  name)
-elif mode=='clearalluc'     : allucit.clearSaved(name)
-elif mode=='authalluc'      : allucit.activateAlluc(name); wiz.refresh()
-elif mode=='updatealluc'    : allucit.autoUpdate('all')
-elif mode=='importalluc'    : allucit.importlist(name); wiz.refresh()
 
 elif mode=='login'          : loginMenu()
 elif mode=='savelogin'      : loginit.loginIt('update',      name)
