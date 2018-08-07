@@ -802,7 +802,7 @@ def maintMenu(view=None):
 		includeincursion = 'true'
 		includenumbers = 'true'
 		includegaia = 'true'
-		includesneptune = 'true'
+		includeneptune = 'true'
 	else:
 		includechappai = 'true' if INCLUDECHAPPAI     == 'true' else 'false'
 		includeuranus = 'true' if INCLUDEURANUS     == 'true' else 'false'
@@ -811,7 +811,7 @@ def maintMenu(view=None):
 		includeincursion = 'true' if INCLUDEINCURSION  == 'true' else 'false'
 		includenumbers = 'true' if INCLUDENUMBERS == 'true' else 'false'
 		includegaia = 'true' if INCLUDEGAIA   == 'true' else 'false'
-		includesneptune = 'true' if INCLUDENEPTUNE == 'true' else 'false'
+		includeneptune = 'true' if INCLUDENEPTUNE == 'true' else 'false'
 	sizepack   = wiz.getSize(PACKAGES)
 	sizethumb  = wiz.getSize(THUMBS)
 	archive    = wiz.getSize(ARCHIVE_CACHE)
