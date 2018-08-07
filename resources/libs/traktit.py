@@ -48,11 +48,11 @@ KEEPTRAKT      = wiz.getS('keeptrakt')
 TRAKTSAVE      = wiz.getS('traktlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['chappaai', 'forqed', 'uranus', 'death', 'placenta', 'incursion', 'neptune','gaia', 'streamhub', 'notsure', 'trakt']
+ORDER          = ['chappaai', 'forqed', 'uranus', 'death', 'placenta', 'incursion', 'numbers','gaia', 'streamhub', 'notsure', 'neptune', 'trakt']
 
-TRAKTID = { 
+TRAKTID = {
 	'chappaai': {
-		'name'     : 'Chappa AI',
+		'name'     : 'Chappa'ai',
 		'plugin'   : 'plugin.video.chappaai',
 		'saved'    : 'chappaai',
 		'path'     : os.path.join(ADDONS, 'plugin.video.chappaai'),
@@ -87,34 +87,8 @@ TRAKTID = {
 		'default'  : 'trakt.user',
 		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
 		'activate' : 'RunPlugin(plugin://plugin.video.uranus/?action=authTrakt)'},
-	'incursion': {
-		'name'     : 'incursion',
-		'plugin'   : 'plugin.video.incursion',
-
-		'plugin'   : 'plugin.video.incursion',
-		'saved'    : 'incursion',
-		'path'     : os.path.join(ADDONS, 'plugin.video.incursion'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.incursion', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.incursion', 'fanart.jpg'),
-		'file'     : os.path.join(TRAKTFOLD, 'incursion_trakt'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.incursion', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.incursion', 'fanart.jpg'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.incursion', 'fanart.jpg'),
-
-		'settings' : os.path.join(ADDOND, 'plugin.video.incursion', 'settings.xml'),
-		'default'  : 'trakt.user',
-		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
-		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
-		'activate' : 'RunPlugin(plugin://plugin.video.uranus/?action=authTrakt)'},
 	'death': {
 		'name'     : 'Death Streams',
-		'plugin'   : 'plugin.video.blamo',
-		'saved'    : 'death',
-		'path'     : os.path.join(ADDONS, 'plugin.video.blamo'),
-		'icon'     : os.path.join(ADDONS, 'plugin.video.blamo', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'plugin.video.blamo', 'fanart.jpg'),
-		'file'     : os.path.join(TRAKTFOLD, 'death_trakt'),
-		'settings' : os.path.join(ADDOND, 'plugin.video.blamo', 'settings.xml'),
 		'plugin'   : 'plugin.video.blamo',
 		'saved'    : 'death',
 		'path'     : os.path.join(ADDONS, 'plugin.video.blamo'),
@@ -137,6 +111,19 @@ TRAKTID = {
 		'default'  : 'trakt.user',
 		'data'     : ['trakt.user', 'trakt.refresh', 'trakt.token'],
 		'activate' : 'RunPlugin(plugin://plugin.video.placenta/?action=authTrakt)'},
+	'incursion': {
+		'name'     : 'incursion',
+		'plugin'   : 'plugin.video.incursion',
+		'saved'    : 'incursion',
+		'path'     : os.path.join(ADDONS, 'plugin.video.incursion'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.incursion', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.incursion', 'fanart.jpg'),
+		'file'     : os.path.join(TRAKTFOLD, 'incursion_trakt'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.incursion', 'icon.png'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.incursion', 'settings.xml'),
+		'default'  : 'trakt.user',
+		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
+		'activate' : 'RunPlugin(plugin://plugin.video.uranus/?action=authTrakt)'},
 	'numbers': {
 		'name'     : 'numbers',
 		'plugin'   : 'plugin.video.numbersbynumbers',
@@ -160,8 +147,7 @@ TRAKTID = {
 		'settings' : os.path.join(ADDOND, 'plugin.video.gaia', 'settings.xml'),
 		'default'  : 'accounts.informants.trakt.user',
 		'data'     : ['accounts.informants.trakt.user', 'accounts.informants.trakt.refresh', 'accounts.informants.trakt.token'],
-		'data'     : ['accounts.informants.trakt.user', 'accounts.informants.trakt.refresh', 'accounts.informants.trakt.token'],
-		'activate' : 'RunPlugin(plugin://plugin.video.gaia/?action=authTrakt)'},			
+		'activate' : 'RunPlugin(plugin://plugin.video.gaia/?action=authTrakt)'},
 	'streamhub': {
 		'name'     : 'StreamHub',
 		'plugin'   : 'plugin.video.streamhub',
@@ -186,6 +172,18 @@ TRAKTID = {
 		'default'  : 'trakt.user',
 		'data'     : ['trakt.user', 'trakt.refresh', 'trakt.token'],
 		'activate' : 'RunPlugin(plugin://plugin.video.sedundnes/?action=authTrakt)'},
+	'neptune': {
+		'name'     : 'Neptune Rising',
+		'plugin'   : 'plugin.video.neptune',
+		'saved'    : 'neptune',
+		'path'     : os.path.join(ADDONS, 'plugin.video.neptune'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.neptune', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.neptune', 'fanart.jpg'),
+		'file'     : os.path.join(TRAKTFOLD, 'neptune_trakt'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.neptune', 'settings.xml'),
+		'default'  : 'trakt.user',
+		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
+		'activate' : 'RunPlugin(plugin://plugin.video.neptune/?action=authTrakt)'},
 	'trakt': {
 		'name'     : 'Trakt',
 		'plugin'   : 'script.trakt',
@@ -260,7 +258,7 @@ def updateTrakt(do, who):
 		if not user == '':
 			try:
 				with open(file, 'w') as f:
-					for trakt in data: 
+					for trakt in data:
 						f.write('<trakt>\n\t<id>%s</id>\n\t<value>%s</value>\n</trakt>\n' % (trakt, addonid.getSetting(trakt)))
 					f.close()
 				user = addonid.getSetting(default)
@@ -342,13 +340,13 @@ def importlist(who):
 
 def activateTrakt(who):
 	if TRAKTID[who]:
-		if os.path.exists(TRAKTID[who]['path']): 
+		if os.path.exists(TRAKTID[who]['path']):
 			act     = TRAKTID[who]['activate']
 			addonid = wiz.addonId(TRAKTID[who]['plugin'])
 			if act == '': addonid.openSettings()
 			else: url = xbmc.executebuiltin(TRAKTID[who]['activate'])
 		else: DIALOG.ok(ADDONTITLE, '%s is not currently installed.' % TRAKTID[who]['name'])
-	else: 
+	else:
 		wiz.refresh()
 		return
 	check = 0
