@@ -23,6 +23,9 @@ YOUTUBEFILE    = 'http://'
 ADDONFILE      = 'http://cb.srfx.in/addons.txt'
 # Text File for advanced settings.  Leave as 'http://' to ignore
 ADVANCEDFILE   = 'http://aftermathwizard.net/testtext/advanced.txt'
+# Text file for roms and emus
+ROMPACK        = 'http://'
+EMUAPKS        = 'http://'
 
 # Dont need to edit just here for icons stored locally
 PATH           = xbmcaddon.Addon().getAddonInfo('path')
@@ -39,7 +42,9 @@ ART            = os.path.join(PATH, 'resources', 'art')
 # Leave as http:// for default icon
 ICONBUILDS     = os.path.join(ART, 'builds.png')
 ICONMAINT      = os.path.join(ART, 'Maintenance.png')
+ICONSPEED      = 'http://'
 ICONAPK        = os.path.join(ART, 'apkinstaller.png')
+ICONRETRO      = 'http://'
 ICONADDONS     = os.path.join(ART, 'addoninstaller.png')
 ICONYOUTUBE    = 'http://'
 ICONSAVE       = os.path.join(ART, 'savedata.png')
