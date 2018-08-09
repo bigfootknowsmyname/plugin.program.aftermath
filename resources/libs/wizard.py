@@ -95,7 +95,7 @@ COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
 INCLUDEVIDEO   = ADDON.getSetting('includevideo')
 INCLUDEALL     = ADDON.getSetting('includeall')
-INCLUDECHAPPAI = ADDON.getSetting('includechappai')
+INCLUDECHAPPAAI = ADDON.getSetting('includechappaai')
 INCLUDEURANUS = ADDON.getSetting('includeuranus')
 INCLUDEDEATH = ADDON.getSetting('includedeath')
 INCLUDEPLACENTA  = ADDON.getSetting('includeplacenta')
@@ -738,7 +738,7 @@ def createTemp(plugin):
 	log("%s: wrote addon.xml" % plugin)
 
 def fixmetas():
-	idlist = ['plugin.video.metalliq', 'plugin.video.meta', 'script.renegadesmeta']
+	idlist = ['plugin.video.chappaai', 'plugin.video.meta', 'script.renegadesmeta']
 	#temp   = os.path.join(PLUGIN, 'resources', 'tempaddon.xml')
 	#f      = open(temp, 'r'); r = f.read(); f.close()
 	for item in idlist:

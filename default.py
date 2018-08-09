@@ -84,7 +84,7 @@ AUTOFEQ          = wiz.getS('autocleanfeq')
 AUTONEXTRUN      = wiz.getS('nextautocleanup')
 INCLUDEVIDEO     = wiz.getS('includevideo')
 INCLUDEALL       = wiz.getS('includeall')
-INCLUDECHAPPAI       = wiz.getS('includechappai')
+INCLUDECHAPPAAI       = wiz.getS('includechappaai')
 INCLUDEURANUS    = wiz.getS('includeuranus')
 INCLUDEDEATH   = wiz.getS('includedeath')
 INCLUDEPLACENTA    = wiz.getS('includeplacenta')
@@ -804,7 +804,7 @@ def maintMenu(view=None):
 	errorsfound = str(errors) + ' Error(s) Found' if errors > 0 else 'None Found'
 	wizlogsize = ': [COLOR red]Not Found[/COLOR]' if not os.path.exists(WIZLOG) else ": [COLOR green]%s[/COLOR]" % wiz.convertSize(os.path.getsize(WIZLOG))
 	if includeall == 'true':
-		includechappai = 'true'
+		includechappaai = 'true'
 		includeuranus = 'true'
 		includedeath = 'true'
 		includeplacenta = 'true'
@@ -813,7 +813,7 @@ def maintMenu(view=None):
 		includegaia = 'true'
 		includeneptune = 'true'
 	else:
-		includechappai = 'true' if INCLUDECHAPPAI     == 'true' else 'false'
+		includechappaai = 'true' if INCLUDECHAPPAAI     == 'true' else 'false'
 		includeuranus = 'true' if INCLUDEURANUS     == 'true' else 'false'
 		includedeath = 'true' if INCLUDEDEATH  == 'true' else 'false'
 		includeplacenta = 'true' if INCLUDEPLACENTA == 'true' else 'false'
@@ -913,7 +913,7 @@ def maintMenu(view=None):
 	addFile('Include Video Cache in Clear Cache: %s' % includevid.replace('true',on).replace('false',off), 'togglecache', 'includevideo', icon=ICONMAINT, themeit=THEME3)
 	if includevid == 'true':
 		addFile('--- Include All Video Addons: %s' % includeall.replace('true',on).replace('false',off), 'togglecache', 'includeall', icon=ICONMAINT, themeit=THEME3)
-		addFile('--- Include Chappa\'ai: %s' % includechappai.replace('true',on).replace('false',off), 'togglecache', 'includechappai', icon=ICONMAINT, themeit=THEME3)
+		addFile('--- Include Chappa\'ai: %s' % includechappaai.replace('true',on).replace('false',off), 'togglecache', 'includechappaai', icon=ICONMAINT, themeit=THEME3)
 		addFile('--- Include Uranus: %s' % includeuranus.replace('true',on).replace('false',off), 'togglecache', 'includeuranus', icon=ICONMAINT, themeit=THEME3)
 		addFile('--- Include Death Streams: %s' % includedeath.replace('true',on).replace('false',off), 'togglecache', 'includedeath', icon=ICONMAINT, themeit=THEME3)
 		addFile('--- Include Placenta: %s' % includeplacenta.replace('true',on).replace('false',off), 'togglecache', 'includeplacenta', icon=ICONMAINT, themeit=THEME3)
@@ -1106,15 +1106,15 @@ def systemInfo():
 	addFile('[COLOR %s]Provider:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, provider), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Location:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, location), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]MacAddress:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[5]), '', icon=ICONMAINT, themeit=THEME2)
-	
+
 	addFile('[B]Network:[/B]', '', icon=ICONSPEED, themeit=THEME2)
 	addFile('[COLOR %s]Local IP:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[4]), '', icon=ICONSPEED, themeit=THEME2)
 	addFile('[COLOR %s]External IP:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, exter_ip), '', icon=ICONSPEED, themeit=THEME2)
 	addFile('[COLOR %s]Provider:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, provider), '', icon=ICONSPEED, themeit=THEME2)
 	addFile('[COLOR %s]Location:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, location), '', icon=ICONSPEED, themeit=THEME2)
 	addFile('[COLOR %s]MacAddress:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, data[5]), '', icon=ICONSPEED, themeit=THEME2)
-	
-	totalcount = len(picture) + len(music) + len(video) + len(programs) + len(scripts) + len(skins) + len(repos) 
+
+	totalcount = len(picture) + len(music) + len(video) + len(programs) + len(scripts) + len(skins) + len(repos)
 	addFile('[B]Addons([COLOR %s]%s[/COLOR]):[/B]' % (COLOR1, totalcount), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Video Addons:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, str(len(video))), '', icon=ICONMAINT, themeit=THEME2)
 	addFile('[COLOR %s]Program Addons:[/COLOR] [COLOR %s]%s[/COLOR]' % (COLOR1, COLOR2, str(len(programs))), '', icon=ICONMAINT, themeit=THEME2)
@@ -1766,7 +1766,7 @@ def createMenu(type, add, name):
 	return menu_items
 
 def toggleCache(state):
-	cachelist = ['includevideo', 'includeall', 'includechappai', 'includeuranus', 'includedeath', 'includeneptune', 'includeplacenta', 'includegaia', 'includeincursion', 'includenumbers']
+	cachelist = ['includevideo', 'includeall', 'includechappaai', 'includeuranus', 'includedeath', 'includeneptune', 'includeplacenta', 'includegaia', 'includeincursion', 'includenumbers']
 	titlelist = ['Include Video Addons', 'Include All Addons', 'Include Chappa\'ai', 'Include Uranus', 'Include Death Streams', 'Include Neptune', 'Include Placenta', 'Include Gaia', 'Include Incursion', 'Include Numbers']
 	if state in ['true', 'false']:
 		for item in cachelist:
@@ -2505,8 +2505,8 @@ def UNZIPROM():
 	elif wiz.platform() == 'linux':
 		extract.all(lib,WROMLOC,DP)
 		DIALOG.ok(ADDONTITLE, "[COLOR yellow]Download complete, ROM Location: [/COLOR][COLOR white]" + WROMLOC + "[/COLOR]")
-	
-	
+
+
 def MKDIRS():
 	if wiz.platform() == 'android':
 		if not os.path.exists(ROMLOC): os.makedirs(ROMLOC)
@@ -2514,7 +2514,7 @@ def MKDIRS():
 		if not os.path.exists(WROMLOC): os.makedirs(WROMLOC)
 	elif wiz.platform() == 'linux':
 		if not os.path.exists(WROMLOC): os.makedirs(WROMLOC)
-		
+
 #########################################NET TOOLS#############################################
 def net_tools(view=None):
 	if HIDESPACERS == 'No': addFile(wiz.sep('Net Tools'), '', themeit=THEME3)
@@ -2578,7 +2578,7 @@ def speed():
 	except:
 		wiz.log("[Speed Test] Error Running Speed Test")
 		pass
-	
+
 ################KODI VERSION##########################################
 def KodiVer():
 	if KODIV >= 16.0 and KODIV <= 16.9:vername = 'Jarvis'
