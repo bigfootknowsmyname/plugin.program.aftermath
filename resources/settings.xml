@@ -115,7 +115,7 @@
 		<setting type="lsep" label="Save Login Data:"/>
 		<setting id="keeplogin" type="bool" label="Keep My Login Data" default="false"/>
 		<setting id="loginopensub" type="text" label="Open Subtitles: " enable="false" default=""/>
-		<setting id="loginorion" type="text" label="Orion: " enable="false" default=""/>
+		<setting id="loginorion" type="text" label="Orion API Key: " enable="false" default=""/>
 	</category>
 
 	<category label="Misc Settings">
