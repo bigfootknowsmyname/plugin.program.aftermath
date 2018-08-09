@@ -48,7 +48,7 @@ KEEPTRAKT      = wiz.getS('keepdebrid')
 REALSAVE       = wiz.getS('debridlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['gaia', 'gaiapm', 'url', 'url2', 'url3', 'url4', 'orion']
+ORDER          = ['gaia', 'gaiapm', 'url', 'url2', 'url3', 'url4']
 
 DEBRIDID = {
 	'gaia': {
@@ -122,20 +122,7 @@ DEBRIDID = {
 		'settings' : os.path.join(ADDOND, 'script.module.resolveurl', 'settings.xml'),
 		'default'  : 'PremiumizeMeResolver_login',
 		'data'     : ['PremiumizeMeResolver_enabled', 'PremiumizeMeResolver_login', 'PremiumizeMeResolver_password', 'PremiumizeMeResolver_priority', 'PremiumizeMeResolver_use_https', 'PremiumizeMeResolver_username'],
-		'activate' : 'RunPlugin(plugin://script.module.resolveurl/?mode=auth_pm)'},
-	'orion': {
-		'name'     : 'Orion API Key',
-		'plugin'   : 'script.module.orion',
-		'saved'    : 'orion',
-		'path'     : os.path.join(ADDONS, 'script.module.orion'),
-		'icon'     : os.path.join(ADDONS, 'script.module.orion', 'icon.png'),
-		'fanart'   : os.path.join(ADDONS, 'script.module.orion', 'fanart.jpg'),
-		'file'     : os.path.join(REALFOLD, 'orion'),
-		'settings' : os.path.join(ADDOND, 'script.module.orion', 'settings.xml'),
-		'default'  : 'account.key',
-		'data'     : ['account.key', 'account.label.api', 'account.label.email', 'account.label.limit', 'account.label.package', 'account.label.refresh', 'account.label.status', 'account.label.time', 'account.valid'],
-		'activate' : 'RunPlugin(plugin://script.module.orion/?mode=auth_orion)'}
-		
+		'activate' : 'RunPlugin(plugin://script.module.resolveurl/?mode=auth_pm)'}	
 }
 
 def debridUser(who):
@@ -198,7 +185,7 @@ def updateDebrid(do, who):
 		if not user == '':
 			try:
 				with open(file, 'w') as f:
-					for debrid in data: 
+					for debrid in data:
 						f.write('<debrid>\n\t<id>%s</id>\n\t<value>%s</value>\n</debrid>\n' % (debrid, addonid.getSetting(debrid)))
 					f.close()
 				user = addonid.getSetting(default)
@@ -280,13 +267,13 @@ def importlist(who):
 
 def activateDebrid(who):
 	if DEBRIDID[who]:
-		if os.path.exists(DEBRIDID[who]['path']): 
+		if os.path.exists(DEBRIDID[who]['path']):
 			act     = DEBRIDID[who]['activate']
 			addonid = wiz.addonId(DEBRIDID[who]['plugin'])
 			if act == '': addonid.openSettings()
 			else: url = xbmc.executebuiltin(DEBRIDID[who]['activate'])
 		else: DIALOG.ok("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE), '%s is not currently installed.' % DEBRIDID[who]['name'])
-	else: 
+	else:
 		wiz.refresh()
 		return
 	check = 0

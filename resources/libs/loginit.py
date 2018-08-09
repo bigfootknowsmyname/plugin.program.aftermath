@@ -48,7 +48,7 @@ KEEPLOGIN      = wiz.getS('keeplogin')
 LOGINSAVE      = wiz.getS('loginlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['opensubtitles']
+ORDER          = ['opensubtitles', 'orion']
 
 LOGINID = {
 	'opensubtitles': {
@@ -62,7 +62,19 @@ LOGINID = {
 		'settings' : os.path.join(ADDOND, 'service.subtitles.opensubtitles', 'settings.xml'),
 		'default'  : 'OSuser',
 		'data'     : ['OSuser', 'OSpass'],
-		'activate' : ''}
+		'activate' : ''},
+	'orion': {
+		'name'     : 'Orion API Key',
+		'plugin'   : 'script.module.orion',
+		'saved'    : 'orion',
+		'path'     : os.path.join(ADDONS, 'script.module.orion'),
+		'icon'     : os.path.join(ADDONS, 'script.module.orion', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'script.module.orion', 'fanart.jpg'),
+		'file'     : os.path.join(REALFOLD, 'orion'),
+		'settings' : os.path.join(ADDOND, 'script.module.orion', 'settings.xml'),
+		'default'  : 'account.key',
+		'data'     : ['account.key'],
+		'activate' : 'RunPlugin(plugin://script.module.orion/?mode=auth_orion)'}
 }
 
 def loginUser(who):
