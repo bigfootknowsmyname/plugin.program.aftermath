@@ -41,8 +41,6 @@ HOME             = xbmc.translatePath('special://home/')
 LOG              = xbmc.translatePath('special://logpath/')
 PROFILE          = xbmc.translatePath('special://profile/')
 TEMPDIR          = xbmc.translatePath('special://temp')
-ROMLOC           = xbmc.translatePath(os.path.join('//storage//emulated//0//Download//roms',''))
-WROMLOC          = xbmc.translatePath(os.path.join('C:\\roms\\',''))
 ADDONS           = os.path.join(HOME,      'addons')
 USERDATA         = os.path.join(HOME,      'userdata')
 PLUGIN           = os.path.join(ADDONS,    ADDON_ID)
@@ -126,8 +124,6 @@ TOMORROW         = TODAY + timedelta(days=1)
 THREEDAYS        = TODAY + timedelta(days=3)
 KODIV            = float(xbmc.getInfoLabel("System.BuildVersion")[:4])
 MCNAME           = wiz.mediaCenter()
-ROMPACK          = uservar.ROMPACK
-EMUAPKS          = uservar.EMUAPKS
 EXCLUDES         = uservar.EXCLUDES
 CACHETEXT        = uservar.CACHETEXT
 CACHEAGE         = uservar.CACHEAGE if str(uservar.CACHEAGE).isdigit() else 30
@@ -158,9 +154,7 @@ THEME4           = uservar.THEME4
 THEME5           = uservar.THEME5
 ICONBUILDS       = uservar.ICONBUILDS if not uservar.ICONBUILDS == 'http://' else ICON
 ICONMAINT        = uservar.ICONMAINT if not uservar.ICONMAINT == 'http://' else ICON
-ICONSPEED        = uservar.ICONSPEED if not uservar.ICONSPEED == 'http://' else ICON
 ICONAPK          = uservar.ICONAPK if not uservar.ICONAPK == 'http://' else ICON
-ICONRETRO        = uservar.ICONRETRO if not uservar.ICONRETRO == 'http://' else ICON
 ICONADDONS       = uservar.ICONADDONS if not uservar.ICONADDONS == 'http://' else ICON
 ICONYOUTUBE      = uservar.ICONYOUTUBE if not uservar.ICONYOUTUBE == 'http://' else ICON
 ICONSAVE         = uservar.ICONSAVE if not uservar.ICONSAVE == 'http://' else ICON
@@ -177,9 +171,10 @@ MODURL           = 'http://tribeca.tvaddons.ag/tools/maintenance/modules/'
 MODURL2          = 'http://mirrors.kodi.tv/addons/jarvis/'
 INSTALLMETHODS   = ['Always Ask', 'Reload Profile', 'Force Close']
 DEFAULTPLUGINS   = ['metadata.album.universal', 'metadata.artists.universal', 'metadata.common.fanart.tv', 'metadata.common.imdb.com', 'metadata.common.musicbrainz.org', 'metadata.themoviedb.org', 'metadata.tvdb.com', 'service.xbmc.versioncheck']
-
-##############FTG MOD#######
-SPEEDTESTFOLD    = os.path.join(ADDONDATA, 'SpeedTest')
+try:
+	INSTALLMETHOD    = int(float(wiz.getS('installmethod')))
+except:
+	INSTALLMETHOD    = 0
 
 ###########################
 ###### Menu Items   #######
@@ -209,14 +204,10 @@ def index():
 			addFile('None' if BUILDTHEME == "" else BUILDTHEME, 'theme', BUILDNAME, themeit=THEME5)
 	else: addDir('None', 'builds', themeit=THEME4)
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', themeit=THEME3)
-	addDir ('Builds'        ,'builds',   icon=ICONBUILDS,   themeit=THEME1)
-	addDir ('Maintenance'   ,'maint',    icon=ICONMAINT,    themeit=THEME1)
-	addDir ('Internet Tools' ,'net', icon=ICONSPEED, themeit=THEME1)
-	if not APKFILE == 'http://':
-		if wiz.platform() == 'android' or DEVELOPER == 'true': addDir ('APK Installer' ,'apk', icon=ICONAPK, themeit=THEME1)
-	if not ROMPACK == 'http://':
-		if wiz.platform() == 'android' or wiz.platform() == 'windows' or DEVELOPER == 'true': addDir ('Classic Consoles And Games'       ,'retromenu', icon=ICONRETRO,     themeit=THEME1)
-	if not ADDONFILE == 'http://': addDir ('Addons' ,'addons', icon=ICONADDONS, themeit=THEME1)
+	addDir ('Builds', 'builds',   icon=ICONBUILDS,   themeit=THEME1)
+	addDir ('Maintenance', 'maint',    icon=ICONMAINT,    themeit=THEME1)
+	if wiz.platform() == 'android' or DEVELOPER == 'true': addDir ('Apk Installer' ,'apk', icon=ICONAPK, themeit=THEME1)
+	if not ADDONFILE == 'http://': addDir ('Addon Installer' ,'addons', icon=ICONADDONS, themeit=THEME1)
 	if not YOUTUBEFILE == 'http://' and not YOUTUBETITLE == '': addDir (YOUTUBETITLE ,'youtube', icon=ICONYOUTUBE, themeit=THEME1)
 	addDir ('Save Data', 'savedata', icon=ICONSAVE,     themeit=THEME1)
 	if HIDECONTACT == 'No': addFile('Contact' ,'contact', icon=ICONCONTACT,  themeit=THEME1)
@@ -2464,57 +2455,6 @@ def get_params():
 
 		return param
 
-###############################FTG MOD############################################
-#################################RETRO FTG PACKS###############################
-def retromenu():
-	MKDIRS()#if not os.path.exists(ROMLOC): os.makedirs(ROMLOC)
-	if HIDESPACERS == 'No': addFile(wiz.sep('Emulators'), '', themeit=THEME3)
-	if wiz.platform() == 'android' or DEVELOPER == 'true': addDir ('Classic Console EMUs'       ,'emumenu', icon=ICONRETRO,     themeit=THEME1)
-	if wiz.platform() == 'windows' or DEVELOPER == 'true': addDir ('Classic Console EMUs'       ,'emumenu', icon=ICONRETRO,     themeit=THEME1)
-	if HIDESPACERS == 'No': addFile(wiz.sep('Rom Packs'), '', themeit=THEME3)
-	addDir ('Classic Console Game Roms'       ,'rompackmenu', icon=ICONRETRO,     themeit=THEME1)
-def emumenu():
-	link = wiz.openURL(EMUAPKS).replace('\n','').replace('\r','').replace('\t','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?con="(.+?)".+?anart="(.+?)"').findall(link)
-	if len(match) > 0:
-		if wiz.platform() == 'android':
-			for name, url, icon, fanart in match:
-				addFile(name, 'apkinstall', name, url, icon=icon, fanart=fanart, themeit=THEME1)
-		elif wiz.platform() == 'windows':
-			DIALOG.ok(ADDONTITLE, "[COLOR yellow]Please go download RetroArch for PC[/COLOR]", " Goto http://tinyurl.com/RetroFTG for a full tutorial")
-		elif wiz.platform() == 'linux':
-			DIALOG.ok(ADDONTITLE, "[COLOR yellow]Please go download RetroArch for PC[/COLOR]", " Goto http://tinyurl.com/RetroFTG for a full tutorial")
-def rompackmenu():
-	link = wiz.openURL(ROMPACK).replace('\n','').replace('\r','').replace('\t','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?con="(.+?)".+?anart="(.+?)"').findall(link)
-	if len(match) > 0:
-		for name, url, icon, fanart in match:
-			addFile(name, 'UNZIPROM', name, url, icon=icon, fanart=fanart, themeit=THEME1)
-def UNZIPROM():
-	DP.create(ADDONTITLE,"","",'ROM: ' + name)
-	zipname = name.replace('\\', '').replace('/', '').replace(':', '').replace('*', '').replace('?', '').replace('"', '').replace('<', '').replace('>', '').replace('|', '')
-	lib=os.path.join(PACKAGES, '%s.zip' % zipname)
-	downloader.download(url, lib, DP)
-	DP.update(0)
-	if wiz.platform() == 'android':
-		extract.all(lib,ROMLOC,DP)
-		DIALOG.ok(ADDONTITLE, "[COLOR yellow]Download complete, ROM Location: [/COLOR][COLOR white]" + ROMLOC + "[/COLOR]")
-	elif wiz.platform() == 'windows':
-		extract.all(lib,WROMLOC,DP)
-		DIALOG.ok(ADDONTITLE, "[COLOR yellow]Download complete, ROM Location: [/COLOR][COLOR white]" + WROMLOC + "[/COLOR]")
-	elif wiz.platform() == 'linux':
-		extract.all(lib,WROMLOC,DP)
-		DIALOG.ok(ADDONTITLE, "[COLOR yellow]Download complete, ROM Location: [/COLOR][COLOR white]" + WROMLOC + "[/COLOR]")
-
-
-def MKDIRS():
-	if wiz.platform() == 'android':
-		if not os.path.exists(ROMLOC): os.makedirs(ROMLOC)
-	elif wiz.platform() == 'windows':
-		if not os.path.exists(WROMLOC): os.makedirs(WROMLOC)
-	elif wiz.platform() == 'linux':
-		if not os.path.exists(WROMLOC): os.makedirs(WROMLOC)
-
 #########################################NET TOOLS#############################################
 def net_tools(view=None):
 	if HIDESPACERS == 'No': addFile(wiz.sep('Net Tools'), '', themeit=THEME3)
@@ -2545,8 +2485,8 @@ def viewIP():
 	setView('files', 'viewType')
 
 #######################SPEED TEST#######################################
-def speedTest():
 	addFile('Run Speed Test',             'speed',      icon=ICONMAINT, themeit=THEME3)
+def speedTest():
 	if os.path.exists(SPEEDTESTFOLD):
 		speedimg = glob.glob(os.path.join(SPEEDTESTFOLD, '*.png'))
 		speedimg.sort(key=lambda f: os.path.getmtime(f), reverse=True)
@@ -2562,9 +2502,9 @@ def clearSpeedTest():
 	speedimg = glob.glob(os.path.join(SPEEDTESTFOLD, '*.png'))
 	for file in speedimg:
 		wiz.removeFile(file)
-
 def viewSpeedTest(img=None):
 	img = os.path.join(SPEEDTESTFOLD, img)
+
 	notify.speedTest(img)
 
 def speed():
@@ -2742,18 +2682,5 @@ elif mode=='testnotify'     : testnotify()
 elif mode=='testupdate'     : testupdate()
 elif mode=='testfirst'      : testfirst()
 elif mode=='testfirstrun'   : testfirstRun()
-
-#####################FTG MOD##############
-elif mode=='retromenu'      : retromenu()
-elif mode=='emumenu'        : emumenu()
-elif mode=='rompackmenu'    : rompackmenu()
-elif mode=='UNZIPROM'       : UNZIPROM()
-elif mode=='viewIP'         : viewIP()
-elif mode=='net'            : net_tools()
-elif mode=='speedtest'      : speedTest()
-elif mode=='speed'          : speed(); wiz.refresh()
-elif mode=='clearspeedtest' : clearSpeedTest(); wiz.refresh()
-elif mode=='viewspeedtest'  : viewSpeedTest(name); wiz.refresh()
-elif mode=='Qautoadvanced'   : showQAutoAdvanced(); wiz.refresh()
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
