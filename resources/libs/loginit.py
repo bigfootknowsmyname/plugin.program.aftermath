@@ -48,7 +48,7 @@ KEEPLOGIN      = wiz.getS('keeplogin')
 LOGINSAVE      = wiz.getS('loginlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['api-opensubtitles', 'api-orion', 'api-chappaai', 'api-uranus', 'api-death', 'api-placenta', 'api-incursion', 'api-numbers', 'api-gaia', 'api-neptune']
+ORDER          = ['api-opensubtitles', 'api-orion', 'api-chappaai', 'api-uranus', 'api-death', 'api-placenta', 'api-incursion', 'api-numbers', 'api-gaia', 'api-neptune', 'api-eis', 'api-metahandler', 'api-metadatautils']
 
 LOGINID = {
 	'api-opensubtitles': {
@@ -170,6 +170,42 @@ LOGINID = {
 		'settings' : os.path.join(ADDOND, 'plugin.video.neptune', 'settings.xml'),
 		'default'  : 'tm.user',
 		'data'     : ['fanart.tv.user', 'tm.user', 'imdb.user'],
+		'activate' : ''},
+	'api-eis': {
+		'name'     : 'ExtendedInfo Script',
+		'plugin'   : 'script.extendedinfo',
+		'saved'    : 'api-eis',
+		'path'     : os.path.join(ADDONS, 'script.extendedinfo'),
+		'icon'     : os.path.join(ADDONS, 'script.extendedinfo', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'script.extendedinfo', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-eis'),
+		'settings' : os.path.join(ADDOND, 'script.extendedinfo', 'settings.xml'),
+		'default'  : 'tmdb_username',
+		'data'     : ['tmdb_username', 'tmdb_password'],
+		'activate' : ''},
+	'api-metahandler': {
+		'name'     : 'metahandler',
+		'plugin'   : 'script.module.metahandler',
+		'saved'    : 'api-neptune',
+		'path'     : os.path.join(ADDONS, 'script.module.metahandler'),
+		'icon'     : os.path.join(ADDONS, 'script.module.metahandler', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'script.module.metahandler', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-metahandler'),
+		'settings' : os.path.join(ADDOND, 'script.module.metahandler', 'settings.xml'),
+		'default'  : 'tmdb_api_key',
+		'data'     : ['tmdb_api_key', 'omdb_api_key', 'tvdb_api_key'],
+		'activate' : ''},
+	'api-metadatautils': {
+		'name'     : 'script.module.metadatautils',
+		'plugin'   : 'script.module.metadatautils',
+		'saved'    : 'api-metadatautils',
+		'path'     : os.path.join(ADDONS, 'script.module.metadatautils'),
+		'icon'     : os.path.join(ADDONS, 'script.module.metadatautils', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'script.module.metadatautils', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-metadatautils'),
+		'settings' : os.path.join(ADDOND, 'script.module.metadatautils', 'settings.xml'),
+		'default'  : 'tmdb_apikey',
+		'data'     : ['fanarttv_apikey', 'omdbapi_apikey', 'tmdb_apikey'],
 		'activate' : ''}
 }
 

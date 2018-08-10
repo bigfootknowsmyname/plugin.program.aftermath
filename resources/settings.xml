@@ -96,6 +96,7 @@
 		<setting id="gaia" type="text" label="Gaia: " enable="false" default=""/>
 		<setting id="neptune" type="text" label="Neptune Rising: " enable="false" default=""/>
 		<setting id="trakt" type="text" label="Trakt: " enable="false" default=""/>
+		<setting id="wraith" type="text" label="Wraith: " enable="false" default=""/>
 		<setting id="traktlastsave" type="text" label="Last Time Trakt Saved: " enable="false" default=""/>
 		<setting id="keeptraktwizard" type="action" label="Trakt Save Data Menu - DOES NOTHING" action=""/>
 	</category>
@@ -126,6 +127,9 @@
 		<setting id="api-numbers" type="text" label="Numbers: " enable="false" default=""/>
 		<setting id="api-gaia" type="text" label="Gaia: " enable="false" default=""/>
 		<setting id="api-neptune" type="text" label="Neptune Rising: " enable="false" default=""/>
+		<setting id="api-eis" type="text" label="ExtendedInfo Script: " enable="false" default=""/>
+		<setting id="api-metahandler" type="text" label="metahandler: " enable="false" default=""/>
+		<setting id="api-metadatautils" type="text" label="script.module.metadatautils: " enable="false" default=""/>
 		<setting id="keeploginwizard" type="action" label="Login Save Data Menu - DOES NOTHING" action=""/>
 	</category>
 

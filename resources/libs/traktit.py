@@ -48,7 +48,7 @@ KEEPTRAKT      = wiz.getS('keeptrakt')
 TRAKTSAVE      = wiz.getS('traktlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['chappaai', 'uranus', 'death', 'placenta', 'incursion', 'numbers', 'gaia', 'neptune', 'trakt']
+ORDER          = ['chappaai', 'uranus', 'death', 'placenta', 'incursion', 'numbers', 'gaia', 'neptune', 'trakt', 'wraith']
 
 TRAKTID = {
 	'chappaai': {
@@ -160,6 +160,18 @@ TRAKTID = {
 		'default'  : 'user',
 		'data'     : ['authorization', 'user'],
 		'activate' : 'RunScript(script.trakt, action=auth_info)'},
+	'wraith': {
+		'name'     : 'Wraith',
+		'plugin'   : 'script.extendedinfo',
+		'saved'    : 'wraith',
+		'path'     : os.path.join(ADDONS, 'script.extendedinfo'),
+		'icon'     : os.path.join(ADDONS, 'script.extendedinfo', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'script.extendedinfo', 'fanart.jpg'),
+		'file'     : os.path.join(TRAKTFOLD, 'trakt_wraith'),
+		'settings' : os.path.join(ADDOND, 'script.extendedinfo', 'settings.xml'),
+		'default'  : 'user',
+		'data'     : ['authorization', 'user'],
+		'activate' : 'RunScript(script.extendedinfo, action=authTrakt)'},
 }
 
 def traktUser(who):
