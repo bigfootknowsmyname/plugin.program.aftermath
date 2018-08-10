@@ -61,7 +61,7 @@ TRAKTID = {
 		'file'     : os.path.join(TRAKTFOLD, 'chappaai_trakt'),
 		'settings' : os.path.join(ADDOND, 'plugin.video.chappaai', 'settings.xml'),
 		'default'  : 'trakt_access_token',
-		'data'     : ['trakt_access_token', 'trakt_api_client_id', 'trakt_api_client_secret', 'trakt_expires_at', 'trakt_period', 'trakt_refresh_token'],
+		'data'     : ['trakt_access_token', 'trakt_expires_at', 'trakt_period', 'trakt_refresh_token'],
 		'activate' : 'RunPlugin(plugin://plugin.video.chappaai/authenticate_trakt)'},
 	'uranus': {
 		'name'     : 'Uranus',

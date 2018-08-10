@@ -85,7 +85,7 @@ LOGINID = {
 		'file'     : os.path.join(LOGINFOLD, 'api-chappaai'),
 		'settings' : os.path.join(ADDOND, 'plugin.video.chappaai', 'settings.xml'),
 		'default'  : 'tmdb_api',
-		'data'     : ['tmdb_api', 'tvdb_api', 'lastfm_api_key',  'lastfm_api_shared_secret'],
+		'data'     : ['trakt_api_client_id', 'trakt_api_client_secret', 'tmdb_api', 'tvdb_api', 'lastfm_api_key',  'lastfm_api_shared_secret'],
 		'activate' : ''},
 	'api-incursion': {
 		'name'     : 'Incursion',
