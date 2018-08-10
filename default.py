@@ -1186,8 +1186,8 @@ def traktMenu():
 	addFile('Save All Trakt Data',          'savetrakt',    'all', icon=ICONTRAKT,  themeit=THEME3)
 	addFile('Recover All Saved Trakt Data', 'restoretrakt', 'all', icon=ICONTRAKT,  themeit=THEME3)
 	addFile('Import Trakt Data',            'importtrakt',  'all', icon=ICONTRAKT,  themeit=THEME3)
+	addFile('Clear All Addon Trakt Data',         'addontrakt',   'all', icon=ICONTRAKT,  themeit=THEME3)
 	addFile('Clear All Saved Trakt Data',   'cleartrakt',   'all', icon=ICONTRAKT,  themeit=THEME3)
-	addFile('Clear All Addon Data',         'addontrakt',   'all', icon=ICONTRAKT,  themeit=THEME3)
 	setView('files', 'viewType')
 
 def realMenu():
@@ -1225,7 +1225,7 @@ def realMenu():
 	addFile('Recover All Saved Real Debrid Data', 'restoredebrid', 'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Import Real Debrid Data',            'importdebrid',  'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Clear All Saved Real Debrid Data',   'cleardebrid',   'all', icon=ICONREAL,  themeit=THEME3)
-	addFile('Clear All Addon Data',               'addondebrid',   'all', icon=ICONREAL,  themeit=THEME3)
+	addFile('Clear All Addon Real Debrid Data',               'addondebrid',   'all', icon=ICONREAL,  themeit=THEME3)
 	setView('files', 'viewType')
 
 def loginMenu():
@@ -1263,7 +1263,7 @@ def loginMenu():
 	addFile('Recover All Saved Login Data', 'restorelogin', 'all', icon=ICONLOGIN,  themeit=THEME3)
 	addFile('Import Login Data',            'importlogin',  'all', icon=ICONLOGIN,  themeit=THEME3)
 	addFile('Clear All Saved Login Data',   'clearlogin',   'all', icon=ICONLOGIN,  themeit=THEME3)
-	addFile('Clear All Addon Data',         'addonlogin',   'all', icon=ICONLOGIN,  themeit=THEME3)
+	addFile('Clear All Addon Login Data',         'addonlogin',   'all', icon=ICONLOGIN,  themeit=THEME3)
 	setView('files', 'viewType')
 
 def fixUpdate():
