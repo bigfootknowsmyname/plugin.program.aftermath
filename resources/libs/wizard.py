@@ -2350,12 +2350,10 @@ def clearCache(over=None):
 			if INCLUDEDEATH == 'true': files.append(os.path.join(DATABASE, 'DEATHScache.db'))
 			if INCLUDEPLACENTA == 'true':
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db'))
-				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.v'))
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'meta.5.db'))
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'providers.13.db'))
 			if INCLUDEINCURSION == 'true':
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db'))
-				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.v'))
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'meta.5.db'))
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'providers.13.db'))
 			if INCLUDENUMBERS == 'true':
