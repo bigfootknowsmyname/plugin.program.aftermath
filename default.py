@@ -1130,13 +1130,13 @@ def saveMenu():
 
 	addDir ('Keep Trakt Data',               'trakt',                icon=ICONTRAKT, themeit=THEME1)
 	addDir ('Keep Real Debrid',              'realdebrid',           icon=ICONREAL,  themeit=THEME1)
-	addDir ('Keep Login Info',               'login',                icon=ICONLOGIN, themeit=THEME1)
+	addDir ('Keep API Keys',               'login',                icon=ICONLOGIN, themeit=THEME1)
 	addFile('Import Save Data',              'managedata', 'import', icon=ICONSAVE,  themeit=THEME1)
 	addFile('Export Save Data',              'managedata', 'export', icon=ICONSAVE,  themeit=THEME1)
 	addFile('- Click to toggle settings -', '', themeit=THEME3)
 	addFile('Save Trakt: %s' % trakt.replace('true',on).replace('false',off)                       ,'togglesetting', 'keeptrakt',      icon=ICONTRAKT, themeit=THEME1)
 	addFile('Save Real Debrid: %s' % real.replace('true',on).replace('false',off)                  ,'togglesetting', 'keepdebrid',     icon=ICONREAL,  themeit=THEME1)
-	addFile('Save Login Info: %s' % login.replace('true',on).replace('false',off)                  ,'togglesetting', 'keeplogin',      icon=ICONLOGIN, themeit=THEME1)
+	addFile('Save API Keys: %s' % login.replace('true',on).replace('false',off)                  ,'togglesetting', 'keeplogin',      icon=ICONLOGIN, themeit=THEME1)
 	addFile('Keep \'Sources.xml\': %s' % sources.replace('true',on).replace('false',off)           ,'togglesetting', 'keepsources',    icon=ICONSAVE,  themeit=THEME1)
 	addFile('Keep \'Profiles.xml\': %s' % profiles.replace('true',on).replace('false',off)         ,'togglesetting', 'keepprofiles',   icon=ICONSAVE,  themeit=THEME1)
 	addFile('Keep \'Advancedsettings.xml\': %s' % advanced.replace('true',on).replace('false',off) ,'togglesetting', 'keepadvanced',   icon=ICONSAVE,  themeit=THEME1)
@@ -1224,15 +1224,15 @@ def realMenu():
 	addFile('Save All Real Debrid Data',          'savedebrid',    'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Recover All Saved Real Debrid Data', 'restoredebrid', 'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Import Real Debrid Data',            'importdebrid',  'all', icon=ICONREAL,  themeit=THEME3)
-	addFile('Clear All Saved Real Debrid Data',   'cleardebrid',   'all', icon=ICONREAL,  themeit=THEME3)
 	addFile('Clear All Addon Real Debrid Data',               'addondebrid',   'all', icon=ICONREAL,  themeit=THEME3)
+	addFile('Clear All Saved Real Debrid Data',   'cleardebrid',   'all', icon=ICONREAL,  themeit=THEME3)
 	setView('files', 'viewType')
 
 def loginMenu():
 	login = '[COLOR green]ON[/COLOR]' if KEEPLOGIN == 'true' else '[COLOR red]OFF[/COLOR]'
 	last = str(LOGINSAVE) if not LOGINSAVE == '' else 'Login data hasnt been saved yet.'
 	addFile('[I]Several of these addons are PAID services.[/I]', '', icon=ICONLOGIN, themeit=THEME3)
-	addFile('Save Login Data: %s' % login, 'togglesetting', 'keeplogin', icon=ICONLOGIN, themeit=THEME3)
+	addFile('Save API Keys: %s' % login, 'togglesetting', 'keeplogin', icon=ICONLOGIN, themeit=THEME3)
 	if KEEPLOGIN == 'true': addFile('Last Save: %s' % str(last), '', icon=ICONLOGIN, themeit=THEME3)
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', icon=ICONLOGIN, themeit=THEME3)
 
@@ -1259,11 +1259,11 @@ def loginMenu():
 		else:                        addFile('[COLOR green]Saved Data: %s[/COLOR]' % user, '', icon=icon, fanart=fanart, menu=menu2)
 
 	if HIDESPACERS == 'No': addFile(wiz.sep(), '', themeit=THEME3)
-	addFile('Save All Login Data',          'savelogin',    'all', icon=ICONLOGIN,  themeit=THEME3)
-	addFile('Recover All Saved Login Data', 'restorelogin', 'all', icon=ICONLOGIN,  themeit=THEME3)
-	addFile('Import Login Data',            'importlogin',  'all', icon=ICONLOGIN,  themeit=THEME3)
-	addFile('Clear All Saved Login Data',   'clearlogin',   'all', icon=ICONLOGIN,  themeit=THEME3)
-	addFile('Clear All Addon Login Data',         'addonlogin',   'all', icon=ICONLOGIN,  themeit=THEME3)
+	addFile('Save All API Keys',          'savelogin',    'all', icon=ICONLOGIN,  themeit=THEME3)
+	addFile('Recover All Saved API Keys', 'restorelogin', 'all', icon=ICONLOGIN,  themeit=THEME3)
+	addFile('Import API Keys',            'importlogin',  'all', icon=ICONLOGIN,  themeit=THEME3)
+	addFile('Clear All Addon API Keys',         'addonlogin',   'all', icon=ICONLOGIN,  themeit=THEME3)
+	addFile('Clear All Saved API Keys',   'clearlogin',   'all', icon=ICONLOGIN,  themeit=THEME3)
 	setView('files', 'viewType')
 
 def fixUpdate():

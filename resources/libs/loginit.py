@@ -39,7 +39,7 @@ PLUGIN         = os.path.join(ADDONS,    ADDON_ID)
 PACKAGES       = os.path.join(ADDONS,    'packages')
 ADDONDATA      = os.path.join(USERDATA,  'addon_data', ADDON_ID)
 ADDOND         = os.path.join(USERDATA,  'addon_data')
-LOGINFOLD      = os.path.join(ADDONDATA, 'Login')
+LOGINFOLD      = os.path.join(ADDONDATA, 'Api')
 ICON           = os.path.join(PLUGIN,    'icon.png')
 TODAY          = date.today()
 TOMORROW       = TODAY + timedelta(days=1)
@@ -48,7 +48,7 @@ KEEPLOGIN      = wiz.getS('keeplogin')
 LOGINSAVE      = wiz.getS('loginlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['opensubtitles', 'orion']
+ORDER          = ['opensubtitles', 'orion', 'api-chappaai', 'api-incursion']
 
 LOGINID = {
 	'opensubtitles': {
@@ -74,7 +74,31 @@ LOGINID = {
 		'settings' : os.path.join(ADDOND, 'script.module.orion', 'settings.xml'),
 		'default'  : 'account.key',
 		'data'     : ['account.key'],
-		'activate' : 'RunPlugin(plugin://script.module.orion/?mode=auth_orion)'}
+		'activate' : 'RunPlugin(plugin://script.module.orion/?mode=auth_orion)'},
+	'api-chappaai': {
+		'name'     : 'Chappa\'ai',
+		'plugin'   : 'plugin.video.chappaai',
+		'saved'    : 'api-chappaai',
+		'path'     : os.path.join(ADDONS, 'plugin.video.chappaai'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.chappaai', 'icon.jpg'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.chappaai', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-chappaai'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.chappaai', 'settings.xml'),
+		'default'  : 'tmdb_api',
+		'data'     : ['tmdb_api', 'tvdb_api', 'lastfm_api_key',  'lastfm_api_shared_secret'],
+		'activate' : ''},
+	'api-incursion': {
+		'name'     : 'Incursion',
+		'plugin'   : 'plugin.video.incursion',
+		'saved'    : 'api-incursion',
+		'path'     : os.path.join(ADDONS, 'plugin.video.incursion'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.incursion', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.incursion', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-incursion'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.incursion', 'settings.xml'),
+		'default'  : 'tm.user',
+		'data'     : ['fanart.tv.user', 'tm.user', 'imdb.user'],
+		'activate' : ''}
 }
 
 def loginUser(who):
@@ -101,13 +125,13 @@ def loginIt(do, who):
 					if user == '' and do == 'update': continue
 					updateLogin(do, log)
 				except: pass
-			else: wiz.log('[Login Data] %s(%s) is not installed' % (LOGINID[log]['name'],LOGINID[log]['plugin']), xbmc.LOGERROR)
+			else: wiz.log('[API Keys] %s(%s) is not installed' % (LOGINID[log]['name'],LOGINID[log]['plugin']), xbmc.LOGERROR)
 		wiz.setS('loginlastsave', str(THREEDAYS))
 	else:
 		if LOGINID[who]:
 			if os.path.exists(LOGINID[who]['path']):
 				updateLogin(do, who)
-		else: wiz.log('[Login Data] Invalid Entry: %s' % who, xbmc.LOGERROR)
+		else: wiz.log('[API Keys] Invalid Entry: %s' % who, xbmc.LOGERROR)
 
 def clearSaved(who, over=False):
 	if who == 'all':
@@ -117,7 +141,7 @@ def clearSaved(who, over=False):
 		file = LOGINID[who]['file']
 		if os.path.exists(file):
 			os.remove(file)
-			wiz.LogNotify('[COLOR %s]%s[/COLOR]' % (COLOR1, LOGINID[who]['name']), '[COLOR %s]Login Data: Removed![/COLOR]' % COLOR2, 2000, LOGINID[who]['icon'])
+			wiz.LogNotify('[COLOR %s]%s[/COLOR]' % (COLOR1, LOGINID[who]['name']), '[COLOR %s]API Key: Removed![/COLOR]' % COLOR2, 2000, LOGINID[who]['icon'])
 		wiz.setS(LOGINID[who]['saved'], '')
 	if over == False: wiz.refresh()
 
@@ -191,7 +215,7 @@ def autoUpdate(who):
 			if u == None or u == '': return
 			elif su == '': loginIt('update', who)
 			elif not u == su:
-				if DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to save the [COLOR %s]Login[/COLOR] data for [COLOR %s]%s[/COLOR]?" % (COLOR2, COLOR1, COLOR1, n), "Addon: [COLOR springgreen][B]%s[/B][/COLOR]" % u, "Saved:[/COLOR] [COLOR red][B]%s[/B][/COLOR]" % su if not su == '' else 'Saved:[/COLOR] [COLOR red][B]None[/B][/COLOR]', yeslabel="[B][COLOR springgreen]Save Data[/COLOR][/B]", nolabel="[B][COLOR red]No Cancel[/COLOR][/B]"):
+				if DIALOG.yesno(ADDONTITLE, "[COLOR %s]Would you like to save the [COLOR %s]API[/COLOR] key for [COLOR %s]%s[/COLOR]?" % (COLOR2, COLOR1, COLOR1, n), "Addon: [COLOR springgreen][B]%s[/B][/COLOR]" % u, "Saved:[/COLOR] [COLOR red][B]%s[/B][/COLOR]" % su if not su == '' else 'Saved:[/COLOR] [COLOR red][B]None[/B][/COLOR]', yeslabel="[B][COLOR springgreen]Save Data[/COLOR][/B]", nolabel="[B][COLOR red]No Cancel[/COLOR][/B]"):
 					loginIt('update', who)
 			else: loginIt('update', who)
 

@@ -118,8 +118,8 @@
 		<setting id="keeplogin" type="bool" label="Keep My API Data" default="false"/>
 		<setting id="opensub" type="text" label="Open Subtitles: " enable="false" default=""/>
 		<setting id="orion" type="text" label="Orion: " enable="false" default=""/>
-		<setting id="fanart" type="text" label="fanart.tv: " enable="false" default=""/>
-		<setting id="tmdb" type="text" label="TMDb: " enable="false" default=""/>
+		<setting id="api-chappaai" type="text" label="Chappa'ai: " enable="false" default=""/>
+		<setting id="api-incursion" type="text" label="Incursion: " enable="false" default=""/>
 		<setting id="keeploginwizard" type="action" label="Login Save Data Menu - DOES NOTHING" action=""/>
 	</category>
 
