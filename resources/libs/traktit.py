@@ -111,7 +111,7 @@ TRAKTID = {
 		'settings' : os.path.join(ADDOND, 'plugin.video.incursion', 'settings.xml'),
 		'default'  : 'trakt.user',
 		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
-		'activate' : 'RunPlugin(plugin://plugin.video.uranus/?action=authTrakt)'},
+		'activate' : 'RunPlugin(plugin://plugin.video.incursion/?action=authTrakt)'},
 	'numbers': {
 		'name'     : 'numbers',
 		'plugin'   : 'plugin.video.numbersbynumbers',
