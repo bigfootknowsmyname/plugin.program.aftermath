@@ -48,13 +48,13 @@ KEEPLOGIN      = wiz.getS('keeplogin')
 LOGINSAVE      = wiz.getS('loginlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['opensubtitles', 'orion', 'api-chappaai', 'api-incursion']
+ORDER          = ['api-opensubtitles', 'api-orion', 'api-chappaai', 'api-uranus', 'api-death', 'api-placenta', 'api-incursion', 'api-numbers', 'api-gaia', 'api-neptune']
 
 LOGINID = {
-	'opensubtitles': {
+	'api-opensubtitles': {
 		'name'     : 'OpenSubtitles',
 		'plugin'   : 'service.subtitles.opensubtitles',
-		'saved'    : 'opensub',
+		'saved'    : 'api-opensubtitles',
 		'path'     : os.path.join(ADDONS, 'service.subtitles.opensubtitles'),
 		'icon'     : os.path.join(ADDONS, 'service.subtitles.opensubtitles', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'service.subtitles.opensubtitles', 'fanart.jpg'),
@@ -63,10 +63,10 @@ LOGINID = {
 		'default'  : 'OSuser',
 		'data'     : ['OSuser', 'OSpass'],
 		'activate' : ''},
-	'orion': {
+	'api-orion': {
 		'name'     : 'Orion API Key',
 		'plugin'   : 'script.module.orion',
-		'saved'    : 'orion',
+		'saved'    : 'api-orion',
 		'path'     : os.path.join(ADDONS, 'script.module.orion'),
 		'icon'     : os.path.join(ADDONS, 'script.module.orion', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'script.module.orion', 'fanart.jpg'),
@@ -87,6 +87,42 @@ LOGINID = {
 		'default'  : 'tmdb_api',
 		'data'     : ['trakt_api_client_id', 'trakt_api_client_secret', 'tmdb_api', 'tvdb_api', 'lastfm_api_key',  'lastfm_api_shared_secret'],
 		'activate' : ''},
+	'api-uranus': {
+		'name'     : 'Uranus',
+		'plugin'   : 'plugin.video.uranus',
+		'saved'    : 'api-uranus',
+		'path'     : os.path.join(ADDONS, 'plugin.video.uranus'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.uranus', 'icon.jpg'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.uranus', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-uranus'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.uranus', 'settings.xml'),
+		'default'  : 'tmdb_apikey',
+		'data'     : ['tmdb_apikey'],
+		'activate' : ''},
+	'api-death': {
+		'name'     : 'Death Streams',
+		'plugin'   : 'plugin.video.blamo',
+		'saved'    : 'api-death',
+		'path'     : os.path.join(ADDONS, 'plugin.video.blamo'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.blamo', 'icon.jpg'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.blamo', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-blamo'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.blamo', 'settings.xml'),
+		'default'  : 'tmdb_apikey',
+		'data'     : ['fanart_person_key', 'fanart_key', 'tmdb_key', 'tvdb_key'],
+		'activate' : ''},
+	'api-placenta': {
+		'name'     : 'Placenta',
+		'plugin'   : 'plugin.video.placenta',
+		'saved'    : 'api-placenta',
+		'path'     : os.path.join(ADDONS, 'plugin.video.placenta'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.placenta', 'icon.jpg'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.placenta', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-placenta'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.placenta', 'settings.xml'),
+		'default'  : 'tm.user',
+		'data'     : ['fanart.tv.user', 'tm.user', 'imdb.user'],
+		'activate' : ''},
 	'api-incursion': {
 		'name'     : 'Incursion',
 		'plugin'   : 'plugin.video.incursion',
@@ -96,6 +132,42 @@ LOGINID = {
 		'fanart'   : os.path.join(ADDONS, 'plugin.video.incursion', 'fanart.jpg'),
 		'file'     : os.path.join(LOGINFOLD, 'api-incursion'),
 		'settings' : os.path.join(ADDOND, 'plugin.video.incursion', 'settings.xml'),
+		'default'  : 'tm.user',
+		'data'     : ['fanart.tv.user', 'tm.user', 'imdb.user'],
+		'activate' : ''},
+	'api-numbers': {
+		'name'     : 'Numbers',
+		'plugin'   : 'plugin.video.numbersbynumbers',
+		'saved'    : 'api-numbers',
+		'path'     : os.path.join(ADDONS, 'plugin.video.numbersbynumbers'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.numbersbynumbers', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.numbersbynumbers', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-numbers'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'settings.xml'),
+		'default'  : 'tm.user',
+		'data'     : ['fanart.tv.user', 'tm.user', 'imdb.user'],
+		'activate' : ''},
+	'api-gaia': {
+		'name'     : 'Gaia',
+		'plugin'   : 'plugin.video.gaia',
+		'saved'    : 'api-gaia',
+		'path'     : os.path.join(ADDONS, 'plugin.video.gaia'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.gaia', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.gaia', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-gaia'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.gaia', 'settings.xml'),
+		'default'  : 'accounts.informants.tmdb.api',
+		'data'     : ['accounts.artwork.fanart.enabled', 'accounts.artwork.fanart.api', 'accounts.informants.imdb.enabled', 'accounts.informants.imdb.user', 'accounts.informants.tmdb.enabled', 'accounts.informants.tmdb.api'],
+		'activate' : ''},
+	'api-neptune': {
+		'name'     : 'Neptune Rising',
+		'plugin'   : 'plugin.video.neptune',
+		'saved'    : 'api-neptune',
+		'path'     : os.path.join(ADDONS, 'plugin.video.neptune'),
+		'icon'     : os.path.join(ADDONS, 'plugin.video.neptune', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'plugin.video.neptune', 'fanart.jpg'),
+		'file'     : os.path.join(LOGINFOLD, 'api-neptune'),
+		'settings' : os.path.join(ADDOND, 'plugin.video.neptune', 'settings.xml'),
 		'default'  : 'tm.user',
 		'data'     : ['fanart.tv.user', 'tm.user', 'imdb.user'],
 		'activate' : ''}
