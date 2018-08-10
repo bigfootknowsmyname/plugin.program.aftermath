@@ -87,7 +87,7 @@
 	<category label="Trakt Settings">
 		<setting type="lsep" label="Save Trakt Data:"/>
 		<setting id="keeptrakt" type="bool" label="Keep My Trakt Data" default="false"/>
-		<setting id="chappai" type="text" label="Chappa'ai: " enable="false" default=""/>
+		<setting id="chappaai" type="text" label="Chappa'ai: " enable="false" default=""/>
 		<setting id="uranus" type="text" label="Uranus: " enable="false" default=""/>
 		<setting id="death" type="text" label="Death Streams: " enable="false" default=""/>
 		<setting id="placenta" type="text" label="Placenta: " enable="false" default=""/>
@@ -103,21 +103,24 @@
 	<category label="Real Debrid Settings">
 		<setting type="lsep" label="Save Real Debrid Data:"/>
 		<setting id="keepdebrid" type="bool" label="Keep My Real Debrid Data" default="false"/>
-		<setting id="keepgaia" type="text" label="Gaia RD: " enable="false" default=""/>
-		<setting id="keepgaiapm" type="text" label="Gaia PM: " enable="false" default=""/>
-		<setting id="url1" type="text" label="URLResolver RD: " enable="false" default=""/>
-		<setting id="url2" type="text" label="ResolveURL RD: " enable="false" default=""/>
-		<setting id="url3" type="text" label="URLResolver PM: " enable="false" default=""/>
-		<setting id="url4" type="text" label="ResolveURL PM: " enable="false" default=""/>
+		<setting id="gaiard" type="text" label="Gaia RD: " enable="false" default=""/>
+		<setting id="gaiapm" type="text" label="Gaia PM: " enable="false" default=""/>
+		<setting id="urlrd" type="text" label="URLResolver RD: " enable="false" default=""/>
+		<setting id="rurlrd" type="text" label="ResolveURL RD: " enable="false" default=""/>
+		<setting id="urlpm" type="text" label="URLResolver PM: " enable="false" default=""/>
+		<setting id="rurlpm" type="text" label="ResolveURL PM: " enable="false" default=""/>
 		<setting id="debridlastsave" type="text" label="Last Time Real Debrid Saved: " enable="false" default=""/>
 		<setting id="keepdebridwizard" type="action" label="Debrid Save Data Menu - DOES NOTHING" action=""/>
 	</category>
 
-	<category label="Login Settings">
-		<setting type="lsep" label="Save Login Data:"/>
-		<setting id="keeplogin" type="bool" label="Keep My Login Data" default="false"/>
-		<setting id="loginopensub" type="text" label="Open Subtitles: " enable="false" default=""/>
-		<setting id="loginorion" type="text" label="Orion API Key: " enable="false" default=""/>
+	<category label="API Settings">
+		<setting type="lsep" label="Save API Data:"/>
+		<setting id="keeplogin" type="bool" label="Keep My API Data" default="false"/>
+		<setting id="opensub" type="text" label="Open Subtitles: " enable="false" default=""/>
+		<setting id="orion" type="text" label="Orion: " enable="false" default=""/>
+		<setting id="fanart" type="text" label="fanart.tv: " enable="false" default=""/>
+		<setting id="tmdb" type="text" label="TMDb: " enable="false" default=""/>
+		<setting id="keeploginwizard" type="action" label="Login Save Data Menu - DOES NOTHING" action=""/>
 	</category>
 
 	<category label="Misc Settings">

@@ -54,7 +54,7 @@ LOGINID = {
 	'opensubtitles': {
 		'name'     : 'OpenSubtitles',
 		'plugin'   : 'service.subtitles.opensubtitles',
-		'saved'    : 'loginopensub',
+		'saved'    : 'opensub',
 		'path'     : os.path.join(ADDONS, 'service.subtitles.opensubtitles'),
 		'icon'     : os.path.join(ADDONS, 'service.subtitles.opensubtitles', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'service.subtitles.opensubtitles', 'fanart.jpg'),
