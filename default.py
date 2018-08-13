@@ -1597,8 +1597,10 @@ def buildWizard(name, type, theme=None, over=False):
 					wiz.swapSkins(gotoskin, "Theme Installer")
 					wiz.lookandFeelData('restore')
 				elif test == True:
-					switch = wiz.swapSkins(gotoskin, 'Theme Install')
-					if switch == False: return
+					wiz.lookandFeelData('save')
+					wiz.defaultSkin()
+					gotoskin = wiz.getS('defaultskin')
+					wiz.swapSkins(gotoskin, "Theme Installer")
 					wiz.lookandFeelData('restore')
 				else:
 					wiz.ebi("ReloadSkin()")
