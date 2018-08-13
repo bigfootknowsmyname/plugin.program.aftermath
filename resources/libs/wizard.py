@@ -482,11 +482,9 @@ def getCacheSize():
 		(os.path.join(ADDOND, 'plugin.video.uranus', 'meta.db')),
 		(os.path.join(DATABASE,  'DEATHScache.db')),
 		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.v')),
 		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.meta.5.db')),
 		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.providers.13.db')),
 		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.v')),
 		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.meta.5.db')),
 		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.providers.13.db')),
 		(os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'cache.db')),
@@ -532,12 +530,10 @@ def getCacheSize():
 			if INCLUDEDEATH == 'true': files.append(os.path.join(DATABASE, 'DEATHScache.db'))
 			if INCLUDEPLACENTA == 'true':
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db'))
-				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.v'))
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'meta.5.db'))
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'providers.13.db'))
 			if INCLUDEINCURSION == 'true':
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db'))
-				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.v'))
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'meta.5.db'))
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'providers.13.db'))
 			if INCLUDENUMBERS == 'true':
@@ -1363,11 +1359,9 @@ def backUpOptions(type, name=""):
 					(os.path.join(ADDOND, 'plugin.video.uranus', 'meta.db')),
 					(os.path.join(DATABASE,  'DEATHScache.db')),
 					(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db')),
-					(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.v')),
 					(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.meta.5.db')),
 					(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.providers.13.db')),
 					(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db')),
-					(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.v')),
 					(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.meta.5.db')),
 					(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.providers.13.db')),
 					(os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'cache.db')),
@@ -2275,11 +2269,9 @@ def clearCache(over=None):
 		(os.path.join(ADDOND, 'plugin.video.uranus', 'meta.db')),
 		(os.path.join(DATABASE,  'DEATHScache.db')),
 		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.v')),
 		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.meta.5.db')),
 		(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.providers.13.db')),
 		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db')),
-		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.v')),
 		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.meta.5.db')),
 		(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.providers.13.db')),
 		(os.path.join(ADDOND, 'plugin.video.numbersbynumbers', 'cache.db')),
@@ -2350,12 +2342,10 @@ def clearCache(over=None):
 			if INCLUDEDEATH == 'true': files.append(os.path.join(DATABASE, 'DEATHScache.db'))
 			if INCLUDEPLACENTA == 'true':
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.db'))
-				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'cache.v'))
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'meta.5.db'))
 				files.append(os.path.join(ADDOND, 'plugin.video.placenta', 'providers.13.db'))
 			if INCLUDEINCURSION == 'true':
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.db'))
-				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'cache.v'))
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'meta.5.db'))
 				files.append(os.path.join(ADDOND, 'plugin.video.incursion', 'providers.13.db'))
 			if INCLUDENUMBERS == 'true':

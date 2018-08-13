@@ -54,7 +54,7 @@ DEBRIDID = {
 	'gaia': {
 		'name'     : 'Gaia RD',
 		'plugin'   : 'plugin.video.gaia',
-		'saved'    : 'Gaiard',
+		'saved'    : 'gaiard',
 		'path'     : os.path.join(ADDONS, 'plugin.video.gaia'),
 		'icon'     : os.path.join(ADDONS, 'plugin.video.gaia', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'plugin.video.gaia', 'fanart.jpg'),
@@ -78,7 +78,7 @@ DEBRIDID = {
 	'url': {
 		'name'     : 'URLResolver RD',
 		'plugin'   : 'script.module.urlresolver',
-		'saved'    : 'realurl',
+		'saved'    : 'urlrd',
 		'path'     : os.path.join(ADDONS, 'script.module.urlresolver'),
 		'icon'     : os.path.join(ADDONS, 'script.module.urlresolver', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'script.module.urlresolver', 'fanart.jpg'),
@@ -90,7 +90,7 @@ DEBRIDID = {
 	'url2': {
 		'name'     : 'ResolveURL RD',
 		'plugin'   : 'script.module.resolveurl',
-		'saved'    : 'resurl',
+		'saved'    : 'rurlrd',
 		'path'     : os.path.join(ADDONS, 'script.module.resolveurl'),
 		'icon'     : os.path.join(ADDONS, 'script.module.resolveurl', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'script.module.resolveurl', 'fanart.jpg'),
@@ -102,7 +102,7 @@ DEBRIDID = {
 	'url3': {
 		'name'     : 'URLResolver PM',
 		'plugin'   : 'script.module.urlresolver',
-		'saved'    : 'pmurl',
+		'saved'    : 'urlpm',
 		'path'     : os.path.join(ADDONS, 'script.module.urlresolver'),
 		'icon'     : os.path.join(ADDONS, 'script.module.urlresolver', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'script.module.urlresolver', 'fanart.jpg'),
@@ -114,7 +114,7 @@ DEBRIDID = {
 	'url4': {
 		'name'     : 'ResolveURL PM',
 		'plugin'   : 'script.module.resolveurl',
-		'saved'    : 'pmres',
+		'saved'    : 'rurlpm',
 		'path'     : os.path.join(ADDONS, 'script.module.resolveurl'),
 		'icon'     : os.path.join(ADDONS, 'script.module.resolveurl', 'icon.png'),
 		'fanart'   : os.path.join(ADDONS, 'script.module.resolveurl', 'fanart.jpg'),

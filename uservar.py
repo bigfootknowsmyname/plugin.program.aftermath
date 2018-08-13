@@ -5,6 +5,7 @@ import os, xbmc, xbmcaddon
 #########################################################
 ADDON_ID       = xbmcaddon.Addon().getAddonInfo('id')
 ADDONTITLE     = '[B][COLOR dodgerblue]Aftermath[/COLOR] [COLOR white]Wizard[/COLOR][/B]'
+BUILDERNAME    = 'Aftermath'
 EXCLUDES       = [ADDON_ID, 'repository.aftermath']
 # Enable/Disable the text file caching with 'Yes' or 'No' and age being how often it rechecks in minutes
 CACHETEXT      = 'Yes'
@@ -85,7 +86,7 @@ CONTACTFANART  = 'http://'
 # Enable Auto Update 'Yes' or 'No'
 AUTOUPDATE     = 'No'
 # Url to wizard version
-WIZARDFILE     = ''
+WIZARDFILE     = BUILDFILE
 #########################################################
 
 #########################################################

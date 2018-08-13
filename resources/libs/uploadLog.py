@@ -55,6 +55,7 @@ HOME             = xbmc.translatePath('special://home/')
 LOG              = xbmc.translatePath('special://logpath/')
 USERDATA         = os.path.join(HOME,      'userdata')
 ADDONDATA        = os.path.join(USERDATA,  'addon_data', ADDON_ID)
+BUILDERNAME      = uservar.BUIILDERNAME
 WIZLOG           = os.path.join(ADDONDATA, 'wizard.log')
 
 socket.setdefaulttimeout(5)
@@ -111,7 +112,7 @@ class Main:
 				succes, result = self.postLog(content, name)
 				if succes:
 					msg = "Post this url or scan QRcode for your [COLOR %s]%s[/COLOR], together with a description of the problem:[CR][COLOR %s]%s[/COLOR]" % (COLOR1, name, COLOR1, result)
-					if len(self.email) > 5: 
+					if len(self.email) > 5:
 						em_result, em_msg = self.email_Log(self.email, result, name)
 						if em_result == 'message':
 							msg += "[CR]%s" % em_msg
@@ -198,9 +199,10 @@ class Main:
 
 	def postLog(self, data, name):
 		params = {}
-		params['poster'] = 'kodi'
+		params['poster'] = BUILDERNAME
 		params['content'] = data
 		params['syntax'] = 'text'
+		params['expiration'] = 'week'
 		params = urlencode(params)
 
 		url_opener = pasteURLopener()
@@ -220,7 +222,7 @@ class Main:
 			a = 'unable to retrieve the paste url'
 			wiz.log("%s: %s" % (a, str(e)), xbmc.LOGERROR)
 			return False, a
-			
+
 	def email_Log(self, email, results, file):
 		URL = 'http://aftermathwizard.net/mail_logs.php'
 		data = {'email': email, 'results': results, 'file': file, 'wizard': ADDONTITLE}
@@ -256,7 +258,7 @@ class Main:
 				del qr
 				try:
 					os.remove(imagefile)
-				except: 
+				except:
 					pass
 			except Exception, e:
 				wiz.log(str(e), xbmc.LOGNOTICE)

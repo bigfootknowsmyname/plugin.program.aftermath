@@ -87,7 +87,7 @@
 	<category label="Trakt Settings">
 		<setting type="lsep" label="Save Trakt Data:"/>
 		<setting id="keeptrakt" type="bool" label="Keep My Trakt Data" default="false"/>
-		<setting id="chappai" type="text" label="Chappa'ai: " enable="false" default=""/>
+		<setting id="chappaai" type="text" label="Chappa'ai: " enable="false" default=""/>
 		<setting id="uranus" type="text" label="Uranus: " enable="false" default=""/>
 		<setting id="death" type="text" label="Death Streams: " enable="false" default=""/>
 		<setting id="placenta" type="text" label="Placenta: " enable="false" default=""/>
@@ -96,26 +96,41 @@
 		<setting id="gaia" type="text" label="Gaia: " enable="false" default=""/>
 		<setting id="neptune" type="text" label="Neptune Rising: " enable="false" default=""/>
 		<setting id="trakt" type="text" label="Trakt: " enable="false" default=""/>
+		<setting id="wraith" type="text" label="Wraith: " enable="false" default=""/>
 		<setting id="traktlastsave" type="text" label="Last Time Trakt Saved: " enable="false" default=""/>
+		<setting id="keeptraktwizard" type="action" label="Trakt Save Data Menu - DOES NOTHING" action=""/>
 	</category>
 
 	<category label="Real Debrid Settings">
 		<setting type="lsep" label="Save Real Debrid Data:"/>
 		<setting id="keepdebrid" type="bool" label="Keep My Real Debrid Data" default="false"/>
-		<setting id="keepgaia" type="text" label="Gaia RD: " enable="false" default=""/>
-		<setting id="keepgaiapm" type="text" label="Gaia PM: " enable="false" default=""/>
-		<setting id="url1" type="text" label="URLResolver RD: " enable="false" default=""/>
-		<setting id="url2" type="text" label="ResolveURL RD: " enable="false" default=""/>
-		<setting id="url3" type="text" label="URLResolver PM: " enable="false" default=""/>
-		<setting id="url4" type="text" label="ResolveURL PM: " enable="false" default=""/>
+		<setting id="gaiard" type="text" label="Gaia RD: " enable="false" default=""/>
+		<setting id="gaiapm" type="text" label="Gaia PM: " enable="false" default=""/>
+		<setting id="urlrd" type="text" label="URLResolver RD: " enable="false" default=""/>
+		<setting id="rurlrd" type="text" label="ResolveURL RD: " enable="false" default=""/>
+		<setting id="urlpm" type="text" label="URLResolver PM: " enable="false" default=""/>
+		<setting id="rurlpm" type="text" label="ResolveURL PM: " enable="false" default=""/>
 		<setting id="debridlastsave" type="text" label="Last Time Real Debrid Saved: " enable="false" default=""/>
+		<setting id="keepdebridwizard" type="action" label="Debrid Save Data Menu - DOES NOTHING" action=""/>
 	</category>
 
-	<category label="Login Settings">
-		<setting type="lsep" label="Save Login Data:"/>
-		<setting id="keeplogin" type="bool" label="Keep My Login Data" default="false"/>
-		<setting id="loginopensub" type="text" label="Open Subtitles: " enable="false" default=""/>
-		<setting id="loginorion" type="text" label="Orion API Key: " enable="false" default=""/>
+	<category label="API Settings">
+		<setting type="lsep" label="Save API Data:"/>
+		<setting id="keeplogin" type="bool" label="Keep My API Data" default="false"/>
+		<setting id="api-opensubtitles" type="text" label="Open Subtitles: " enable="false" default=""/>
+		<setting id="api-orion" type="text" label="Orion: " enable="false" default=""/>
+		<setting id="api-chappaai" type="text" label="Chappa'ai: " enable="false" default=""/>
+		<setting id="api-uranus" type="text" label="Uranus: " enable="false" default=""/>
+		<setting id="api-death" type="text" label="Death Streams: " enable="false" default=""/>
+		<setting id="api-placenta" type="text" label="Placenta: " enable="false" default=""/>
+		<setting id="api-incursion" type="text" label="Incursion: " enable="false" default=""/>
+		<setting id="api-numbers" type="text" label="Numbers: " enable="false" default=""/>
+		<setting id="api-gaia" type="text" label="Gaia: " enable="false" default=""/>
+		<setting id="api-neptune" type="text" label="Neptune Rising: " enable="false" default=""/>
+		<setting id="api-eis" type="text" label="ExtendedInfo Script: " enable="false" default=""/>
+		<setting id="api-metahandler" type="text" label="metahandler: " enable="false" default=""/>
+		<setting id="api-metadatautils" type="text" label="script.module.metadatautils: " enable="false" default=""/>
+		<setting id="keeploginwizard" type="action" label="Login Save Data Menu - DOES NOTHING" action=""/>
 	</category>
 
 	<category label="Misc Settings">

@@ -48,7 +48,7 @@ KEEPTRAKT      = wiz.getS('keeptrakt')
 TRAKTSAVE      = wiz.getS('traktlastsave')
 COLOR1         = uservar.COLOR1
 COLOR2         = uservar.COLOR2
-ORDER          = ['chappaai', 'uranus', 'death', 'placenta', 'incursion', 'numbers', 'gaia', 'neptune', 'trakt']
+ORDER          = ['chappaai', 'uranus', 'death', 'placenta', 'incursion', 'numbers', 'gaia', 'neptune', 'trakt', 'wraith']
 
 TRAKTID = {
 	'chappaai': {
@@ -61,7 +61,7 @@ TRAKTID = {
 		'file'     : os.path.join(TRAKTFOLD, 'chappaai_trakt'),
 		'settings' : os.path.join(ADDOND, 'plugin.video.chappaai', 'settings.xml'),
 		'default'  : 'trakt_access_token',
-		'data'     : ['trakt_access_token', 'trakt_api_client_id', 'trakt_api_client_secret', 'trakt_expires_at', 'trakt_period', 'trakt_refresh_token'],
+		'data'     : ['trakt_access_token', 'trakt_expires_at', 'trakt_period', 'trakt_refresh_token'],
 		'activate' : 'RunPlugin(plugin://plugin.video.chappaai/authenticate_trakt)'},
 	'uranus': {
 		'name'     : 'Uranus',
@@ -111,7 +111,7 @@ TRAKTID = {
 		'settings' : os.path.join(ADDOND, 'plugin.video.incursion', 'settings.xml'),
 		'default'  : 'trakt.user',
 		'data'     : ['trakt.refresh', 'trakt.token', 'trakt.user'],
-		'activate' : 'RunPlugin(plugin://plugin.video.uranus/?action=authTrakt)'},
+		'activate' : 'RunPlugin(plugin://plugin.video.incursion/?action=authTrakt)'},
 	'numbers': {
 		'name'     : 'numbers',
 		'plugin'   : 'plugin.video.numbersbynumbers',
@@ -160,6 +160,18 @@ TRAKTID = {
 		'default'  : 'user',
 		'data'     : ['authorization', 'user'],
 		'activate' : 'RunScript(script.trakt, action=auth_info)'},
+	'wraith': {
+		'name'     : 'Wraith',
+		'plugin'   : 'script.extendedinfo',
+		'saved'    : 'wraith',
+		'path'     : os.path.join(ADDONS, 'script.extendedinfo'),
+		'icon'     : os.path.join(ADDONS, 'script.extendedinfo', 'icon.png'),
+		'fanart'   : os.path.join(ADDONS, 'script.extendedinfo', 'fanart.jpg'),
+		'file'     : os.path.join(TRAKTFOLD, 'trakt_wraith'),
+		'settings' : os.path.join(ADDOND, 'script.extendedinfo', 'settings.xml'),
+		'default'  : 'user',
+		'data'     : ['authorization', 'user'],
+		'activate' : 'RunScript(script.extendedinfo, action=authTrakt)'},
 }
 
 def traktUser(who):
