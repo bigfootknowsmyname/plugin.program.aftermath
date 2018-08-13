@@ -138,7 +138,8 @@ NEXTCHECK        = TODAY + timedelta(days=UPDATECHECK)
 NOTIFICATION     = uservar.NOTIFICATION
 ENABLE           = uservar.ENABLE
 HEADERMESSAGE    = uservar.HEADERMESSAGE
-AUTOUPDATE       = uservar.AUTOUPDATE
+AUTOUPDATE       = uservar.AUTOUPDATE  
+BUILDERNAME      = uservar.BUILDERNAME  
 WIZARDFILE       = uservar.WIZARDFILE
 HIDECONTACT      = uservar.HIDECONTACT
 CONTACT          = uservar.CONTACT
