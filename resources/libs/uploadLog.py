@@ -55,7 +55,7 @@ HOME             = xbmc.translatePath('special://home/')
 LOG              = xbmc.translatePath('special://logpath/')
 USERDATA         = os.path.join(HOME,      'userdata')
 ADDONDATA        = os.path.join(USERDATA,  'addon_data', ADDON_ID)
-BUILDERNAME      = uservar.BUIILDERNAME
+BUILDERNAME      = uservar.BUILDERNAME
 WIZLOG           = os.path.join(ADDONDATA, 'wizard.log')
 
 socket.setdefaulttimeout(5)
