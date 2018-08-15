@@ -64,7 +64,7 @@ LOGINID = {
 		'data'     : ['OSuser', 'OSpass'],
 		'activate' : ''},
 	'api-orion': {
-		'name'     : 'Orion API Key',
+		'name'     : 'Orion',
 		'plugin'   : 'script.module.orion',
 		'saved'    : 'api-orion',
 		'path'     : os.path.join(ADDONS, 'script.module.orion'),
@@ -158,7 +158,7 @@ LOGINID = {
 		'settings' : os.path.join(ADDOND, 'plugin.video.gaia', 'settings.xml'),
 		'default'  : 'accounts.informants.tmdb.api',
 		'data'     : ['accounts.artwork.fanart.enabled', 'accounts.artwork.fanart.api', 'accounts.informants.imdb.enabled', 'accounts.informants.imdb.user', 'accounts.informants.tmdb.enabled', 'accounts.informants.tmdb.api'],
-		'activate' : ''},
+		'activate' : 'RunPlugin(plugin://plugin.video.gaia/?action=accountSettings)'},
 	'api-neptune': {
 		'name'     : 'Neptune Rising',
 		'plugin'   : 'plugin.video.neptune',
