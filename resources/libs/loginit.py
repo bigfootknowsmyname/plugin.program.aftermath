@@ -73,8 +73,8 @@ LOGINID = {
 		'file'     : os.path.join(LOGINFOLD, 'orion'),
 		'settings' : os.path.join(ADDOND, 'script.module.orion', 'settings.xml'),
 		'default'  : 'account.key',
-		'data'     : ['account.key'],
-		'activate' : 'RunPlugin(plugin://script.module.orion/?mode=auth_orion)'},
+		'data'     : ['account.key', 'account.valid'],
+		'activate' : 'RunPlugin(plugin://script.module.orion/?action=settingsAccountLogin)'},
 	'api-chappaai': {
 		'name'     : 'Chappa\'ai',
 		'plugin'   : 'plugin.video.chappaai',
