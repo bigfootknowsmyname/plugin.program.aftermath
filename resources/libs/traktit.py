@@ -171,7 +171,7 @@ TRAKTID = {
 		'settings' : os.path.join(ADDOND, 'script.extendedinfo', 'settings.xml'),
 		'default'  : 'user',
 		'data'     : ['authorization', 'user'],
-		'activate' : 'RunScript(script.extendedinfo, action=authTrakt)'},
+		'activate' : 'RunScript(script.extendedinfo, info=authTrakt)'},
 }
 
 def traktUser(who):
