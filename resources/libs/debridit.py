@@ -110,7 +110,7 @@ DEBRIDID = {
 		'settings' : os.path.join(ADDOND, 'script.module.urlresolver', 'settings.xml'),
 		'default'  : 'PremiumizeMeResolver_login',
 		'data'     : ['PremiumizeMeResolver_enabled', 'PremiumizeMeResolver_login', 'PremiumizeMeResolver_password', 'PremiumizeMeResolver_priority', 'PremiumizeMeResolver_use_https', 'PremiumizeMeResolver_username'],
-		'activate' : ''},
+		'activate' : 'RunPlugin(plugin://script.module.urlresolver/?mode=auth_pm)'},
 	'url4': {
 		'name'     : 'ResolveURL PM',
 		'plugin'   : 'script.module.resolveurl',
@@ -122,7 +122,7 @@ DEBRIDID = {
 		'settings' : os.path.join(ADDOND, 'script.module.resolveurl', 'settings.xml'),
 		'default'  : 'PremiumizeMeResolver_login',
 		'data'     : ['PremiumizeMeResolver_enabled', 'PremiumizeMeResolver_login', 'PremiumizeMeResolver_password', 'PremiumizeMeResolver_priority', 'PremiumizeMeResolver_use_https', 'PremiumizeMeResolver_username'],
-		'activate' : ''}
+		'activate' : 'RunPlugin(plugin://script.module.resolveurl/?mode=auth_pm)'}
 }
 
 def debridUser(who):
