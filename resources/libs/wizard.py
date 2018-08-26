@@ -1004,6 +1004,8 @@ def wizardUpdate(startup=None):
 				xbmc.sleep(1000)
 				LogNotify("[COLOR %s]%s[/COLOR]" % (COLOR1, ADDONTITLE),'[COLOR %s]Add-on updated[/COLOR]' % COLOR2)
 				log("[Auto Update Wizard] Wizard updated to v%s" % ver, xbmc.LOGNOTICE)
+				removeFile(os.path.join(ADDONDATA, 'settings.xml'))
+				notify.firstRunSettings()
 				#reloadProfile()
 				if startup:
 					ebi('RunScript(%s/startup.py)' % PLUGIN)
